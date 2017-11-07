@@ -7,7 +7,7 @@ using Engine.Items;
 
 namespace Engine.System.Collections
 {
-    class QuestConditionsCollection
+    public class QuestConditionsCollection
     {
         public Item Items { get; set; }
         public int Quanity { get; set; }

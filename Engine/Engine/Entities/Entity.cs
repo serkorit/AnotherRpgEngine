@@ -55,9 +55,9 @@ namespace Engine.Entities
         //Player Constructor
         public Entity(int hp, int stamina, int mana, int gold, int exp)
         {
-            MaxHP = hp;
-            MaxMana = mana;
-            MaxStamina = stamina;
+            MaxHP = hp; HP = MaxHP;
+            MaxMana = mana; Mana = MaxMana;
+            MaxStamina = stamina; Stamina = MaxStamina;
             Gold = gold;
             Exp = exp;
         }

@@ -44,7 +44,7 @@
     <Compile Include="Entities\Living\Enemies\Enemy.cs" />
     <Compile Include="Entities\Living\NPC\NPC.cs" />
     <Compile Include="Entities\Living\Player\Player.cs" />
-    <Compile Include="Entities\Living\Player\PlayerController.cs" />
+    <Compile Include="System\PlayerController.cs" />
     <Compile Include="Entities\NonLiving\Chest.cs" />
     <Compile Include="Entities\NonLiving\Trap.cs" />
     <Compile Include="Items\Item.cs" />
@@ -61,7 +61,7 @@
     <Compile Include="System\Collections\QuestConditionsCollection.cs" />
     <Compile Include="System\Collections\SpellsCollection.cs" />
     <Compile Include="System\Controller.cs" />
-    <Compile Include="System\Game_ids\Game_ids.cs" />
+    <Compile Include="Game_ids\Game_ids.cs" />
     <Compile Include="System\IDGenerator.cs" />
     <Compile Include="System\RandomNumberGenerator.cs" />
     <Compile Include="World\Location.cs" />

@@ -7,7 +7,7 @@ using Engine.Items;
 
 namespace Engine.System.Collections
 {
-    class LootCollection
+    public class LootCollection
     {
         public Item Item { get; set; }
         public int DropChance { get; set; }

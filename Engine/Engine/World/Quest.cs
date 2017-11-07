@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Engine.Items;
+using Engine.System.Collections;
 
 namespace Engine.World
 {
@@ -17,7 +18,7 @@ namespace Engine.World
         public int RewardExp { get; set; }
         public List<Item> RewardItems { get; set; }
 
-        // TODO: Add Conditions items
+        public List<QuestConditionsCollection> ItemsNeeded { get; set; }
 
         public Quest(int id, string name, string desc, int exp, int gold)
         {
@@ -27,7 +28,7 @@ namespace Engine.World
             RewardGold = gold;
             RewardExp = exp;
             RewardItems = new List<Item>();
-            //
+            ItemsNeeded = new List<QuestConditionsCollection>();
         }
     }
 }

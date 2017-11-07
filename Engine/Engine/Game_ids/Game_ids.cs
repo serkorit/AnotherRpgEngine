@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine.Entities
+namespace Engine
 {
-    public static class PlayerController
+    public class Game_ids
     {
 
     }
