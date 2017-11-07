@@ -15,7 +15,7 @@ namespace Engine.Entities
         boss
     }
 
-    public class Chest : IEntity
+    public class Chest : Entity
     {
     }
 }

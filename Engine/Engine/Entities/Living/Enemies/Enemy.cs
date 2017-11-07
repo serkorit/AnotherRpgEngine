@@ -15,8 +15,16 @@ namespace Engine.Entities
         boss_summoned
     }
 
-    public class Enemy : IEntity
+    public class Enemy : Entity
     {
 
+
+        public Enemy(string name, string desc, int id, int mindmg,
+            int maxdmg, int hp, int stamina, int mana, int gold, int exp)
+            : base(name, desc, id, mindmg, maxdmg, hp, stamina, mana, gold, exp)
+        {
+
+        }
+    
     }
 }

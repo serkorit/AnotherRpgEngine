@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine.Entities
 {
-    public class Trap : IEntity
+    public class Trap : Entity
     {
 
     }
