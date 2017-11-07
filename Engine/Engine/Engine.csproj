@@ -47,7 +47,7 @@
     <Compile Include="Entities\Living\Player\PlayerController.cs" />
     <Compile Include="Entities\NonLiving\Chest.cs" />
     <Compile Include="Entities\NonLiving\Trap.cs" />
-    <Compile Include="Items\IItem.cs" />
+    <Compile Include="Items\Item.cs" />
     <Compile Include="Items\Misc\Misc.cs" />
     <Compile Include="Items\Potion\Potion.cs" />
     <Compile Include="Items\Weapon\Shield.cs" />

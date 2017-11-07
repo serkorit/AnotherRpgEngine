@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine.Items
 {
-    public interface IItem
+    public abstract class Item
     {
 
     }

@@ -15,7 +15,7 @@ namespace Engine.Items
         spear
     }
 
-    public class Weapon : IItem
+    public class Weapon : Item
     {
 
     }

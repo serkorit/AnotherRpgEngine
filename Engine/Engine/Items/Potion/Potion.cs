@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine.Items
 {
-    public class Potion : IItem
+    public class Potion : Item
     {
 
     }

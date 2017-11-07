@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine.Items
 {
-    public class Spellbook : IItem
+    public class Spellbook : Item
     {
 
     }
