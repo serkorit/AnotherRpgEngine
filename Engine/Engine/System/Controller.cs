@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public static class Controller
+    public static partial class Controller
     {
         public static readonly List<Item> Items = new List<Item>();
         public static readonly List<Entity> Entities = new List<Entity>();
