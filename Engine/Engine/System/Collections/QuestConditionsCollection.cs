@@ -9,10 +9,10 @@ namespace Engine.System.Collections
 {
     class QuestConditionsCollection
     {
-        public List<Item> Items { get; set; }
-        public List<int> Quanity { get; set; }
+        public Item Items { get; set; }
+        public int Quanity { get; set; }
 
-        public QuestConditionsCollection(List<Item> items, List<int> quanity)
+        public QuestConditionsCollection(Item items, int quanity)
         {
             Items = items;
             Quanity = quanity;
