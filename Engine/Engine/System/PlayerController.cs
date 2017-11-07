@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public static class PlayerController
+    public static class Ply
     {
         public static Player Player = new Player(10,15,20,0,0);
     }

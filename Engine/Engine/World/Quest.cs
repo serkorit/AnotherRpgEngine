@@ -23,6 +23,7 @@ namespace Engine
         {
             ID = id;
             Name = name;
+            UniqueID = IDGenerator.GenerateNewID();
             Desc = desc;
             RewardGold = gold;
             RewardExp = exp;

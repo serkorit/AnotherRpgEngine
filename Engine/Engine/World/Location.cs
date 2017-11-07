@@ -25,7 +25,7 @@ namespace Engine
             ID = id;
             Name = name;
             Desc = desc;
-            UniqueID = 0;
+            UniqueID = IDGenerator.GenerateNewID();
             Key = null;
             NearestLocations = new List<Location>();
             QuestsHere = new List<Quest>();

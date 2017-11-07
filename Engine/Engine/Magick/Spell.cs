@@ -37,7 +37,7 @@ namespace Engine
             Name = name;
             Desc = desc;
             ID = id;
-            UniqieID = 0;
+            UniqieID = IDGenerator.GenerateNewID();
             Manacost = manacost;
             Type = type;
         }

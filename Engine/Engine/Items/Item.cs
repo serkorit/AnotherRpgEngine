@@ -16,7 +16,7 @@ namespace Engine
         public Item(int id, string name, string desc)
         {
             ID = id;
-            UniqueID = 0;
+            UniqueID = IDGenerator.GenerateNewID();
             Name = name;
             Desc = desc;
         }

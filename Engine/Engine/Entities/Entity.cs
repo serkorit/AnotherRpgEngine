@@ -42,7 +42,7 @@ namespace Engine
             Name = name;
             Desc = desc;
             ID = id;
-            UniqueID = 0;
+            UniqueID = IDGenerator.GenerateNewID();
             Type = EntityType.enemy;
             MinDamage = mindmg;
             MaxDamage = maxdmg;
