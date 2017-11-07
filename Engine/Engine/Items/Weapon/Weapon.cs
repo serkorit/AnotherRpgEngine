@@ -30,5 +30,14 @@ namespace Engine
             Durability = durability;
             Type = type;
         }
+
+        public Weapon(Weapon weapon) : base(weapon.ID, weapon.Name, weapon.Desc)
+        {
+            MinDamage = weapon.MinDamage;
+            MaxDamage = weapon.MaxDamage;
+            Durability = weapon.Durability;
+            Type = weapon.Type;
+        }
     }
+
 }

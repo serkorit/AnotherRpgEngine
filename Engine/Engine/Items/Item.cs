@@ -20,5 +20,10 @@ namespace Engine
             Name = name;
             Desc = desc;
         }
+
+        public Item()
+        {
+
+        }
     }
 }
