@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Engine.Items;
-using Engine.Entities;
-using Engine.World;
-using Engine.Magick;
 
-namespace Engine.System
+namespace Engine
 {
     public static class Controller
     {

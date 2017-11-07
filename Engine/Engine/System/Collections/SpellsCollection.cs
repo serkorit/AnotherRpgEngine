@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Engine.Magick;
 
-namespace Engine.System.Collections
+namespace Engine
 {
     public class SpellsCollection
     {

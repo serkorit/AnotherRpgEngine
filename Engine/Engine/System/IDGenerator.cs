@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine.System
+namespace Engine
 {
     /// <summary>
     /// Static class which generates new id for world database

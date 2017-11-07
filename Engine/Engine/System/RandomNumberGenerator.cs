@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 
-namespace Engine.System
+namespace Engine
 {
     /// <summary>
     /// Random number generator for engine
