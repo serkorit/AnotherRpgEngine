@@ -61,6 +61,8 @@
     <Compile Include="System\Collections\QuestConditionsCollection.cs" />
     <Compile Include="System\Controller.cs" />
     <Compile Include="System\Game_ids\Game_ids.cs" />
+    <Compile Include="System\IDGenerator.cs" />
+    <Compile Include="System\RandomNumberGenerator.cs" />
     <Compile Include="World\Location.cs" />
     <Compile Include="World\Map.cs" />
     <Compile Include="World\Quest.cs" />
