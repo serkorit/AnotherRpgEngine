@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 
 namespace Engine.Entities
 {
+    public enum EntityType
+    {
+        player,
+        enemy,
+        npc,
+        obj
+    }
     public abstract class Entity : INotifyPropertyChanged
     {
-        public  enum EntityType
-        {
-            player,
-            enemy,
-            npc,
-            obj
-        }
+        
 
         public string Name { get; set; }
         public string Desc { get; set; }
