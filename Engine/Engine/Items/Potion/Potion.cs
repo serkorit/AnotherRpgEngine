@@ -8,6 +8,12 @@ namespace Engine.Items
 {
     public class Potion : Item
     {
+        public int AvaibleStacks { get; set; }
 
+        public Potion(int id, string name, string desc, int avaible)
+            : base(id, name, desc)
+        {
+            AvaibleStacks = avaible;
+        }
     }
 }

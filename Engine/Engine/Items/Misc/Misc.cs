@@ -14,8 +14,14 @@ namespace Engine.Items
         material
     }
 
-    public class Misc
+    public class Misc : Item
     {
+        public MiscType Type { get; set; }
 
+        public Misc(int id, string name, string desc, MiscType type)
+            : base(id, name, desc)
+        {
+            Type = type;
+        }
     }
 }
