@@ -4,9 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine.Entities.NonLiving
+namespace Engine.Entities
 {
-    class Chest
+    public enum Chest_Type
+    {
+        wooden, // key not required
+        iron, // key not required
+        golden,
+        secret,
+        boss
+    }
+
+    public class Chest : IEntity
     {
     }
 }

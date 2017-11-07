@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine.Entities.NonLiving
+namespace Engine.Entities
 {
-    class Trap
+    public class Trap : IEntity
     {
+
     }
 }

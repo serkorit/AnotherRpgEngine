@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine.Entities
 {
-    public class Player : IEntity
+    public static class PlayerController
     {
 
     }

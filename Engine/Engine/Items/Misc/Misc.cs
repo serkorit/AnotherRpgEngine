@@ -4,9 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine.Items.Misc
+namespace Engine.Items
 {
-    class Misc
+    public enum MiscType
     {
+        questitem,
+        junk,
+        key,
+        material
+    }
+
+    public class Misc
+    {
+
     }
 }

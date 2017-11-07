@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Engine.World
 {
-    class Location
+    public class Location
     {
+
     }
 }

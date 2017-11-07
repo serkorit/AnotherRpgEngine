@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine.Items.Potion
+namespace Engine.Items
 {
-    class Potion
+    public class Potion : IItem
     {
+
     }
 }

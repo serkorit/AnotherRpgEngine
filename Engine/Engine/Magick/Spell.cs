@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Engine.Magick
 {
-    class Spell
+    public class Spell
     {
+
     }
 }

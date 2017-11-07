@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine.System.Game_ids
+namespace Engine.System
 {
-    class Game_ids
+    public class Game_ids
     {
+
     }
 }

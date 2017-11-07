@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Engine.System
 {
-    class Controller
+    public static class Controller
     {
+
     }
 }
