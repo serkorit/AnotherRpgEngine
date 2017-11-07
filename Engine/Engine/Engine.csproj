@@ -59,6 +59,7 @@
     <Compile Include="System\Collections\LootCollection.cs" />
     <Compile Include="System\Collections\QuestCollection.cs" />
     <Compile Include="System\Collections\QuestConditionsCollection.cs" />
+    <Compile Include="System\Collections\SpellsCollection.cs" />
     <Compile Include="System\Controller.cs" />
     <Compile Include="System\Game_ids\Game_ids.cs" />
     <Compile Include="System\IDGenerator.cs" />
