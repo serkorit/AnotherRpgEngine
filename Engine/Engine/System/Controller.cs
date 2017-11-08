@@ -18,5 +18,60 @@ namespace Engine
         {
 
         }
+
+        public static Item ItemParse(int id)
+        {
+            foreach (Item item in Items)
+            {
+                if (item.ID == id)
+                    return item;
+            }
+
+            return null;
+        }
+
+        public static Entity EnemyParse(int id)
+        {
+            foreach (Enemy enemy in Entities)
+            {
+                if (enemy.ID ==  id)
+                    return enemy;
+            }
+
+            return null;
+        }
+
+        public static Quest QuestParse(int id)
+        {
+            foreach (Quest quest in Quests)
+            {
+                if (quest.ID == id)
+                    return quest;
+            }
+
+            return null;
+        }
+
+        public static Location LocationParse(int id)
+        {
+            foreach (Location location in Locations)
+            {
+                if (location.ID == id)
+                    return location;
+            }
+
+            return null;
+        }
+
+        public static Spell SpellParse(int id)
+        {
+            foreach (Spell spell in Spells)
+            {
+                if (spell.ID == id)
+                    return spell;
+            }
+
+            return null;
+        }
     }
 }
