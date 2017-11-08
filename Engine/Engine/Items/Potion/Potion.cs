@@ -15,5 +15,15 @@ namespace Engine
         {
             AvaibleStacks = avaible;
         }
+
+        public virtual void Drink()
+        {
+            Ply.RemoveItem(this);
+        }
+
+        public virtual void Throw()
+        {
+            Ply.RemoveItem(this);
+        }
     }
 }
