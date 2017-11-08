@@ -41,5 +41,14 @@ namespace Engine
             Manacost = manacost;
             Type = type;
         }
+
+        public virtual void CastOnPlayer()
+        {
+            return;
+        }
+        public virtual void CastOnEnemy()
+        {
+            return;
+        }
     }
 }

@@ -19,6 +19,8 @@ namespace Engine
             PopulateEntities();
             PopulateItems();
             PopulateQuests();
+            PopulateLocations();
+            PopulateSpells();
         }
 
         public static Item ItemParse(int id)
