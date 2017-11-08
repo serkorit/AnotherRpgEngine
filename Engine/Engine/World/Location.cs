@@ -14,6 +14,8 @@ namespace Engine
         public string Name { get; set; }
         public string Desc { get; set; }
 
+        public bool IsSafe { get; set; }
+
         public Item Key { get; set; }
 
         public List<Location> NearestLocations { get; set; }
