@@ -65,7 +65,7 @@ namespace Engine
         public const int location_forest = 4;
         public const int location_town = 5;
         public const int location_field = 6;
-        public const int location_caves01_entrence = 7;
+        public const int location_caves01_entrance = 7;
         public const int location_caves01_hallway = 8;
         public const int location_caves01_deadend = 9;
         public const int location_caves01_spider_den = 10;

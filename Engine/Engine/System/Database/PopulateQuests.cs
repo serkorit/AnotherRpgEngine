@@ -14,12 +14,8 @@ namespace Engine
                 "Привет, путник. Сделаешь мне одолжение? Я планирую изготовить новый прототип" +
                 " веревок из крысиных хвостов. Можешь принести мне пару тройку штук? . Награда: 5 Малое зелье исцеления, 30 золота, 100 опыта.",
                 100, 30);
-            List<Item> list = new List<Item>();
-            list.Add(ItemParse(potion_lesser_hp_pot));
-            List<int> qlist = new List<int>();
-            qlist.Add(5);
-            clearForest.RewardItems = list;
-            clearForest.RewardQuanity = qlist;
+            clearForest.RewardItems = new List<Item> { ItemParse(potion_lesser_hp_pot) };
+            clearForest.RewardQuanity = new List<int> { 5 };
             clearForest.ItemsNeeded.Add(new QuestConditionsCollection(ItemParse(misc_rat_tail), 3));
 
             Quests.Add(clearForest);

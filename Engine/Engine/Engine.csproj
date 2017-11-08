@@ -48,6 +48,7 @@
     <Compile Include="Items\Potion\HealingPotion.cs" />
     <Compile Include="System\Database\PopulateEntites.cs" />
     <Compile Include="System\Database\PopulateItems.cs" />
+    <Compile Include="System\Database\PopulateLocations.cs" />
     <Compile Include="System\Database\PopulateQuests.cs" />
     <Compile Include="System\MessageEventArgs.cs" />
     <Compile Include="System\PlayerController.cs" />

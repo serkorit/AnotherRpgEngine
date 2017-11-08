@@ -31,12 +31,22 @@ namespace Engine
 
             return null;
         }
-        public static Entity EnemyParse(int id)
+        public static Enemy EnemyParse(int id)
         {
             foreach (Enemy enemy in Entities)
             {
                 if (enemy.ID ==  id)
                     return enemy;
+            }
+
+            return null;
+        }
+        public static Entity EntityParse(int id)
+        {
+            foreach (Entity entity in Entities)
+            {
+                if (entity.ID == id)
+                    return entity;
             }
 
             return null;
