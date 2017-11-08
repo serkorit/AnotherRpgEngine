@@ -44,6 +44,7 @@
     <Compile Include="Entities\Living\Enemies\Enemy.cs" />
     <Compile Include="Entities\Living\NPC\NPC.cs" />
     <Compile Include="Entities\Living\Player\Player.cs" />
+    <Compile Include="System\Database\PopulateEntites.cs" />
     <Compile Include="System\MessageEventArgs.cs" />
     <Compile Include="System\PlayerController.cs" />
     <Compile Include="Entities\NonLiving\Chest.cs" />
@@ -74,7 +75,6 @@
     <Folder Include="Magick\Enemy_Spells\" />
     <Folder Include="Magick\Passive_Spells\" />
     <Folder Include="Magick\Player_Spells\" />
-    <Folder Include="System\Database\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

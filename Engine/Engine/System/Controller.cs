@@ -16,7 +16,7 @@ namespace Engine
 
         public static void PopulateWorld()
         {
-
+            PopulateEntities();
         }
 
         public static Item ItemParse(int id)
@@ -29,7 +29,6 @@ namespace Engine
 
             return null;
         }
-
         public static Entity EnemyParse(int id)
         {
             foreach (Enemy enemy in Entities)
@@ -40,7 +39,6 @@ namespace Engine
 
             return null;
         }
-
         public static Quest QuestParse(int id)
         {
             foreach (Quest quest in Quests)
@@ -51,7 +49,6 @@ namespace Engine
 
             return null;
         }
-
         public static Location LocationParse(int id)
         {
             foreach (Location location in Locations)
@@ -62,7 +59,6 @@ namespace Engine
 
             return null;
         }
-
         public static Spell SpellParse(int id)
         {
             foreach (Spell spell in Spells)
