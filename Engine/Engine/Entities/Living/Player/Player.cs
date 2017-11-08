@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace Engine
 {
-    public class Player : Entity, INotifyPropertyChanged
+    public class Player : Entity
     {
 
         public Location CurrentLocation
@@ -15,6 +15,7 @@ namespace Engine
             get { return CurrentLocation; }
             set { CurrentLocation = value; OnPropetryChanged(nameof(CurrentLocation)); }
         }
+        public event EventHandler<MessageEventArgs> OnMessage;
 
         public List<InventoryCollection> Inventory { get; set; }
         public List<QuestCollection> Quests { get; set; }
@@ -45,7 +46,13 @@ namespace Engine
             Spells = new List<SpellsCollection>();
         }
 
-        
+        private void RaiseMessage(string message, bool addExtraNewline = false)
+        {
+            if(OnMessage != null)
+            {
+                OnMessage(this, new MessageEventArgs(message, addExtraNewline));
+            }
+        }
 
 
     }
