@@ -16,6 +16,7 @@ namespace Engine
         public int RewardGold { get; set; }
         public int RewardExp { get; set; }
         public List<Item> RewardItems { get; set; }
+        public List<int> RewardQuanity { get; set; }
 
         public List<QuestConditionsCollection> ItemsNeeded { get; set; }
 
@@ -28,6 +29,7 @@ namespace Engine
             RewardGold = gold;
             RewardExp = exp;
             RewardItems = new List<Item>();
+            RewardQuanity = new List<int>();
             ItemsNeeded = new List<QuestConditionsCollection>();
         }
     }

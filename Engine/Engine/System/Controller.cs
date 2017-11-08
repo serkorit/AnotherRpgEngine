@@ -17,6 +17,8 @@ namespace Engine
         public static void PopulateWorld()
         {
             PopulateEntities();
+            PopulateItems();
+            PopulateQuests();
         }
 
         public static Item ItemParse(int id)
