@@ -20,7 +20,7 @@ namespace Engine
 
         public string Name { get; set; }
         public string Desc { get; set; }
-        public int ID { get; private set; }
+        public int ID { get; protected set; }
         public int UniqueID { get; private set; }
         public EntityType Type { get; private set; }
 
@@ -66,7 +66,7 @@ namespace Engine
         //...
         public Entity()
         {
-
+            UniqueID = IDGenerator.GenerateNewID();
         }
         
 

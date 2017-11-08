@@ -73,6 +73,7 @@ namespace Engine
             get { return Player.CurrentLocation; }
             set { Player.CurrentLocation = value; }
         }
+        public static Enemy CurEnemy { get; set; }
 
         public static void MoveTo(Location newLocation)
         {
@@ -116,12 +117,15 @@ namespace Engine
 
                 if (newLocation.EnemiesHere[0] != null)
                 {
-                    //Enemy enemy = new Enemy(Controller.EnemyParse()); // TODO: Controller parse functions
-                    // TODO: enemy encounter
+                    CurEnemy = new Enemy(newLocation.EnemiesHere[0]);
+                    foreach(LootCollection loot in CurEnemy.LootTable)
+                    {
+                        CurEnemy.LootTable.Add(loot);
+                    }
                 }
                 else
                 {
-
+                    CurEnemy = null;
                 }
             }
         }

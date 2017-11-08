@@ -25,6 +25,22 @@ namespace Engine
         {
             LootTable = new List<LootCollection>();
         }
+
+        public Enemy(Enemy enemy)
+            :base()
+        {
+            Name = enemy.Name;
+            Desc = enemy.Desc;
+            ID = enemy.ID;
+            MinDamage = enemy.MinDamage;
+            MaxDamage = enemy.MaxDamage;
+            HP = enemy.HP;
+            Stamina = enemy.Stamina;
+            Mana = enemy.Mana;
+            Gold = enemy.Gold;
+            Exp = enemy.Exp;
+            LootTable = enemy.LootTable;
+        }
     
     }
 }
