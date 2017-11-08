@@ -193,10 +193,33 @@ namespace Engine
         {
             foreach (InventoryCollection i in Inventory)
             {
-                if (i.Item.ID == item.ID)
+                if (i.Item.UniqueID == item.UniqueID)
                 {
                     Inventory.Remove(i);
                     return;
+                }
+            }
+        }
+        public static void RemoveQuanity(Item item)
+        {
+            foreach(InventoryCollection i in Inventory)
+            {
+                if(i.Item.UniqueID == item.UniqueID)
+                {
+                    if (item is Potion)
+                    {
+                        if ((item as Potion).AvaibleStacks <= 0)
+                        {
+                            i.Quanity--;
+                            if (i.Quanity <= 0) Inventory.Remove(i);
+                            return;
+                        }
+                        else
+                        {
+                            (item as Potion).AvaibleStacks--;
+                            return;
+                        }
+                    }
                 }
             }
         }
