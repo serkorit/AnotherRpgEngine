@@ -189,6 +189,17 @@ namespace Engine
                 qc.IsComplete = true;
             }
         }
+        public static void RemoveItem(Item item)
+        {
+            foreach (InventoryCollection i in Inventory)
+            {
+                if (i.Item.ID == item.ID)
+                {
+                    Inventory.Remove(i);
+                    return;
+                }
+            }
+        }
 
 
         private static void RestorePlayer()

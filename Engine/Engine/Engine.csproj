@@ -44,7 +44,9 @@
     <Compile Include="Entities\Living\Enemies\Enemy.cs" />
     <Compile Include="Entities\Living\NPC\NPC.cs" />
     <Compile Include="Entities\Living\Player\Player.cs" />
+    <Compile Include="Items\Potion\HealingPotion.cs" />
     <Compile Include="System\Database\PopulateEntites.cs" />
+    <Compile Include="System\Database\PopulateItems.cs" />
     <Compile Include="System\MessageEventArgs.cs" />
     <Compile Include="System\PlayerController.cs" />
     <Compile Include="Entities\NonLiving\Chest.cs" />
