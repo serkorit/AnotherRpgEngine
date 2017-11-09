@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
+    public enum Action
+    {
+        thraw,
+        drink,
+        onplayer,
+        onenemy
+    }
     public static partial class Controller
     {
         public static readonly List<Item> Items = new List<Item>();

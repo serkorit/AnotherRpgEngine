@@ -11,11 +11,11 @@ namespace Engine
         private static void PopulateItems()
         {
             Items.Add(new Weapon(weapon_wooden_sword, "Деревянный меч", "Все еще лучше, чем ничего.",
-                1, 2, 10, WeaponType.sword));
+                1, 2, 10, 2, WeaponType.sword));
             Items.Add(new Weapon(weapon_iron_sword, "Железный меч", "Он немного ржавый",
-                2, 4, 30, WeaponType.sword));
+                2, 4, 30, 2, WeaponType.sword));
             Items.Add(new Weapon(weapon_stell_dagger, "Железный кинжал", "Ты посмотрел за свою спину?",
-                1, 3, 15, WeaponType.dagger));
+                1, 3, 15, 1, WeaponType.dagger));
 
             Items.Add(new HealingPotion(potion_lesser_hp_pot, "Малое зелье исцеления", "Переносной подорожник.", 3, 3));
             Items.Add(new HealingPotion(potion_medium_hp_pot, "Среднее зелья исцеления", "Не поможет если вы уже мертвы.", 3, 6));

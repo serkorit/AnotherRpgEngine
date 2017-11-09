@@ -38,7 +38,7 @@ namespace Engine
 
 
         public Player(int hp, int stamina, int mana, int gold, int exp)
-            :base(hp,stamina,mana,gold,exp)
+            : base(hp, stamina, mana, gold, exp)
         {
             CurrentLocation = null;
             Inventory = new List<InventoryCollection>();

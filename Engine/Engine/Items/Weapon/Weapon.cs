@@ -21,14 +21,16 @@ namespace Engine
         public int MinDamage { get; set; }
         public int MaxDamage { get; set; }
         public int Durability { get; set; }
+        public int StaminaCost { get; set; }
 
         public Weapon(int id, string name, string desc, int mindmg, int maxdmg
-            , int durability, WeaponType type) : base(id,name,desc)
+            , int durability, int staminacost, WeaponType type) : base(id,name,desc)
         {
             MinDamage = mindmg;
             MaxDamage = maxdmg;
             Durability = durability;
             Type = type;
+            StaminaCost = staminacost;
         }
 
         public Weapon(Weapon weapon) : base(weapon.ID, weapon.Name, weapon.Desc)
@@ -37,6 +39,7 @@ namespace Engine
             MaxDamage = weapon.MaxDamage;
             Durability = weapon.Durability;
             Type = weapon.Type;
+            StaminaCost = weapon.StaminaCost;
         }
     }
 

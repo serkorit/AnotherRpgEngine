@@ -228,6 +228,127 @@ namespace Engine
             }
         }
 
+        public static void PlayerAction(Weapon curWep)
+        {
+            int playerDamage = RandomNumberGenerator.Generate(curWep.MinDamage, curWep.MaxDamage);
+            
+
+            if(CurEnemy != null)
+            {
+                CurEnemy.HP -= playerDamage;
+                Stamina -= curWep.StaminaCost;
+                if (CurEnemy.HP <= 0)
+                {
+                    CheckForVictory();
+                }
+                else
+                {
+                    EnemyTurn();
+                }
+                IsDead();
+            }
+            
+        }
+        public static void PlayerAction(Potion curPotion, Action action)
+        {
+            if(action == Action.thraw)
+            {
+                curPotion.Throw();
+            }
+            else if(action == Action.drink)
+            {
+                curPotion.Drink();
+            }
+
+            if(CurEnemy != null)
+            {
+                if (CurEnemy.HP <= 0)
+                {
+                    CheckForVictory();
+                }
+                else
+                {
+                    EnemyTurn();
+                }
+            }
+            IsDead(); 
+        }
+        public static void PlayerAction(Spell curSpell, Action action)
+        {
+            if(action == Action.onplayer)
+            {
+                curSpell.CastOnPlayer();
+            }
+            else if(action == Action.onenemy)
+            {
+                curSpell.CastOnEnemy();
+            }
+
+            if(CurEnemy != null)
+            {
+                if (CurEnemy.HP <= 0)
+                {
+                    CheckForVictory();
+                }
+                else
+                {
+                    EnemyTurn();
+                }
+            }
+            IsDead();
+        }
+        public static void PlayerAction()
+        {
+            HP += RandomNumberGenerator.Generate(0, 1);
+            Stamina += RandomNumberGenerator.Generate(1, 3);
+            Mana += RandomNumberGenerator.Generate(2, 5);
+
+            if (CurEnemy != null)
+            {
+                if (CurEnemy.HP <= 0)
+                {
+                    CheckForVictory();
+                }
+                else
+                {
+                    EnemyTurn();
+                }
+            }
+            IsDead();
+        }
+
+
+        private static void EnemyTurn()
+        {
+            int enemyDamage = RandomNumberGenerator.Generate(CurEnemy.MinDamage, CurEnemy.MaxDamage);
+            HP -= enemyDamage;
+        }
+        private static void CheckForVictory()
+        {
+            Exp += CurEnemy.Exp;
+            Gold += CurEnemy.Gold;
+
+            List<InventoryCollection> loot = new List<InventoryCollection>();
+
+            foreach(LootCollection loots in CurEnemy.LootTable)
+            {
+                if (RandomNumberGenerator.Generate(1, 100) <= loots.DropChance) loot.Add(new InventoryCollection(loots.Item, 1));
+            }
+
+            foreach(InventoryCollection i in loot)
+            {
+                AddReward(i.Item);
+            }
+            MoveTo(CurrentLocation);
+        }
+        private static void IsDead()
+        {
+            if (HP <= 0)
+            {
+                MoveTo(Controller.LocationParse(Controller.location_home));
+            }
+        }
+
 
         private static void RestorePlayer()
         {
