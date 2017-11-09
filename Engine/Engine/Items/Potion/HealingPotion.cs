@@ -19,20 +19,25 @@ namespace Engine
 
         public override void Drink()
         {
+            Ply.Msg("Ты пьешь " + this.Name + "...");
             if (Ply.HP <= Ply.MaxHP - Restore) restored = Restore;
             else restored = Ply.MaxHP - Ply.HP;
 
+            Ply.Msg("Ты восстановил " + restored);
             Ply.HP += restored;
             Ply.RemoveQuanity(this);
         }
 
         public override void Throw()
         {
+            Ply.Msg("Ты кидаешь " + this.Name);
             if (Ply.HP <= Ply.MaxHP - Restore) restored = Restore;
             else restored = Ply.MaxHP - Ply.HP;
 
             Ply.HP += restored / 2;
             Ply.CurEnemy.HP += restored/ 2;
+            Ply.Msg("Ты восстановил " + restored/2);
+            Ply.Msg("Противник восстановил " + restored/2);
 
             Ply.RemoveItem(this);
         }

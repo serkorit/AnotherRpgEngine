@@ -8,7 +8,9 @@ namespace Engine
 {
     public static class Ply
     {
-        private static Player Player = new Player(10, 15, 20, 0, 0);
+        public static Player Player = new Player(10, 15, 20, 0, 0);
+        internal delegate void Print(string message, bool line = false);
+        internal static Print Msg = Player.RaiseMessage;
 
         public static int HP
         {
@@ -68,6 +70,19 @@ namespace Engine
             get { return Player.Spells; }
             set { Player.Spells = value; }
         }
+        public static List<Weapon> Weapons
+        {
+            get { return Ply.Inventory.Where(x => x.Item is Weapon).Select(x => x.Item as Weapon).ToList(); }
+        }
+        public static List<Potion> Potions
+        {
+            get { return Ply.Inventory.Where(x => x.Item is Potion).Select(x => x.Item as Potion).ToList(); }
+        }
+        public static Weapon CurWeapon
+        {
+            get { return Player.CurWeapon; }
+            set { Player.CurWeapon = value; }
+        }
         public static Location CurrentLocation
         {
             get { return Player.CurrentLocation; }
@@ -79,6 +94,7 @@ namespace Engine
         {
             if (!HasKeyForLocation(newLocation))
             {
+                Msg("Тебе необходим ключ, чтобы пройти сюда.");
                 return;
             }
 
@@ -112,11 +128,15 @@ namespace Engine
                 }
                 else
                 {
+                    Msg("Ты получил новое задание:");
+                    Msg("'"+ newLocation.QuestsHere[0].Name + "'");
+                    Msg(newLocation.QuestsHere[0].Desc);
                     Quests.Add(new QuestCollection(newLocation.QuestsHere[0]));
                 }
 
                 if (newLocation.EnemiesHere[0] != null)
                 {
+                    Msg("Ты видишь " + CurEnemy.Name);
                     CurEnemy = new Enemy(newLocation.EnemiesHere[0]);
                     foreach(LootCollection loot in CurEnemy.LootTable)
                     {
@@ -175,11 +195,13 @@ namespace Engine
                 {
                     if (i.Item.ID == addedItem.ID)
                     {
+                        Msg("Ты получаешь награду: " + i.Item.Name);
                         i.Quanity++;
                         return;
                     }
                 }
             }
+            Msg("Ты получаешь награду: " + i.Item.Name);
             if (addedItem is Weapon) Inventory.Add(new InventoryCollection(new Weapon(addedItem as Weapon), 1));
             else Inventory.Add(new InventoryCollection(addedItem, 1));
 
@@ -190,6 +212,8 @@ namespace Engine
 
             if(qc != null)
             {
+                Msg("Ты получил " + qc.Quest.RewardExp +" золота и " + qc.Quest.RewardExp + " очков опыта.");
+                Msg("Ты завершил задание: " + qc.Quest.Name);
                 qc.IsComplete = true;
             }
         }
@@ -199,6 +223,7 @@ namespace Engine
             {
                 if (i.Item.UniqueID == item.UniqueID)
                 {
+                    Msg("Ты теряешь " + i.Item.Name);
                     Inventory.Remove(i);
                     return;
                 }
@@ -231,9 +256,9 @@ namespace Engine
         public static void PlayerAction(Weapon curWep)
         {
             int playerDamage = RandomNumberGenerator.Generate(curWep.MinDamage, curWep.MaxDamage);
-            
+            Msg("Ты наносишь " + playerDamage + " единиц урона по " + CurEnemy.Name);
 
-            if(CurEnemy != null)
+            if (CurEnemy != null)
             {
                 CurEnemy.HP -= playerDamage;
                 Stamina -= curWep.StaminaCost;
@@ -299,9 +324,13 @@ namespace Engine
         }
         public static void PlayerAction()
         {
+            Msg("Ты решил передохнуть:");
             HP += RandomNumberGenerator.Generate(0, 1);
             Stamina += RandomNumberGenerator.Generate(1, 3);
             Mana += RandomNumberGenerator.Generate(2, 5);
+            Msg("Ты восстановил " + HP + " очков здоровья");
+            Msg("Ты восстановил " + Stamina + " очков стамины");
+            Msg("Ты восстановил " + Mana + " очков маны");
 
             if (CurEnemy != null)
             {
@@ -322,11 +351,14 @@ namespace Engine
         {
             int enemyDamage = RandomNumberGenerator.Generate(CurEnemy.MinDamage, CurEnemy.MaxDamage);
             HP -= enemyDamage;
+            Msg(CurEnemy.Name + " наносит тебе " + enemyDamage +" единиц урона.");
         }
         private static void CheckForVictory()
         {
             Exp += CurEnemy.Exp;
             Gold += CurEnemy.Gold;
+            Msg("Ты получил " + Exp);
+            Msg("Ты получил " + Gold);
 
             List<InventoryCollection> loot = new List<InventoryCollection>();
 
@@ -337,6 +369,7 @@ namespace Engine
 
             foreach(InventoryCollection i in loot)
             {
+                Msg("Ты находишь " + i.Item.Name);
                 AddReward(i.Item);
             }
             MoveTo(CurrentLocation);
@@ -345,6 +378,7 @@ namespace Engine
         {
             if (HP <= 0)
             {
+                Msg(CurEnemy.Name + " убил тебя.");
                 MoveTo(Controller.LocationParse(Controller.location_home));
             }
         }
@@ -355,6 +389,7 @@ namespace Engine
             HP = MaxHP;
             Stamina = MaxStamina;
             Mana = MaxMana;
+            Msg("Ты был полностью исцелен.");
         }
     } 
 }

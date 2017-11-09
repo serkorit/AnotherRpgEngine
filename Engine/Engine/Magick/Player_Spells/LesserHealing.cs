@@ -18,10 +18,11 @@ namespace Engine
         public override void CastOnPlayer()
         {
             int restored;
-
+            
             if (Ply.HP <= Ply.MaxHP - Restore) restored = Restore;
             else restored = Ply.MaxHP - Ply.HP;
 
+            Ply.Msg("Ты взываешь к силам света. Ты восстановил " + restored);
             Ply.HP += restored;
             Ply.Mana -= Manacost;
         }
@@ -30,6 +31,7 @@ namespace Engine
         {
             if(Ply.CurEnemy != null)
             {
+                Ply.Msg("Ты взываешь к силам света воимя " + Ply.CurEnemy.Name + " . " + Ply.CurEnemy.Name + " восстанавливает " + Restore + " здоровья");
                 Ply.CurEnemy.HP += Restore;
                 Ply.Mana -= Manacost;
             }

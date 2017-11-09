@@ -18,6 +18,7 @@ namespace Engine
 
         public override void Drink()
         {
+            Ply.Msg("Ты решил выпить " + this.Name + ". Твое горло горит. Ты получаешь " + Damage/2 + " единиц урона.");
             Ply.HP -= Damage/2;
             Ply.RemoveQuanity(this);
         }
@@ -26,6 +27,7 @@ namespace Engine
         {
             if(Ply.CurEnemy != null)
             {
+                Ply.Msg("Ты кидаешь " + this.Name + "." + Ply.CurEnemy.Name + " получает " + Damage + " единиц урона." );
                 Ply.CurEnemy.HP -= Damage;
             }
             Ply.RemoveItem(this);
