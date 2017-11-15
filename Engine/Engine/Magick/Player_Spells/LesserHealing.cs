@@ -15,6 +15,12 @@ namespace Engine
             Restore = 2;
         }
 
+        public LesserHealing(Spell spell)
+            : base(spell.ID, spell.Name, spell.Desc, spell.Manacost, spell.Type)
+        {
+            Restore = 2;
+        }
+
         public override void CastOnPlayer()
         {
             int restored;

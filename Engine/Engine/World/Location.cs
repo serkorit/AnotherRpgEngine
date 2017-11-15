@@ -21,6 +21,7 @@ namespace Engine
         public List<Location> NearestLocations { get; set; }
         public List<Quest> QuestsHere { get; set; }
         public List<Enemy> EnemiesHere { get; set; }
+        public Quest JustQuest { get; set; }
 
         public Location(int id, string name, string desc)
         {

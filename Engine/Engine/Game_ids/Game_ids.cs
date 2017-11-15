@@ -8,25 +8,29 @@ namespace Engine
 {
     public static partial class Controller
     {
+        const int hw = 1;
+        const int hm = 100;
+        const int hp = 1000;
+
         // Items
 
         // Weapons
-        public const int weapon_wooden_sword = 1;
-        public const int weapon_iron_sword = 2;
-        public const int weapon_magic_sword = 3;
-        public const int weapon_stell_dagger = 4;
+        public const int weapon_wooden_sword = 1 + hw;
+        public const int weapon_iron_sword = 2 + hw;
+        public const int weapon_magic_sword = 3 + hw;
+        public const int weapon_stell_dagger = 4 + hw;
 
         // Misc
-        public const int misc_rat_tail = 1;
-        public const int misc_spider_leg = 2;
-        public const int misc_spider_queen_hittin = 3;
-        public const int misc_secret_key = 4;
+        public const int misc_rat_tail = 1 + hm;
+        public const int misc_spider_leg = 2 + hm;
+        public const int misc_spider_queen_hittin = 3 + hm;
+        public const int misc_secret_key = 4 + hm;
 
         // Potions
-        public const int potion_lesser_hp_pot = 1;
-        public const int potion_medium_hp_pot = 2;
-        public const int potion_fire_pot = 3;
-        public const int potion_antidote = 4;
+        public const int potion_lesser_hp_pot = 1 + hp;
+        public const int potion_medium_hp_pot = 2 + hp;
+        public const int potion_fire_pot = 3 + hp;
+        public const int potion_antidote = 4 + hp;
 
         // Items
 

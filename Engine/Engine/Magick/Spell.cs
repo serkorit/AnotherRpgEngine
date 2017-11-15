@@ -29,10 +29,11 @@ namespace Engine
         public int ID { get; set; }
         public int UniqieID { get; set; }
         public int Manacost { get; set; }
+        public Type ttype;
 
         public SpellType Type { get; set; }
 
-        public Spell(int id, string name, string desc, int manacost, SpellType type)
+        public Spell(int id, string name, string desc, int manacost, SpellType type, Type tt)
         {
             Name = name;
             Desc = desc;
@@ -40,6 +41,17 @@ namespace Engine
             UniqieID = IDGenerator.GenerateNewID();
             Manacost = manacost;
             Type = type;
+            ttype = tt;
+        }
+
+        public Spell(Spell spell)
+        {
+            Name = spell.Name;
+            Desc = spell.Desc;
+            ID = spell.ID;
+            UniqieID = IDGenerator.GenerateNewID();
+            Manacost = spell.Manacost;
+            Type = spell.Type;
         }
 
         public virtual void CastOnPlayer()

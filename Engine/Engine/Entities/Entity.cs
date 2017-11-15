@@ -14,7 +14,7 @@ namespace Engine
         npc,
         obj
     }
-    public abstract class Entity : INotifyPropertyChanged
+    public abstract class Entity
     {
         
 
@@ -24,16 +24,16 @@ namespace Engine
         public int UniqueID { get; private set; }
         public EntityType Type { get; private set; }
 
-        public int MinDamage { get; set; }
-        public int MaxDamage { get; set; }
-        public int HP { get { return HP; } set { HP = value; OnPropetryChanged(nameof(HP)); } }
-        public int MaxHP { get { return MaxHP; } set { MaxHP = value; OnPropetryChanged(nameof(MaxHP)); } }
-        public int Mana { get { return Mana; } set { Mana = value; OnPropetryChanged(nameof(Mana)); } }
-        public int MaxMana { get { return MaxMana; } set { MaxMana = value; OnPropetryChanged(nameof(MaxMana)); } }
-        public int Stamina { get { return Stamina; } set { Stamina = value; OnPropetryChanged(nameof(Stamina)); } }
-        public int MaxStamina { get { return MaxStamina; } set { MaxStamina = value; OnPropetryChanged(nameof(MaxStamina)); } }
-        public int Gold { get { return Gold; } set { Gold = value; OnPropetryChanged(nameof(Gold)); } }
-        public int Exp { get { return Exp; } set { Exp = value; OnPropetryChanged(nameof(Exp)); } }
+        public int MinDamage;
+        public int MaxDamage;
+        public int HP;
+        public int MaxHP;
+        public int Mana;
+        public int MaxMana;
+        public int Stamina;
+        public int MaxStamina;
+        public int Gold;
+        public int Exp;
 
         //Enemy constructor
         public Entity(string name, string desc, int id, int mindmg, 
@@ -68,16 +68,6 @@ namespace Engine
         {
             UniqueID = IDGenerator.GenerateNewID();
         }
-        
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropetryChanged(string name)
-        {
-            if(PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
+       
     }
 }

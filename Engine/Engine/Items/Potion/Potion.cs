@@ -16,6 +16,11 @@ namespace Engine
             AvaibleStacks = avaible;
         }
 
+        public Potion(Potion potion)
+            : base(potion.ID, potion.Name, potion.Desc)
+        {
+            AvaibleStacks = potion.AvaibleStacks;
+        }
         public virtual void Drink()
         {
             Ply.RemoveItem(this);

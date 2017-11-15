@@ -3,11 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Engine
 {
     public static class Ply
     {
+        public class Notify : INotifyPropertyChanged
+        {
+            public event PropertyChangedEventHandler PropertyChanged;
+            public void OnPropetryChanged(string name)
+            {
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(name));
+                }
+            }
+        }
+        public static Notify Notifier;
         public static Player Player = new Player(10, 15, 20, 0, 0);
         internal delegate void Print(string message, bool line = false);
         internal static Print Msg = Player.RaiseMessage;
@@ -15,7 +28,7 @@ namespace Engine
         public static int HP
         {
             get { return Player.HP; }
-            set { Player.HP = value; }
+            set { if (value > Player.MaxHP) { Player.HP = Player.MaxHP; } else { Player.HP = value; }; }
         }
         public static int MaxHP
         {
@@ -25,7 +38,7 @@ namespace Engine
         public static int Mana
         {
             get { return Player.Mana; }
-            set { Player.Mana = value; }
+            set { if (value > Player.MaxMana) { Player.Mana = Player.MaxMana; } else { Player.Mana = value; }; }
         }
         public static int MaxMana
         {
@@ -35,7 +48,7 @@ namespace Engine
         public static int Stamina
         {
             get { return Player.Stamina; }
-            set { Player.Stamina = value; }
+            set { if (value > Player.MaxStamina) { Player.Stamina = Player.MaxStamina; } else { Player.Stamina = value; }; }
         }
         public static int MaxStamina
         {
@@ -65,10 +78,14 @@ namespace Engine
             get { return Player.Quests; }
             set { Player.Quests = value; }
         }
-        public static List<SpellsCollection> Spells
+        public static List<SpellsCollection> SpellList
         {
             get { return Player.Spells; }
             set { Player.Spells = value; }
+        }
+        public static List<Spell> Spells
+        {
+            get { return Ply.SpellList.Where(x => x.Spell is Spell).Select(x => x.Spell as Spell).ToList(); }
         }
         public static List<Weapon> Weapons
         {
@@ -78,11 +95,17 @@ namespace Engine
         {
             get { return Ply.Inventory.Where(x => x.Item is Potion).Select(x => x.Item as Potion).ToList(); }
         }
+        public static List<Location> NearestLocations
+        {
+            get { return Player.CurrentLocation.NearestLocations.ToList(); }
+        }
         public static Weapon CurWeapon
         {
             get { return Player.CurWeapon; }
             set { Player.CurWeapon = value; }
         }
+        public static Potion CurPotion { get; set; }
+        public static Spell CurSpell { get; set; }
         public static Location CurrentLocation
         {
             get { return Player.CurrentLocation; }
@@ -104,51 +127,60 @@ namespace Engine
             }
 
             CurrentLocation = newLocation;
-            if (newLocation != null)
+            if (newLocation.JustQuest != null)
             {
-                bool playerAlreadyHasQuest = HasThisQuest(newLocation.QuestsHere[0]);
-                bool playerAlreadyCompleteQuest = ThisQuestCompleted(newLocation.QuestsHere[0]);
+
+                bool playerAlreadyHasQuest = HasThisQuest(newLocation.JustQuest);
+                bool playerAlreadyCompleteQuest = ThisQuestCompleted(newLocation.JustQuest);
 
                 if (playerAlreadyHasQuest)
                 {
                     if (!playerAlreadyCompleteQuest)
                     {
-                        bool playerHasItems = HasQuestItems(newLocation.QuestsHere[0]);
+                        bool playerHasItems = HasQuestItems(newLocation.JustQuest);
 
                         if (playerHasItems)
                         {
-                            RemoveQuestItem(newLocation.QuestsHere[0]);
-                            Exp = newLocation.QuestsHere[0].RewardExp;
-                            Gold = newLocation.QuestsHere[0].RewardGold;
+                            RemoveQuestItem(newLocation.JustQuest);
+                            Exp = newLocation.JustQuest.RewardExp;
+                            Gold = newLocation.JustQuest.RewardGold;
 
-                            AddReward(newLocation.QuestsHere[0].RewardItems[0]);
-                            MarkQuestAsComplete(newLocation.QuestsHere[0]);
+                            AddReward(newLocation.JustQuest.RewardItems[0]);
+                            MarkQuestAsComplete(newLocation.JustQuest);
                         }
                     }
-                }
-                else
-                {
-                    Msg("Ты получил новое задание:");
-                    Msg("'"+ newLocation.QuestsHere[0].Name + "'");
-                    Msg(newLocation.QuestsHere[0].Desc);
-                    Quests.Add(new QuestCollection(newLocation.QuestsHere[0]));
-                }
 
-                if (newLocation.EnemiesHere[0] != null)
-                {
-                    Msg("Ты видишь " + CurEnemy.Name);
-                    CurEnemy = new Enemy(newLocation.EnemiesHere[0]);
-                    foreach(LootCollection loot in CurEnemy.LootTable)
-                    {
-                        CurEnemy.LootTable.Add(loot);
-                    }
-                }
-                else
-                {
-                    CurEnemy = null;
                 }
             }
+            else
+            {
+                if (newLocation.JustQuest != null)
+                {
+                    Msg("Ты получил новое задание:");
+                    Msg("'" + newLocation.JustQuest.Name + "'");
+                    Msg(newLocation.JustQuest.Desc);
+                    Quests.Add(new QuestCollection(newLocation.JustQuest));
+                }
+
+            }
+            if (newLocation.EnemiesHere.Count() > 0)
+            {
+
+                CurEnemy = new Enemy(newLocation.EnemiesHere[0]);
+                Msg("Ты видишь " + CurEnemy.Name);
+                /*
+                foreach (LootCollection loot in CurEnemy.LootTable)
+                {
+                    CurEnemy.LootTable.Add(loot);
+                }
+                */
+            }
+            else
+            {
+                CurEnemy = null;
+            }
         }
+    
 
         public static bool HasKeyForLocation(Location location)
         {
@@ -201,10 +233,21 @@ namespace Engine
                     }
                 }
             }
-            Msg("Ты получаешь награду: " + i.Item.Name);
+            Msg("Ты получаешь награду: " + addedItem.Name);
             if (addedItem is Weapon) Inventory.Add(new InventoryCollection(new Weapon(addedItem as Weapon), 1));
             else Inventory.Add(new InventoryCollection(addedItem, 1));
-
+        }
+        public static void AddSpell(Spell addedSpell)
+        {
+            foreach (SpellsCollection i in SpellList)
+            {
+                if (i.Spell.ID == addedSpell.ID)
+                {
+                    return;
+                }
+            }
+            Msg("Ты получаешь заклинание: " + addedSpell.Name);
+            SpellList.Add(new SpellsCollection(new Spell(addedSpell)));
         }
         public static void MarkQuestAsComplete(Quest quest)
         {
@@ -256,12 +299,23 @@ namespace Engine
         public static void PlayerAction(Weapon curWep)
         {
             int playerDamage = RandomNumberGenerator.Generate(curWep.MinDamage, curWep.MaxDamage);
-            Msg("Ты наносишь " + playerDamage + " единиц урона по " + CurEnemy.Name);
+            
 
             if (CurEnemy != null)
             {
+                if(Stamina < curWep.StaminaCost)
+                {
+                    Msg("Недостаточно стамины.");
+                    return;
+                }
+                int mn = RandomNumberGenerator.Generate(1, 4);
+                Mana += mn;
+                Msg("Ты восстановил " + mn + " очков маны");
+
+                Msg("Ты наносишь " + playerDamage + " единиц урона по " + CurEnemy.Name);
                 CurEnemy.HP -= playerDamage;
                 Stamina -= curWep.StaminaCost;
+                CurWeapon = curWep;
                 if (CurEnemy.HP <= 0)
                 {
                     CheckForVictory();
@@ -276,7 +330,16 @@ namespace Engine
         }
         public static void PlayerAction(Potion curPotion, Action action)
         {
-            if(action == Action.thraw)
+            int hp = RandomNumberGenerator.Generate(0, 1);
+            int st = RandomNumberGenerator.Generate(0, 2);
+            int mn = RandomNumberGenerator.Generate(1, 3);
+            HP += hp;
+            Stamina += st;
+            Mana += mn;
+            Msg("Ты восстановил " + hp + " очков здоровья");
+            Msg("Ты восстановил " + st + " очков стамины");
+            Msg("Ты восстановил " + mn + " очков маны");
+            if (action == Action.thraw)
             {
                 curPotion.Throw();
             }
@@ -284,7 +347,7 @@ namespace Engine
             {
                 curPotion.Drink();
             }
-
+            CurPotion = curPotion;
             if(CurEnemy != null)
             {
                 if (CurEnemy.HP <= 0)
@@ -300,7 +363,22 @@ namespace Engine
         }
         public static void PlayerAction(Spell curSpell, Action action)
         {
-            if(action == Action.onplayer)
+            if(Mana < curSpell.Manacost)
+            {
+                Msg("Недостаточно маны.");
+                return;
+            }
+            if (curSpell is Fireball) curSpell = curSpell as Fireball;
+            if(curSpell is LesserHealing) curSpell = curSpell as LesserHealing;
+            CurSpell = curSpell;
+            int hp = RandomNumberGenerator.Generate(0, 1);
+            int st = RandomNumberGenerator.Generate(0, 2);
+            HP += hp;
+            Stamina += st;
+            Msg("Ты восстановил " + hp + " очков здоровья");
+            Msg("Ты восстановил " + st + " очков стамины");
+
+            if (action == Action.onplayer)
             {
                 curSpell.CastOnPlayer();
             }
@@ -325,12 +403,15 @@ namespace Engine
         public static void PlayerAction()
         {
             Msg("Ты решил передохнуть:");
-            HP += RandomNumberGenerator.Generate(0, 1);
-            Stamina += RandomNumberGenerator.Generate(1, 3);
-            Mana += RandomNumberGenerator.Generate(2, 5);
-            Msg("Ты восстановил " + HP + " очков здоровья");
-            Msg("Ты восстановил " + Stamina + " очков стамины");
-            Msg("Ты восстановил " + Mana + " очков маны");
+            int hp = RandomNumberGenerator.Generate(0, 1);
+            int st = RandomNumberGenerator.Generate(1, 3);
+            int mn = RandomNumberGenerator.Generate(2, 5);
+            HP += hp;
+            Stamina += st;
+            Mana += mn;
+            Msg("Ты восстановил " + hp + " очков здоровья");
+            Msg("Ты восстановил " + st + " очков стамины");
+            Msg("Ты восстановил " + mn + " очков маны");
 
             if (CurEnemy != null)
             {
@@ -376,9 +457,14 @@ namespace Engine
         }
         private static void IsDead()
         {
-            if (HP <= 0)
+            if (HP <= 0 && CurEnemy != null)
             {
                 Msg(CurEnemy.Name + " убил тебя.");
+                MoveTo(Controller.LocationParse(Controller.location_home));
+            }
+            else if (HP <= 0)
+            {
+                Msg("Ты умер.");
                 MoveTo(Controller.LocationParse(Controller.location_home));
             }
         }

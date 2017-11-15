@@ -10,8 +10,8 @@ namespace Engine
     {
         private static void PopulateSpells()
         {
-            Spells.Add(new Fireball(spell_fireball, "Fireball", "Deal 4 damage", 15, SpellType.fire));
-            Spells.Add(new LesserHealing(spell_lesser_healing, "Lesser healing", "Restore 2 hp", 5, SpellType.light));
+            Spells.Add(new Fireball(spell_fireball, "Огненный шар", "Deal 4 damage", 15, SpellType.fire));
+            Spells.Add(new LesserHealing(spell_lesser_healing, "Малое исцеление", "Restore 2 hp", 5, SpellType.light));
         }
     }
 }

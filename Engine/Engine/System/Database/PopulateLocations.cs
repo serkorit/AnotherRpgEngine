@@ -10,7 +10,7 @@ namespace Engine
     {
         private static void PopulateLocations()
         {
-            Location home = new Location(location_aban_house, "Дом", "Это твой дом!");
+            Location home = new Location(location_home, "Дом", "Это твой дом!");
             Location town = new Location(location_town, "Городок", "Такой же как и все остальные.");
             Location fred_house = new Location(location_fred_house, "Дом Фреда", "Ты его не знаешь.");
             Location aban_house = new Location(location_aban_house, "Заброшенный дом", "Удивительно, что он еще стоит.");
@@ -24,9 +24,10 @@ namespace Engine
 
             home.NearestLocations = new List<Location> { town };
 
-            town.NearestLocations = new List<Location> { home, fred_house };
+            town.NearestLocations = new List<Location> { home, fred_house, forest };
 
             fred_house.NearestLocations = new List<Location> { town };
+            fred_house.JustQuest = QuestParse(quest_bring_rat_tails);
 
             forest.NearestLocations = new List<Location> { town, aban_house, fields };
             forest.EnemiesHere = new List<Enemy> { EnemyParse(enemy_rat) };

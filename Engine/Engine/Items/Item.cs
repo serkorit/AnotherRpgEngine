@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public abstract class Item
+    public class Item
     {
         public int UniqueID { get; protected set; }
         public int ID { get; set; }
@@ -19,6 +19,14 @@ namespace Engine
             UniqueID = IDGenerator.GenerateNewID();
             Name = name;
             Desc = desc;
+        }
+
+        public Item(Item weapon)
+        {
+            Name = weapon.Name;
+            UniqueID = IDGenerator.GenerateNewID();
+            Desc = weapon.Desc;
+            ID = weapon.ID;
         }
 
         public Item()

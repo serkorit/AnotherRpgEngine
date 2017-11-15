@@ -7,40 +7,15 @@ using System.ComponentModel;
 
 namespace Engine
 {
-    public class QuestCollection : INotifyPropertyChanged
+    public class QuestCollection
     {
-        public Quest Quest
-        {
-            get { return Quest; }
-            set
-            {
-                Quest = value;
-                OnPropetryChanged(nameof(Quest));
-            }
-        }
-        public bool IsComplete
-        {
-            get { return IsComplete; }
-            set
-            {
-                IsComplete = value;
-                OnPropetryChanged(nameof(IsComplete));
-            }
-        }
+        public Quest Quest;
+        public bool IsComplete;
 
         public QuestCollection(Quest quest)
         {
             Quest = quest;
             IsComplete = false;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropetryChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
         }
     }
 }

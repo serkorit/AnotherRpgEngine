@@ -10,14 +10,19 @@ namespace Engine
     {
         int Damage;
         public Fireball(int id, string name, string desc, int manacost, SpellType type)
-            : base(id, name, desc, manacost, type)
+            : base(id, name, desc, manacost, type, GetType())
         {
             Damage = 4;
         }
 
+        public Fireball(Spell spell)
+            : base(spell.ID, spell.Name, spell.Desc, spell.Manacost, spell.Type)
+        {
+            Damage = 4;
+        }
         public override void CastOnPlayer()
         {
-            Ply.Msg("Ты направил палец на себя. Ты видишь яркую вспышку. Ты получаешь " + Damage + " единиц урона".);
+            Ply.Msg("Ты направил палец на себя. Ты видишь яркую вспышку. Ты получаешь " + Damage + " единиц урона.");
             Ply.HP -= Damage;
             Ply.Mana -= Manacost;
         }
