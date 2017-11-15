@@ -13,24 +13,26 @@ namespace Engine
         const int hp = 1000;
 
         // Items
-
+        private const int weapon_c = 0;
+        private const int potion_c = 1000;
+        private const int misc_c = 5000;
         // Weapons
-        public const int weapon_wooden_sword = 1 + hw;
-        public const int weapon_iron_sword = 2 + hw;
-        public const int weapon_magic_sword = 3 + hw;
-        public const int weapon_stell_dagger = 4 + hw;
+        public const int weapon_wooden_sword = 1;
+        public const int weapon_iron_sword = 2;
+        public const int weapon_magic_sword = 3;
+        public const int weapon_stell_dagger = 4;
 
         // Misc
-        public const int misc_rat_tail = 1 + hm;
-        public const int misc_spider_leg = 2 + hm;
-        public const int misc_spider_queen_hittin = 3 + hm;
-        public const int misc_secret_key = 4 + hm;
+        public const int misc_rat_tail = 1 + misc_c;
+        public const int misc_spider_leg = 2 + misc_c;
+        public const int misc_spider_queen_hittin = 3 + misc_c;
+        public const int misc_secret_key = 4 + misc_c;
 
         // Potions
-        public const int potion_lesser_hp_pot = 1 + hp;
-        public const int potion_medium_hp_pot = 2 + hp;
-        public const int potion_fire_pot = 3 + hp;
-        public const int potion_antidote = 4 + hp;
+        public const int potion_lesser_hp_pot = 1 + potion_c;
+        public const int potion_medium_hp_pot = 2 + potion_c;
+        public const int potion_fire_pot = 3 + potion_c;
+        public const int potion_antidote = 4 + potion_c;
 
         // Items
 

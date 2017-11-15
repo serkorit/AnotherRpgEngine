@@ -7,10 +7,10 @@ using System.ComponentModel;
 
 namespace Engine
 {
-    public class InventoryCollection
+    public class InventoryCollection : INotifyPropertyChanged
     {
-        public Item Item;
-        public int Quanity;
+        public Item Item { get; set { Item = value; OnPropetryChanged(nameof(Item)); }
+        public int Quanity { get; set { Quanity = value; OnPropetryChanged(nameof(Quanity)); } }
 
         public InventoryCollection(Item item, int quanity)
         {

@@ -127,7 +127,7 @@ namespace Engine
             }
 
             CurrentLocation = newLocation;
-            if (newLocation.JustQuest != null)
+            if (newLocation.QuestsHere.Count > 0)
             {
 
                 bool playerAlreadyHasQuest = HasThisQuest(newLocation.JustQuest);
@@ -148,12 +148,12 @@ namespace Engine
                             AddReward(newLocation.JustQuest.RewardItems[0]);
                             MarkQuestAsComplete(newLocation.JustQuest);
                         }
-                    }
+                        }
 
+                    }
                 }
-            }
-            else
-            {
+                else
+                {
                 if (newLocation.JustQuest != null)
                 {
                     Msg("Ты получил новое задание:");
@@ -161,26 +161,19 @@ namespace Engine
                     Msg(newLocation.JustQuest.Desc);
                     Quests.Add(new QuestCollection(newLocation.JustQuest));
                 }
-
             }
-            if (newLocation.EnemiesHere.Count() > 0)
-            {
-
-                CurEnemy = new Enemy(newLocation.EnemiesHere[0]);
-                Msg("Ты видишь " + CurEnemy.Name);
-                /*
-                foreach (LootCollection loot in CurEnemy.LootTable)
+            if (newLocation.EnemiesHere.Count > 0)
                 {
-                    CurEnemy.LootTable.Add(loot);
+
+                    CurEnemy = new Enemy(newLocation.EnemiesHere[0]);
+                    Msg("Ты видишь " + CurEnemy.Name);
+            }
+                else
+                {
+                    CurEnemy = null;
                 }
-                */
             }
-            else
-            {
-                CurEnemy = null;
-            }
-        }
-    
+
 
         public static bool HasKeyForLocation(Location location)
         {

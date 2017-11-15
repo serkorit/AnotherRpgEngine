@@ -7,9 +7,9 @@ using System.ComponentModel;
 
 namespace Engine
 {
-    public class SpellsCollection
+    public class SpellsCollection : INotifyPropertyChanged
     {
-        public Spell Spell;
+        public Spell Spell { get; set { Spell = value; OnPropetryChanged(nameof(Spell)); } }
 
         public SpellsCollection(Spell spell)
         {

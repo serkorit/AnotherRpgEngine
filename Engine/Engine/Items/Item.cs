@@ -6,32 +6,11 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public class Item
+    public interface Item
     {
-        public int UniqueID { get; protected set; }
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Desc { get; set; }
-
-        public Item(int id, string name, string desc)
-        {
-            ID = id;
-            UniqueID = IDGenerator.GenerateNewID();
-            Name = name;
-            Desc = desc;
-        }
-
-        public Item(Item weapon)
-        {
-            Name = weapon.Name;
-            UniqueID = IDGenerator.GenerateNewID();
-            Desc = weapon.Desc;
-            ID = weapon.ID;
-        }
-
-        public Item()
-        {
-
-        }
+        int UniqueID { get; set; }
+        int ID { get; set; }
+        string Name { get; set; }
+        string Desc { get; set; }
     }
 }

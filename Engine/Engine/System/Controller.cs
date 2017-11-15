@@ -40,26 +40,6 @@ namespace Engine
 
             return null;
         }
-        public static Weapon WeaponParse(int id)
-        {
-            foreach (Item item in Items)
-            {
-                if (item.ID == id)
-                    return item as Weapon;
-            }
-
-            return null;
-        }
-        public static Potion PotionParse(int id)
-        {
-            foreach (Item item in Items)
-            {
-                if (item.ID == id)
-                    return item as Potion;
-            }
-
-            return null;
-        }
         public static Enemy EnemyParse(int id)
         {
             foreach (Enemy enemy in Entities)
@@ -104,7 +84,6 @@ namespace Engine
         {
             foreach (Spell spell in Spells)
             {
-                if (spell is LesserHealing) spell.ID = spell.ID;
                 if (spell.ID == id)
                     return spell;
             }

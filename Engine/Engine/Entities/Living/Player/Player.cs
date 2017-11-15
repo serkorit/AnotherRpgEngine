@@ -10,15 +10,13 @@ namespace Engine
     public class Player : Entity
     {
 
-        public Location CurrentLocation;
+        public Location CurrentLocation { get; set { CurrentLocation = value; OnPropetryChanged(nameof(CurrentLocation)); } } 
         public event EventHandler<MessageEventArgs> OnMessage;
 
         public List<InventoryCollection> Inventory;
         public List<QuestCollection> Quests;
         public List<SpellsCollection> Spells;
-        public Weapon CurWeapon;
-        public List<Weapon> Weapons;
-        public List<Potion> Potions;
+        public Weapon CureWeapon;
 
         public int Level { get { return Exp / 50 + 1; } }
         public int NextLevel { get { return Level * 50; } }
