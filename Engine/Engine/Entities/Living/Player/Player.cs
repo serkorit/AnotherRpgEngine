@@ -10,11 +10,7 @@ namespace Engine
     public class Player : Entity
     {
 
-        public Location CurrentLocation
-        {
-            get { return CurrentLocation; }
-            set { CurrentLocation = value; OnPropetryChanged(nameof(CurrentLocation)); }
-        }
+        public Location CurrentLocation { get; set; }/*OnPropetryChanged(nameof(CurrentLocation)); */
         public event EventHandler<MessageEventArgs> OnMessage;
 
         public List<InventoryCollection> Inventory { get; set; }

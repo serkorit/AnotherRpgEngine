@@ -9,24 +9,8 @@ namespace Engine
 {
     public class InventoryCollection : INotifyPropertyChanged
     {
-        public Item Item
-        {
-            get { return Item; }
-            set
-            {
-                Item = value;
-                OnPropetryChanged(nameof(Item));
-            }
-        }
-        public int Quanity
-        {
-            get { return Quanity; }
-            set
-            {
-                Quanity = value;
-                OnPropetryChanged(nameof(Quanity));
-            }
-        }
+        public Item Item { get; set; }//OnPropetryChanged(nameof(Item));
+        public int Quanity { get; set; }//OnPropetryChanged(nameof(Quanity));
 
         public InventoryCollection(Item item, int quanity)
         {
