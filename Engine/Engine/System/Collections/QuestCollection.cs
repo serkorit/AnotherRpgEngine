@@ -9,24 +9,8 @@ namespace Engine
 {
     public class QuestCollection : INotifyPropertyChanged
     {
-        public Quest Quest
-        {
-            get { return Quest; }
-            set
-            {
-                Quest = value;
-                OnPropetryChanged(nameof(Quest));
-            }
-        }
-        public bool IsComplete
-        {
-            get { return IsComplete; }
-            set
-            {
-                IsComplete = value;
-                OnPropetryChanged(nameof(IsComplete));
-            }
-        }
+        public Quest Quest { get; set; }//OnPropetryChanged(nameof(Quest));
+        public bool IsComplete { get; set; }//OnPropetryChanged(nameof(IsComplete));
 
         public QuestCollection(Quest quest)
         {

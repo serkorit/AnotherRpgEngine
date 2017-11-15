@@ -9,15 +9,7 @@ namespace Engine
 {
     public class SpellsCollection : INotifyPropertyChanged
     {
-        public Spell Spell
-        {
-            get { return Spell; }
-            set
-            {
-                Spell = value;
-                OnPropetryChanged(nameof(Spell));
-            }
-        }
+        public Spell Spell { get; set; }//OnPropetryChanged(nameof(Spell));
 
         public SpellsCollection(Spell spell)
         {
