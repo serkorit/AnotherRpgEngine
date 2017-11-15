@@ -16,6 +16,7 @@ namespace Engine
 
         public int Restore { get; set; }
         private int restored;
+        private int defaultStacks;
 
         public HealingPotion(int id, string name, string desc, int avaible, int restore)
         {
@@ -25,6 +26,7 @@ namespace Engine
             UniqueID = IDGenerator.GenerateNewID();
             AvaibleStacks = avaible;
             Restore = restore;
+            defaultStacks = AvaibleStacks;
         }
 
         public HealingPotion(HealingPotion potion)
@@ -55,11 +57,20 @@ namespace Engine
             else restored = Ply.MaxHP - Ply.HP;
 
             Ply.HP += restored / 2;
-            Ply.CurEnemy.HP += restored/ 2;
             Ply.Msg("Ты восстановил " + restored/2);
-            Ply.Msg("Противник восстановил " + restored/2);
+            if(Ply.CurEnemy != null)
+            {
+                Ply.CurEnemy.HP += restored / 2;
+                Ply.Msg("Противник восстановил " + restored / 2);
+            }
+            
 
             Ply.RemoveItem(this);
+        }
+
+        public void RestoreStacks()
+        {
+            AvaibleStacks = defaultStacks;
         }
     }
 }

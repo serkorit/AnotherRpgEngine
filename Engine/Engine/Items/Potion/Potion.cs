@@ -12,5 +12,6 @@ namespace Engine
 
         void Drink();
         void Throw();
+        void RestoreStacks();
     }
 }

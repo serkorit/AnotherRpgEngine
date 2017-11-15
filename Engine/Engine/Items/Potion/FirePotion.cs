@@ -15,6 +15,7 @@ namespace Engine
         public int AvaibleStacks { get; set; }
         public int Damage { get; set; }
 
+        private int defaultStacks;
         public FirePotion(int id, string name, string desc, int avaible, int damage)
         {
             Name = name;
@@ -23,6 +24,7 @@ namespace Engine
             UniqueID = IDGenerator.GenerateNewID();
             AvaibleStacks = avaible;
             Damage = damage;
+            defaultStacks = AvaibleStacks;
         }
 
         public void Drink()
@@ -34,12 +36,18 @@ namespace Engine
 
         public void Throw()
         {
-            if(Ply.CurEnemy != null)
+            if (Ply.CurEnemy != null)
             {
-                Ply.Msg("Ты кидаешь " + this.Name + "." + Ply.CurEnemy.Name + " получает " + Damage + " единиц урона." );
+                Ply.Msg("Ты кидаешь " + this.Name + "." + Ply.CurEnemy.Name + " получает " + Damage + " единиц урона.");
                 Ply.CurEnemy.HP -= Damage;
             }
+            else Ply.Msg("Ты кидаешь " + this.Name + "... Но тут никого нет...");
             Ply.RemoveItem(this);
+        }
+
+        public void RestoreStacks()
+        {
+            AvaibleStacks = defaultStacks;
         }
     }
 }

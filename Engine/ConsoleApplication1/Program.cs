@@ -68,7 +68,7 @@ namespace ConsoleApplication1
                     }
                     else if(ask.ToLower() == "heale")
                     {
-                        Ply.PlayerAction(Ply.Spells[0].Spell, Engine.Action.onenemy);
+                        Ply.PlayerAction(Ply.Spells[0], Engine.Action.onenemy);
                     }
                     if (Ply.CurrentLocation.EnemiesHere.Count == 0) break;
 

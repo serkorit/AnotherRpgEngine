@@ -7,10 +7,10 @@ using System.ComponentModel;
 
 namespace Engine
 {
-    public class QuestCollection : INotifyPropertyChanged
-    {
-        public Quest Quest { get; set { Quest = value; OnPropetryChanged(nameof(Quest)); } }
-        public bool IsComplete { get; set { IsComplete = value; OnPropetryChanged(nameof(IsComplete)); } }
+    public class QuestCollection
+    { 
+        public Quest Quest;
+        public bool IsComplete;
 
         public QuestCollection(Quest quest)
         {

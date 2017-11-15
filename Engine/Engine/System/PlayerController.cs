@@ -78,14 +78,10 @@ namespace Engine
             get { return Player.Quests; }
             set { Player.Quests = value; }
         }
-        public static List<SpellsCollection> SpellList
+        public static List<Spell> Spells
         {
             get { return Player.Spells; }
             set { Player.Spells = value; }
-        }
-        public static List<Spell> Spells
-        {
-            get { return Ply.SpellList.Where(x => x.Spell is Spell).Select(x => x.Spell as Spell).ToList(); }
         }
         public static List<Weapon> Weapons
         {
@@ -127,7 +123,7 @@ namespace Engine
             }
 
             CurrentLocation = newLocation;
-            if (newLocation.QuestsHere.Count > 0)
+            if (newLocation.JustQuest != null)
             {
 
                 bool playerAlreadyHasQuest = HasThisQuest(newLocation.JustQuest);
@@ -148,13 +144,9 @@ namespace Engine
                             AddReward(newLocation.JustQuest.RewardItems[0]);
                             MarkQuestAsComplete(newLocation.JustQuest);
                         }
-                        }
-
                     }
                 }
                 else
-                {
-                if (newLocation.JustQuest != null)
                 {
                     Msg("Ты получил новое задание:");
                     Msg("'" + newLocation.JustQuest.Name + "'");
@@ -163,16 +155,16 @@ namespace Engine
                 }
             }
             if (newLocation.EnemiesHere.Count > 0)
-                {
+            {
 
-                    CurEnemy = new Enemy(newLocation.EnemiesHere[0]);
-                    Msg("Ты видишь " + CurEnemy.Name);
+                CurEnemy = new Enemy(newLocation.EnemiesHere[0]);
+                Msg("Ты видишь " + CurEnemy.Name);
             }
-                else
-                {
-                    CurEnemy = null;
-                }
+            else
+            {
+                CurEnemy = null;
             }
+        }
 
 
         public static bool HasKeyForLocation(Location location)
@@ -232,15 +224,15 @@ namespace Engine
         }
         public static void AddSpell(Spell addedSpell)
         {
-            foreach (SpellsCollection i in SpellList)
+            foreach (Spell i in Spells)
             {
-                if (i.Spell.ID == addedSpell.ID)
+                if (i.ID == addedSpell.ID)
                 {
                     return;
                 }
             }
             Msg("Ты получаешь заклинание: " + addedSpell.Name);
-            SpellList.Add(new SpellsCollection(new Spell(addedSpell)));
+            Spells.Add(addedSpell);
         }
         public static void MarkQuestAsComplete(Quest quest)
         {
@@ -249,7 +241,8 @@ namespace Engine
             if(qc != null)
             {
                 Msg("Ты получил " + qc.Quest.RewardExp +" золота и " + qc.Quest.RewardExp + " очков опыта.");
-                Msg("Ты завершил задание: " + qc.Quest.Name);
+                Msg("Ты завершил задание: " + qc.Quest.Name, true);
+                Msg("");
                 qc.IsComplete = true;
             }
         }
@@ -259,6 +252,12 @@ namespace Engine
             {
                 if (i.Item.UniqueID == item.UniqueID)
                 {
+                    if(i.Quanity > 1)
+                    {
+                        i.Quanity--;
+                        Msg("Ты теряешь " + i.Item.Name + " в количестве 1.");
+                        return;
+                    }
                     Msg("Ты теряешь " + i.Item.Name);
                     Inventory.Remove(i);
                     return;
@@ -273,10 +272,11 @@ namespace Engine
                 {
                     if (item is Potion)
                     {
-                        if ((item as Potion).AvaibleStacks <= 0)
+                        if ((item as Potion).AvaibleStacks <= 1)
                         {
                             i.Quanity--;
                             if (i.Quanity <= 0) Inventory.Remove(i);
+                            else (item as Potion).RestoreStacks();
                             return;
                         }
                         else
@@ -306,6 +306,7 @@ namespace Engine
                 Msg("Ты восстановил " + mn + " очков маны");
 
                 Msg("Ты наносишь " + playerDamage + " единиц урона по " + CurEnemy.Name);
+                Msg("");
                 CurEnemy.HP -= playerDamage;
                 Stamina -= curWep.StaminaCost;
                 CurWeapon = curWep;
@@ -332,6 +333,7 @@ namespace Engine
             Msg("Ты восстановил " + hp + " очков здоровья");
             Msg("Ты восстановил " + st + " очков стамины");
             Msg("Ты восстановил " + mn + " очков маны");
+            Msg("");
             if (action == Action.thraw)
             {
                 curPotion.Throw();
@@ -370,6 +372,7 @@ namespace Engine
             Stamina += st;
             Msg("Ты восстановил " + hp + " очков здоровья");
             Msg("Ты восстановил " + st + " очков стамины");
+            Msg("");
 
             if (action == Action.onplayer)
             {
@@ -405,6 +408,7 @@ namespace Engine
             Msg("Ты восстановил " + hp + " очков здоровья");
             Msg("Ты восстановил " + st + " очков стамины");
             Msg("Ты восстановил " + mn + " очков маны");
+            Msg("");
 
             if (CurEnemy != null)
             {
@@ -431,8 +435,8 @@ namespace Engine
         {
             Exp += CurEnemy.Exp;
             Gold += CurEnemy.Gold;
-            Msg("Ты получил " + Exp);
-            Msg("Ты получил " + Gold);
+            Msg("Ты получил " + Exp + " очков опыта.");
+            Msg("Ты получил " + Gold + " золота.");
 
             List<InventoryCollection> loot = new List<InventoryCollection>();
 
@@ -445,6 +449,7 @@ namespace Engine
             {
                 Msg("Ты находишь " + i.Item.Name);
                 AddReward(i.Item);
+                Msg("");
             }
             MoveTo(CurrentLocation);
         }

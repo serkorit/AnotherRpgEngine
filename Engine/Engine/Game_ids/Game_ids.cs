@@ -40,6 +40,7 @@ namespace Engine
 
         public const int spell_lesser_healing = 1;
         public const int spell_fireball = 2;
+        public const int spell_mana_to_stamina = 3;
 
         // Spells
 

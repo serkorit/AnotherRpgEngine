@@ -50,6 +50,7 @@
     <Compile Include="Items\Potion\HealingPotion.cs" />
     <Compile Include="Items\Weapon\Weapon.cs" />
     <Compile Include="Magick\Player_Spells\Fireball.cs" />
+    <Compile Include="Magick\Player_Spells\ManaToStamina.cs" />
     <Compile Include="Magick\Player_Spells\LesserHealing.cs" />
     <Compile Include="System\Database\PopulateEntites.cs" />
     <Compile Include="System\Database\PopulateItems.cs" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public class Fireball : Spell
+    public class ManaToStamina : Spell
     {
         public string Name { get; set; }
         public string Desc { get; set; }
@@ -17,8 +17,7 @@ namespace Engine
 
         public SpellType Type { get; set; }
 
-        private int Damage;
-        public Fireball(int id, string name, string desc, int manacost, SpellType type)
+        public ManaToStamina(int id, string name, string desc, int manacost, SpellType type)
         {
             Name = name;
             Desc = desc;
@@ -26,24 +25,23 @@ namespace Engine
             UniqieID = IDGenerator.GenerateNewID();
             Manacost = manacost;
             Type = type;
-            Damage = 6;
         }
 
         public void CastOnPlayer()
         {
-            Ply.Msg("Ты направил палец на себя. Ты видишь яркую вспышку. Ты получаешь " + Damage + " единиц урона.");
-            Ply.HP -= Damage;
-            Ply.Mana -= Manacost;
+            int transfered = Ply.Mana;
+            Ply.Stamina += transfered;
+            Ply.Mana = 0;
+            Ply.Msg("Ты присел подумать... Твоя энергия превращается в энергию? Ты восстановил " + transfered + " стамины.");
         }
 
         public void CastOnEnemy()
         {
-            if(Ply.CurEnemy != null)
+            if (Ply.CurEnemy != null)
             {
-                Ply.Msg("Ты выпускаешь огненный шар в " + Ply.CurEnemy.Name + " . " + Ply.CurEnemy.Name + " получает " + Damage + " единиц урона.");
-                Ply.CurEnemy.HP -= Damage;
-                Ply.Mana = Manacost;
+                Ply.Msg("Жаль, что ты не псионик.");
             }
+            
         }
     }
 }
