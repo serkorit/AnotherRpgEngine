@@ -24,16 +24,28 @@ namespace Engine
         public int UniqueID { get; private set; }
         public EntityType Type { get; private set; }
 
+        
+       // public int MinDamage { get; set; }
+       // public int MaxDamage { get; set; }
+       // public int HP { get { return HP; } set { HP = value; /*OnPropetryChanged(nameof(HP));*/ } }
+        //public int MaxHP { get { return MaxHP; } set { MaxHP = value; /*OnPropetryChanged(nameof(MaxHP));*/ } }
+       // public int Mana { get { return Mana; } set { Mana = value; /*OnPropetryChanged(nameof(Mana));*/ } }
+       // public int MaxMana { get { return MaxMana; } set { MaxMana = value; /*OnPropetryChanged(nameof(MaxMana)); */ }}
+       // public int Stamina { get { return Stamina; } set { Stamina = value; /*OnPropetryChanged(nameof(Stamina)); */} }
+      //  public int MaxStamina { get { return MaxStamina; } set { MaxStamina = value; /*OnPropetryChanged(nameof(MaxStamina));*/ } }
+      //  public int Gold { get { return Gold; } set { Gold = value;/* OnPropetryChanged(nameof(Gold)); */} }
+      //  public int Exp { get { return Exp; } set { Exp = value; /*OnPropetryChanged(nameof(Exp));*/ } }
         public int MinDamage { get; set; }
         public int MaxDamage { get; set; }
-        public int HP { get { return HP; } set { HP = value; OnPropetryChanged(nameof(HP)); } }
-        public int MaxHP { get { return MaxHP; } set { MaxHP = value; OnPropetryChanged(nameof(MaxHP)); } }
-        public int Mana { get { return Mana; } set { Mana = value; OnPropetryChanged(nameof(Mana)); } }
-        public int MaxMana { get { return MaxMana; } set { MaxMana = value; OnPropetryChanged(nameof(MaxMana)); } }
-        public int Stamina { get { return Stamina; } set { Stamina = value; OnPropetryChanged(nameof(Stamina)); } }
-        public int MaxStamina { get { return MaxStamina; } set { MaxStamina = value; OnPropetryChanged(nameof(MaxStamina)); } }
-        public int Gold { get { return Gold; } set { Gold = value; OnPropetryChanged(nameof(Gold)); } }
-        public int Exp { get { return Exp; } set { Exp = value; OnPropetryChanged(nameof(Exp)); } }
+        public int HP { get; set; }
+        public int MaxHP { get; set; }
+        public int Mana { get; set; }
+        public int MaxMana { get; set; }
+        public int Stamina { get; set; }
+        public int MaxStamina { get; set; }
+        public int Gold { get; set; }
+        public int Exp { get; set; }
+        
 
         //Enemy constructor
         public Entity(string name, string desc, int id, int mindmg, 

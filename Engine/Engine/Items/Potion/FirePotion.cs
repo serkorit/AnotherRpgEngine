@@ -8,21 +8,30 @@ namespace Engine
 {
     public class FirePotion : Potion
     {
+        public int UniqueID { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Desc { get; set; }
+        public int AvaibleStacks { get; set; }
         public int Damage { get; set; }
 
         public FirePotion(int id, string name, string desc, int avaible, int damage)
-            : base(id, name, desc, avaible)
         {
+            Name = name;
+            Desc = desc;
+            ID = id;
+            UniqueID = IDGenerator.GenerateNewID();
+            AvaibleStacks = avaible;
             Damage = damage;
         }
 
-        public override void Drink()
+        public void Drink()
         {
             Ply.HP -= Damage/2;
             Ply.RemoveQuanity(this);
         }
 
-        public override void Throw()
+        public void Throw()
         {
             if(Ply.CurEnemy != null)
             {

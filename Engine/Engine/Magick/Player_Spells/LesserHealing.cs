@@ -8,14 +8,28 @@ namespace Engine
 {
     public class LesserHealing : Spell
     {
+        public string Name { get; set; }
+        public string Desc { get; set; }
+
+        public int ID { get; set; }
+        public int UniqieID { get; set; }
+        public int Manacost { get; set; }
+
+        public SpellType Type { get; set; }
+
         private int Restore;
         public LesserHealing(int id, string name, string desc, int manacost, SpellType type)
-            : base(id, name, desc, manacost, type)
         {
+            Name = name;
+            Desc = desc;
+            ID = id;
+            UniqieID = IDGenerator.GenerateNewID();
+            Manacost = manacost;
+            Type = type;
             Restore = 2;
         }
 
-        public override void CastOnPlayer()
+        public void CastOnPlayer()
         {
             int restored;
 
@@ -26,7 +40,7 @@ namespace Engine
             Ply.Mana -= Manacost;
         }
 
-        public override void CastOnEnemy()
+        public void CastOnEnemy()
         {
             if(Ply.CurEnemy != null)
             {

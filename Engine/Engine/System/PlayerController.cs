@@ -88,7 +88,7 @@ namespace Engine
             }
 
             CurrentLocation = newLocation;
-            if (newLocation != null)
+            if (newLocation.QuestsHere.Count > 0)
             {
                 bool playerAlreadyHasQuest = HasThisQuest(newLocation.QuestsHere[0]);
                 bool playerAlreadyCompleteQuest = ThisQuestCompleted(newLocation.QuestsHere[0]);
@@ -114,19 +114,14 @@ namespace Engine
                 {
                     Quests.Add(new QuestCollection(newLocation.QuestsHere[0]));
                 }
-
-                if (newLocation.EnemiesHere[0] != null)
-                {
-                    CurEnemy = new Enemy(newLocation.EnemiesHere[0]);
-                    foreach(LootCollection loot in CurEnemy.LootTable)
-                    {
-                        CurEnemy.LootTable.Add(loot);
-                    }
-                }
-                else
-                {
-                    CurEnemy = null;
-                }
+            }
+            if (newLocation.EnemiesHere.Count > 0)
+            {
+                CurEnemy = new Enemy(newLocation.EnemiesHere[0]);
+            }
+            else
+            {
+                CurEnemy = null;
             }
         }
 
