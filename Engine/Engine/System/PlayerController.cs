@@ -210,6 +210,26 @@ namespace Engine
             if (addedItem is Weapon) Inventory.Add(new InventoryCollection(new Weapon(addedItem as Weapon), 1));
             else Inventory.Add(new InventoryCollection(addedItem, 1));
         }
+
+        public static void AddReward(Item addedItem, int quanity)
+        {
+            if (addedItem is Misc || addedItem is Potion)
+            {
+                foreach (InventoryCollection i in Inventory)
+                {
+                    if (i.Item.ID == addedItem.ID)
+                    {
+                        Msg("Ты получаешь награду: " + i.Item.Name + " в количестве " + quanity);
+                        i.Quanity += quanity;
+                        return;
+                    }
+                }
+            }
+            Msg("Ты получаешь награду: " + i.Item.Name + " в количестве " + quanity);
+            if (addedItem is Weapon) Inventory.Add(new InventoryCollection(new Weapon(addedItem as Weapon), 1));
+            else Inventory.Add(new InventoryCollection(addedItem, quanity));
+        }
+
         public static void AddSpell(Spell addedSpell)
         {
             foreach (Spell i in Spells)
