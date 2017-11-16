@@ -17,9 +17,87 @@ namespace Engine
             Items.Add(new Weapon(weapon_stell_dagger, "Железный кинжал", "Ты посмотрел за свою спину?",
                 1, 3, 15, 1, WeaponType.dagger));
 
-            Items.Add(new HealingPotion(potion_lesser_hp_pot, "Малое зелье исцеления", "Переносной подорожник.", 3, 3));
-            Items.Add(new HealingPotion(potion_medium_hp_pot, "Среднее зелья исцеления", "Не поможет если вы уже мертвы.", 3, 6));
-            Items.Add(new FirePotion(potion_fire_pot, "Огненное зелья", "Не для жарки мяса.", 2, 5));
+            #region Lesser hp pot
+            Items.Add(new Potion(potion_lesser_hp_pot, "Малое зелье исцеления", "Переносной подорожник.",  3,
+                () =>
+                {
+                    int Restore = 3;
+                    int restored;
+                    Ply.Msg("Ты пьешь " + "Малое зелье исцеления" + "...");
+                    if (Ply.HP <= Ply.MaxHP - Restore) restored = Restore;
+                    else restored = Ply.MaxHP - Ply.HP;
+
+                    Ply.Msg("Ты восстановил " + restored);
+                    Ply.HP += restored;
+                }
+                ,
+                () =>
+                {
+                    int Restore = 3;
+                    int restored;
+                    Ply.Msg("Ты кидаешь " + "Малое зелье исцеления.");
+                    if (Ply.HP <= Ply.MaxHP - Restore) restored = Restore;
+                    else restored = Ply.MaxHP - Ply.HP;
+
+                    Ply.HP += restored / 2;
+                    Ply.Msg("Ты восстановил " + restored / 2);
+                    if (Ply.CurEnemy != null)
+                    {
+                        Ply.CurEnemy.HP += restored / 2;
+                        Ply.Msg("Противник восстановил " + restored / 2);
+                    }
+                }));
+            #endregion
+            #region Medium hp pot
+            Items.Add(new Potion(potion_medium_hp_pot, "Среднее зелья исцеления", "Не поможет если вы уже мертвы.", 3,
+                () =>
+                {
+                    int Restore = 6;
+                    int restored;
+                    Ply.Msg("Ты пьешь " + "Малое зелье исцеления" + "...");
+                    if (Ply.HP <= Ply.MaxHP - Restore) restored = Restore;
+                    else restored = Ply.MaxHP - Ply.HP;
+
+                    Ply.Msg("Ты восстановил " + restored);
+                    Ply.HP += restored;
+                }
+                ,
+                () =>
+                {
+                    int Restore = 6;
+                    int restored;
+                    Ply.Msg("Ты кидаешь " + "Малое зелье исцеления.");
+                    if (Ply.HP <= Ply.MaxHP - Restore) restored = Restore;
+                    else restored = Ply.MaxHP - Ply.HP;
+
+                    Ply.HP += restored / 2;
+                    Ply.Msg("Ты восстановил " + restored / 2);
+                    if (Ply.CurEnemy != null)
+                    {
+                        Ply.CurEnemy.HP += restored / 2;
+                        Ply.Msg("Противник восстановил " + restored / 2);
+                    }
+                }));
+            #endregion
+            #region Fire pot
+            Items.Add(new Potion(potion_fire_pot, "Огненное зелье", "Не для жарки мяса.", 2,
+                () =>
+                {
+                    int Damage = 6;
+                    Ply.Msg("Ты решил выпить " + "Огненное зелье" + ". Твое горло горит. Ты получаешь " + Damage / 2 + " единиц урона.");
+                    Ply.HP -= Damage / 2;
+                },
+                () =>
+                {
+                    int Damage = 6;
+                    if (Ply.CurEnemy != null)
+                    {
+                        Ply.Msg("Ты кидаешь " + "Огненное зелье" + "." + Ply.CurEnemy.Name + " получает " + Damage + " единиц урона.");
+                        Ply.CurEnemy.HP -= Damage;
+                    }
+                    else Ply.Msg("Ты кидаешь " + "Огненное зелье" + "... Но тут никого нет...");
+                }));
+            #endregion
 
             Items.Add(new Misc(misc_rat_tail, "Крысиный хвост", "Зачем ты это срезал?", MiscType.junk));
             Items.Add(new Misc(misc_spider_leg, "Паучая лапа", "Крепче палки!", MiscType.junk));

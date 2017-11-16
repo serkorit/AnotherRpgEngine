@@ -359,7 +359,7 @@ namespace Engine
             Msg("Ты восстановил " + hp + " очков здоровья");
             Msg("Ты восстановил " + st + " очков стамины");
             Msg("");
-
+            
             if (action == Action.onplayer)
             {
                 curSpell.CastOnPlayer();
