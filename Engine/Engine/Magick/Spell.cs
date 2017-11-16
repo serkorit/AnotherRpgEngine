@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
+    public delegate void OnPlayer();
+    public delegate void OnEnemy();
     public enum SpellType
     {
         fire,
@@ -22,18 +24,54 @@ namespace Engine
         other,
         test_spell
     }
-    public interface Spell
+
+    public class Spell
     {
-        string Name { get; set; }
-        string Desc { get; set; }
+        public string Name { get; set; }
+        public string Desc { get; set; }
 
-        int ID { get; set; }
-        int UniqieID { get; set; }
-        int Manacost { get; set; }
+        public int ID { get; set; }
+        public int UniqieID { get; set; }
+        public int Manacost { get; set; }
 
-        SpellType Type { get; set; }
+        public SpellType Type { get; set; }
+        public OnPlayer CastOnPlayer { get; set; }
+        public OnEnemy CastOnEnemy { get; set; }
 
-        void CastOnPlayer();
-        void CastOnEnemy();
+        public Spell(int id, string name, string desc, int manacost, SpellType type)
+        {
+            Name = name;
+            Desc = desc;
+            ID = id;
+            UniqieID = IDGenerator.GenerateNewID();
+            Manacost = manacost;
+            Type = type;
+            CastOnEnemy = Default;
+            CastOnPlayer = Default;
+        }
+
+        public Spell(int id, string name, string desc, int manacost, 
+            SpellType type, OnPlayer plfunc, OnEnemy enfunc)
+        {
+            Name = name;
+            Desc = desc;
+            ID = id;
+            UniqieID = IDGenerator.GenerateNewID();
+            Manacost = manacost;
+            Type = type;
+            CastOnEnemy = enfunc;
+            CastOnPlayer = plfunc;
+            CastOnPlayer += SubstractMana;
+            CastOnEnemy += SubstractMana;
+        }
+
+        private void SubstractMana()
+        {
+            Ply.Mana -= Manacost;
+        }
+        private void Default()
+        {
+            Ply.Msg("Ты не можешь этого сделать.");
+        }
     }
 }

@@ -351,8 +351,6 @@ namespace Engine
                 Msg("Недостаточно маны.");
                 return;
             }
-            if (curSpell is Fireball) curSpell = curSpell as Fireball;
-            if(curSpell is LesserHealing) curSpell = curSpell as LesserHealing;
             CurSpell = curSpell;
             int hp = RandomNumberGenerator.Generate(0, 1);
             int st = RandomNumberGenerator.Generate(0, 2);

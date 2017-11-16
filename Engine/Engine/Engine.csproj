@@ -49,10 +49,7 @@
     <Compile Include="Items\Potion\FirePotion.cs" />
     <Compile Include="Items\Potion\HealingPotion.cs" />
     <Compile Include="Items\Weapon\Weapon.cs" />
-    <Compile Include="Magick\Player_Spells\Fireball.cs" />
-    <Compile Include="Magick\Player_Spells\ManaToStamina.cs" />
-    <Compile Include="Magick\Player_Spells\LesserHealing.cs" />
-    <Compile Include="Magick\SpellD.cs" />
+    <Compile Include="Magick\Spell.cs" />
     <Compile Include="System\Database\PopulateEntites.cs" />
     <Compile Include="System\Database\PopulateItems.cs" />
     <Compile Include="System\Database\PopulateLocations.cs" />
@@ -66,7 +63,6 @@
     <Compile Include="Items\Potion\Potion.cs" />
     <Compile Include="Items\Weapon\Shield.cs" />
     <Compile Include="Items\Weapon\Spellbook.cs" />
-    <Compile Include="Magick\Spell.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="System\Collections\InventoryCollection.cs" />
     <Compile Include="System\Collections\LootCollection.cs" />
@@ -83,8 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Items\Armour\" />
-    <Folder Include="Magick\Enemy_Spells\" />
-    <Folder Include="Magick\Passive_Spells\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
