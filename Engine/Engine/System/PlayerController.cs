@@ -225,7 +225,7 @@ namespace Engine
                     }
                 }
             }
-            Msg("Ты получаешь награду: " + i.Item.Name + " в количестве " + quanity);
+            Msg("Ты получаешь награду: " + addedItem.Name + " в количестве " + quanity);
             if (addedItem is Weapon) Inventory.Add(new InventoryCollection(new Weapon(addedItem as Weapon), 1));
             else Inventory.Add(new InventoryCollection(addedItem, quanity));
         }
