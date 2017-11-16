@@ -9,18 +9,6 @@ namespace Engine
 {
     public static class Ply
     {
-        public class Notify : INotifyPropertyChanged
-        {
-            public event PropertyChangedEventHandler PropertyChanged;
-            public void OnPropetryChanged(string name)
-            {
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs(name));
-                }
-            }
-        }
-        public static Notify Notifier;
         public static Player Player = new Player(10, 15, 20, 0, 0);
         internal delegate void Print(string message, bool line = false);
         internal static Print Msg = Player.RaiseMessage;
@@ -222,6 +210,26 @@ namespace Engine
             if (addedItem is Weapon) Inventory.Add(new InventoryCollection(new Weapon(addedItem as Weapon), 1));
             else Inventory.Add(new InventoryCollection(addedItem, 1));
         }
+
+        public static void AddReward(Item addedItem, int quanity)
+        {
+            if (addedItem is Misc || addedItem is Potion)
+            {
+                foreach (InventoryCollection i in Inventory)
+                {
+                    if (i.Item.ID == addedItem.ID)
+                    {
+                        Msg("Ты получаешь награду: " + i.Item.Name + " в количестве " + quanity);
+                        i.Quanity += quanity;
+                        return;
+                    }
+                }
+            }
+            Msg("Ты получаешь награду: " + addedItem.Name + " в количестве " + quanity);
+            if (addedItem is Weapon) Inventory.Add(new InventoryCollection(new Weapon(addedItem as Weapon), 1));
+            else Inventory.Add(new InventoryCollection(addedItem, quanity));
+        }
+
         public static void AddSpell(Spell addedSpell)
         {
             foreach (Spell i in Spells)
@@ -363,8 +371,6 @@ namespace Engine
                 Msg("Недостаточно маны.");
                 return;
             }
-            if (curSpell is Fireball) curSpell = curSpell as Fireball;
-            if(curSpell is LesserHealing) curSpell = curSpell as LesserHealing;
             CurSpell = curSpell;
             int hp = RandomNumberGenerator.Generate(0, 1);
             int st = RandomNumberGenerator.Generate(0, 2);
@@ -373,7 +379,7 @@ namespace Engine
             Msg("Ты восстановил " + hp + " очков здоровья");
             Msg("Ты восстановил " + st + " очков стамины");
             Msg("");
-
+            
             if (action == Action.onplayer)
             {
                 curSpell.CastOnPlayer();
