@@ -42,12 +42,17 @@ namespace Engine
             Drink = dr;
             Throw = th;
             Drink += RemoveQuanity;
-            Throw += RemoveQuanity;
+            Throw += RemoveItem;
         }
 
         private void RemoveQuanity()
         {
             Ply.RemoveQuanity(this);
+        }
+
+        private void RemoveItem()
+        {
+            Ply.RemoveItem(this);
         }
 
         public void RestoreStacks()
