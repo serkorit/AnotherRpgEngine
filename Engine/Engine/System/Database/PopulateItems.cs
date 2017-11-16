@@ -79,6 +79,50 @@ namespace Engine
                     }
                 }));
             #endregion
+            #region Lesser mp pot
+            Items.Add(new Potion(potion_lesser_mp_pot, "Малое зелье энергии", "Переносной подорожник для разума.", 2,
+                () =>
+                {
+                    int Restore = 10;
+                    int restored;
+                    Ply.Msg("Ты пьешь " + "Малое зелье энергии" + "...");
+                    if (Ply.Mana <= Ply.MaxMana - Restore) restored = Restore;
+                    else restored = Ply.MaxMana - Ply.Mana;
+
+                    Ply.Msg("Ты восстановил " + restored + " маны.");
+                    Ply.Mana += restored;
+                }
+                ,
+                () =>
+                {
+                    int Restore = 10;
+                    int restored;
+                    Ply.Msg("Ты кидаешь " + "Малое зелье энергии.");
+                    Ply.Msg("Кажется ничего не произошло...");
+                }));
+            #endregion
+            #region Lesser st pot
+            Items.Add(new Potion(potion_lesser_st_pot, "Малое зелье восстановления", "Переносной подорожник для мышц.", 1,
+                () =>
+                {
+                    int Restore = 20;
+                    int restored;
+                    Ply.Msg("Ты пьешь " + "Малое зелье восстановления" + "...");
+                    if (Ply.Stamina <= Ply.MaxStamina - Restore) restored = Restore;
+                    else restored = Ply.MaxStamina - Ply.Stamina;
+
+                    Ply.Msg("Ты восстановил " + restored + " стамины.");
+                    Ply.Stamina += restored;
+                }
+                ,
+                () =>
+                {
+                    int Restore = 10;
+                    int restored;
+                    Ply.Msg("Ты кидаешь " + "Малое зелье восстановления.");
+                    Ply.Msg("Кажется ничего не произошло...");
+                }));
+            #endregion
             #region Fire pot
             Items.Add(new Potion(potion_fire_pot, "Огненное зелье", "Не для жарки мяса.", 2,
                 () =>

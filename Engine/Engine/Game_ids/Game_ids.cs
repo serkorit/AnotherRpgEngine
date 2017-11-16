@@ -33,6 +33,8 @@ namespace Engine
         public const int potion_medium_hp_pot = 2 + potion_c;
         public const int potion_fire_pot = 3 + potion_c;
         public const int potion_antidote = 4 + potion_c;
+        public const int potion_lesser_mp_pot = 5 + potion_c;
+        public const int potion_lesser_st_pot = 6 + potion_c;
 
         // Items
 
