@@ -52,6 +52,7 @@
     <Compile Include="Magick\Player_Spells\Fireball.cs" />
     <Compile Include="Magick\Player_Spells\ManaToStamina.cs" />
     <Compile Include="Magick\Player_Spells\LesserHealing.cs" />
+    <Compile Include="Magick\SpellD.cs" />
     <Compile Include="System\Database\PopulateEntites.cs" />
     <Compile Include="System\Database\PopulateItems.cs" />
     <Compile Include="System\Database\PopulateLocations.cs" />

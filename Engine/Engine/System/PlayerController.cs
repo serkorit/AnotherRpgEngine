@@ -9,18 +9,6 @@ namespace Engine
 {
     public static class Ply
     {
-        public class Notify : INotifyPropertyChanged
-        {
-            public event PropertyChangedEventHandler PropertyChanged;
-            public void OnPropetryChanged(string name)
-            {
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs(name));
-                }
-            }
-        }
-        public static Notify Notifier;
         public static Player Player = new Player(10, 15, 20, 0, 0);
         internal delegate void Print(string message, bool line = false);
         internal static Print Msg = Player.RaiseMessage;
