@@ -19,7 +19,8 @@ namespace Engine
         dark,
 
         physics,
-        other
+        other,
+        test_spell
     }
     public interface Spell
     {
