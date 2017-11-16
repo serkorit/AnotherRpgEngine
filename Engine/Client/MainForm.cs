@@ -49,12 +49,11 @@ namespace Client
             Ply.Player.OnMessage += DisplayMessage;
             Ply.AddReward(Controller.ItemParse(Controller.weapon_iron_sword));
             Ply.MoveTo(Controller.LocationParse(Controller.location_home));
-            Ply.AddReward(Controller.ItemParse(Controller.potion_lesser_hp_pot));
-            Ply.AddReward(Controller.ItemParse(Controller.potion_lesser_hp_pot));
-            Ply.AddReward(Controller.ItemParse(Controller.potion_lesser_hp_pot));
-            Ply.AddReward(Controller.ItemParse(Controller.potion_fire_pot));
-            Ply.AddReward(Controller.ItemParse(Controller.potion_fire_pot));
-            Ply.AddReward(Controller.ItemParse(Controller.potion_fire_pot));
+            Ply.AddReward(Controller.ItemParse(Controller.potion_lesser_hp_pot), 3);
+            Ply.AddReward(Controller.ItemParse(Controller.potion_medium_hp_pot), 1);
+            Ply.AddReward(Controller.ItemParse(Controller.potion_fire_pot),3);
+            Ply.AddReward(Controller.ItemParse(Controller.potion_lesser_mp_pot), 5);
+            Ply.AddReward(Controller.ItemParse(Controller.potion_lesser_st_pot), 5);
             Ply.AddSpell(Controller.SpellParse(Controller.spell_fireball));
             Ply.AddSpell(Controller.SpellParse(Controller.spell_lesser_healing));
             Ply.AddSpell(Controller.SpellParse(Controller.spell_mana_to_stamina));
