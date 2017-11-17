@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public delegate void EnemyAbility(params object[] args);
+    public delegate void EnemyAbility();
 
     public enum EnemyType
     {
@@ -28,6 +28,16 @@ namespace Engine
         {
             LootTable = new List<LootCollection>();
             Abilities = new Dictionary<string, EnAbilitiesCollection>();
+
+            Abilities.Add("default", new EnAbilitiesCollection(
+                () =>
+                {
+                    int enemyDamage = RandomNumberGenerator.Generate(Ply.CurEnemy.MinDamage, Ply.CurEnemy.MaxDamage);
+                    Ply.HP -= enemyDamage;
+                    Ply.Msg(Ply.CurEnemy.Name + " наносит тебе " + enemyDamage + " единиц урона.");
+
+                    return;
+                }, 0,0));
         }
 
         public Enemy(Enemy enemy)
@@ -44,7 +54,11 @@ namespace Engine
             Gold = enemy.Gold;
             Exp = enemy.Exp;
             LootTable = enemy.LootTable;
+            Abilities = enemy.Abilities;
+            EnemyTurn = enemy.EnemyTurn;
         }
+
+        public EnemyAbility EnemyTurn { get; set; }
     
     }
 }

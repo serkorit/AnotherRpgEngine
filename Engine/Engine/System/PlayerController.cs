@@ -324,7 +324,7 @@ namespace Engine
                 }
                 else
                 {
-                    EnemyTurn();
+                    CurEnemy.EnemyTurn();
                 }
                 IsDead();
             }
@@ -359,7 +359,7 @@ namespace Engine
                 }
                 else
                 {
-                    EnemyTurn();
+                    CurEnemy.EnemyTurn();
                 }
             }
             IsDead(); 
@@ -397,7 +397,7 @@ namespace Engine
                 }
                 else
                 {
-                    EnemyTurn();
+                    CurEnemy.EnemyTurn();
                 }
             }
             IsDead();
@@ -424,25 +424,18 @@ namespace Engine
                 }
                 else
                 {
-                    EnemyTurn();
+                    CurEnemy.EnemyTurn();
                 }
             }
             IsDead();
         }
 
-
-        private static void EnemyTurn()
-        {
-            int enemyDamage = RandomNumberGenerator.Generate(CurEnemy.MinDamage, CurEnemy.MaxDamage);
-            HP -= enemyDamage;
-            Msg(CurEnemy.Name + " наносит тебе " + enemyDamage +" единиц урона.");
-        }
         private static void CheckForVictory()
         {
             Exp += CurEnemy.Exp;
             Gold += CurEnemy.Gold;
-            Msg("Ты получил " + Exp + " очков опыта.");
-            Msg("Ты получил " + Gold + " золота.");
+            Msg("Ты получил " + CurEnemy.Exp + " очков опыта.");
+            Msg("Ты получил " + CurEnemy.Gold + " золота.");
 
             List<InventoryCollection> loot = new List<InventoryCollection>();
 
@@ -453,9 +446,7 @@ namespace Engine
 
             foreach(InventoryCollection i in loot)
             {
-                Msg("Ты находишь " + i.Item.Name);
                 AddReward(i.Item);
-                Msg("");
             }
             MoveTo(CurrentLocation);
         }

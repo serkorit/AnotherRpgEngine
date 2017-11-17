@@ -10,11 +10,13 @@ namespace Engine
     {
         public EnemyAbility Ability;
         public int Cooldown;
+        public int ActiveCooldown;
 
-        public EnAbilitiesCollection(EnemyAbility ability, int cooldown)
+        public EnAbilitiesCollection(EnemyAbility ability, int cooldown, int defaultcooldown)
         {
             Ability = ability;
             Cooldown = cooldown;
+            ActiveCooldown = defaultcooldown;
         }
     }
 }
