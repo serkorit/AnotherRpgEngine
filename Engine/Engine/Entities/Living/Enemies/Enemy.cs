@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
+    public delegate void EnemyAbility(params object[] args);
+
     public enum EnemyType
     {
         world,
@@ -18,12 +20,14 @@ namespace Engine
     public class Enemy : Entity
     {
         public List<LootCollection> LootTable { get; set; }
+        public Dictionary<string, EnAbilitiesCollection> Abilities { get; set; }
 
         public Enemy(string name, string desc, int id, int mindmg,
             int maxdmg, int hp, int stamina, int mana, int gold, int exp)
             : base(name, desc, id, mindmg, maxdmg, hp, stamina, mana, gold, exp)
         {
             LootTable = new List<LootCollection>();
+            Abilities = new Dictionary<string, EnAbilitiesCollection>();
         }
 
         public Enemy(Enemy enemy)
