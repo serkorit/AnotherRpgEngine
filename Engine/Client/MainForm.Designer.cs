@@ -55,7 +55,6 @@
             this.btnCastSelf = new System.Windows.Forms.Button();
             this.btnThrow = new System.Windows.Forms.Button();
             this.btnDrink = new System.Windows.Forms.Button();
-            this.btnNextLocation = new System.Windows.Forms.Button();
             this.btnSleep = new System.Windows.Forms.Button();
             this.btnUseWeapon = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -63,6 +62,7 @@
             this.rtLocation = new System.Windows.Forms.RichTextBox();
             this.cbLocations = new System.Windows.Forms.ComboBox();
             this.cbSpells = new System.Windows.Forms.ComboBox();
+            this.btnNextLocation = new System.Windows.Forms.Button();
             this.rtMsg = new System.Windows.Forms.RichTextBox();
             this.dgvQuests = new System.Windows.Forms.DataGridView();
             this.dgvInventory = new System.Windows.Forms.DataGridView();
@@ -422,18 +422,6 @@
             this.btnDrink.UseVisualStyleBackColor = false;
             this.btnDrink.Click += new System.EventHandler(this.btnDrink_Click);
             // 
-            // btnNextLocation
-            // 
-            this.btnNextLocation.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnNextLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNextLocation.Location = new System.Drawing.Point(539, 313);
-            this.btnNextLocation.Name = "btnNextLocation";
-            this.btnNextLocation.Size = new System.Drawing.Size(136, 23);
-            this.btnNextLocation.TabIndex = 20;
-            this.btnNextLocation.Text = "Отправиться";
-            this.btnNextLocation.UseVisualStyleBackColor = false;
-            this.btnNextLocation.Click += new System.EventHandler(this.btnNextLocation_Click);
-            // 
             // btnSleep
             // 
             this.btnSleep.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -504,8 +492,21 @@
             this.cbSpells.Size = new System.Drawing.Size(153, 21);
             this.cbSpells.TabIndex = 13;
             // 
+            // btnNextLocation
+            // 
+            this.btnNextLocation.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnNextLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNextLocation.Location = new System.Drawing.Point(539, 313);
+            this.btnNextLocation.Name = "btnNextLocation";
+            this.btnNextLocation.Size = new System.Drawing.Size(136, 23);
+            this.btnNextLocation.TabIndex = 20;
+            this.btnNextLocation.Text = "Отправиться";
+            this.btnNextLocation.UseVisualStyleBackColor = false;
+            this.btnNextLocation.Click += new System.EventHandler(this.btnNextLocation_Click);
+            // 
             // rtMsg
             // 
+            this.rtMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rtMsg.Location = new System.Drawing.Point(12, 36);
             this.rtMsg.Name = "rtMsg";
             this.rtMsg.ReadOnly = true;
