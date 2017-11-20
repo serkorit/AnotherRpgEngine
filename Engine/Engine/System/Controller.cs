@@ -20,6 +20,7 @@ namespace Engine
         public static readonly List<Spell> Spells = new List<Spell>();
         public static readonly List<Location> Locations = new List<Location>();
         public static readonly List<Quest> Quests = new List<Quest>();
+        public static readonly List<Effect> Effects = new List<Effect>();
 
         public static void PopulateWorld()
         {
@@ -28,6 +29,7 @@ namespace Engine
             PopulateQuests();
             PopulateLocations();
             PopulateSpells();
+            PopulateEffects();
         }
 
         public static Item ItemParse(int id)
@@ -90,5 +92,62 @@ namespace Engine
 
             return null;
         }
+        public static Effect EffectParse(int id)
+        {
+            foreach (Effect effect in Effects)
+            {
+                if (effect.ID == id)
+                    return effect;
+            }
+
+            return null;
+        }
+
+        public static void StartBattle()
+        {
+            if (Ply.CurEnemy != null)
+                Ply.InBattle = true;
+            else
+                Ply.InBattle = false;
+        }
+        public static void DoBattle(Weapon CurWeapon, Potion CurPotion, Spell CurSpell, Engine.Action action)
+        {           
+            Enemy CurEnemy = Ply.CurEnemy;
+            if (CurWeapon != null)
+            {
+                Ply.PlayerAction(CurWeapon);
+            }
+            else if (CurPotion != null)
+            {
+                Ply.PlayerAction(CurPotion, action);
+            }
+            else if (CurSpell != null)
+            {
+                Ply.PlayerAction(CurSpell, action);
+            }
+            else Ply.PlayerAction();
+
+            if (CurEnemy != null && Ply.InBattle)
+            {
+                if (CurEnemy.HP <= 0)
+                {
+                    Ply.CheckForVictory();
+                }
+                else CurEnemy.EnemyTurn();
+            }
+
+            EffectsTick();
+
+        }
+        private static void EffectsTick()
+        {
+
+        }
+        public static void NotifyNewLocation()
+        {
+            EffectsTick();
+        }
+
+        
     }
 }

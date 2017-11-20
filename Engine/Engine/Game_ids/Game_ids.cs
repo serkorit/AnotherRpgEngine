@@ -81,5 +81,14 @@ namespace Engine
         public const int location_caves01_spider_den_nest = 11;
 
         // Locations
+
+        // Effects
+
+        public const int effect_poison = 1;
+        public const int effect_buff_damage = 2;
+        public const int effect_reduce_max_mana = 3;
+
+
+        // Effects
     }
 }

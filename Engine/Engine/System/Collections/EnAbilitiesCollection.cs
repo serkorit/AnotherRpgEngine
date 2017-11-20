@@ -6,9 +6,17 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
+    public enum AbilityCategory
+    {
+        attack,
+        defend,
+        heal,
+        effect
+    }
     public class EnAbilitiesCollection
     {
         public EnemyAbility Ability;
+        public AbilityCategory Category;
         public int Cooldown;
         public int ActiveCooldown;
 

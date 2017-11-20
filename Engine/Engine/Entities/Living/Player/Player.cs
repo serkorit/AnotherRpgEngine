@@ -15,8 +15,13 @@ namespace Engine
 
         public List<InventoryCollection> Inventory;
         public List<QuestCollection> Quests;
+        public List<EffectsCollection> Effects;
+
         public List<Spell> Spells;
+
         public Weapon CurWeapon;
+        public Potion CurPotion;
+        public Spell CurSpell;
 
         public int Level { get { return Exp / 50 + 1; } }
         public int NextLevel { get { return Level * 50; } }
@@ -29,6 +34,7 @@ namespace Engine
             Inventory = new List<InventoryCollection>();
             Quests = new List<QuestCollection>();
             Spells = new List<Spell>();
+            Effects = new List<EffectsCollection>();
         }
 
         internal void RaiseMessage(string message, bool addExtraNewline = false)

@@ -21,6 +21,7 @@ namespace Engine
     {
         public List<LootCollection> LootTable { get; set; }
         public Dictionary<string, EnAbilitiesCollection> Abilities { get; set; }
+        public List<EffectsCollection> Effects { get; set; }
 
         public Enemy(string name, string desc, int id, int mindmg,
             int maxdmg, int hp, int stamina, int mana, int gold, int exp)
@@ -28,6 +29,7 @@ namespace Engine
         {
             LootTable = new List<LootCollection>();
             Abilities = new Dictionary<string, EnAbilitiesCollection>();
+            Effects = new List<EffectsCollection>();
 
             Abilities.Add("default", new EnAbilitiesCollection(
                 () =>
@@ -56,6 +58,7 @@ namespace Engine
             LootTable = enemy.LootTable;
             Abilities = enemy.Abilities;
             EnemyTurn = enemy.EnemyTurn;
+            Effects = enemy.Effects;
         }
 
         public EnemyAbility EnemyTurn { get; set; }

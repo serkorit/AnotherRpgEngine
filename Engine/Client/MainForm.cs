@@ -96,8 +96,10 @@ namespace Client
             UpdateQuestList();
             UpdateSpellList();
             UpdateSpellListUI();
-            UpdateLocationListUI();
             UpdateNewLocationsUI();
+
+            if (Ply.InBattle || Ply.CurEnemy == null) btnAttack.Enabled = false;
+            else btnAttack.Enabled = true;
 
             rtLocation.Clear();
             rtLocation.Text += Ply.CurrentLocation.Name;
@@ -108,35 +110,13 @@ namespace Client
                 rtLocation.Text += l.Name + " , ";
             }
         }
-        private void UpdateLocationListUI()
-        {
-            cbLocations.DataSource = Ply.NearestLocations;
-            if (Ply.NearestLocations.Count() == 0)
-            {
-                btnNextLocation.Enabled = false;
-            }
-            else
-            {
-                btnNextLocation.Enabled = true;
-                cbLocations.DisplayMember = "Name";
-                cbLocations.ValueMember = "ID";
-                cbLocations.SelectedItem = Ply.NearestLocations;
-            }
-        }
         private void UpdateNewLocationsUI()
         {
             cbNewLoc.DataSource = Ply.NearestLocations;
-            if (Ply.NearestLocations.Count() == 0)
-            {
-                btnNextLocation.Enabled = false;
-            }
-            else
-            {
-                btnNextLocation.Enabled = true;
-                cbNewLoc.DisplayMember = "Name";
-                cbNewLoc.ValueMember = "ID";
-                cbNewLoc.SelectedItem = Ply.NearestLocations;
-            }
+            cbNewLoc.DisplayMember = "Name";
+            cbNewLoc.ValueMember = "ID";
+            cbNewLoc.SelectedItem = Ply.NearestLocations;
+        
         }
         private void UpdateInventory()
         {
@@ -191,6 +171,8 @@ namespace Client
         }
         private void UpdateWeaponListUI()
         {
+            if (!Ply.InBattle) btnUseWeapon.Enabled = false;
+            else btnUseWeapon.Enabled = true;
             cbWeapons.DataSource = Ply.Weapons;
             cbWeapons.DisplayMember = "Name";
             cbWeapons.ValueMember = "ID";
@@ -221,25 +203,21 @@ namespace Client
         private void UpdateSpellListUI()
         {
             List<Spell> PlySpells = Ply.Spells;
-            if (Ply.Spells.Count() == 0)
+            if (!Ply.InBattle)
             {
-                btnCastSelf.Enabled = false;
                 btnCastEnemy.Enabled = false;
-                cbSpells.Enabled = false;
             }
             else
             {
-                btnCastSelf.Enabled = true;
                 btnCastEnemy.Enabled = true;
-                cbSpells.Enabled = true;
-                cbSpells.DisplayMember = "Name";
-                cbSpells.ValueMember = "ID";
-                cbSpells.DataSource = PlySpells;
-                if (Ply.CurSpell == null) cbSpells.SelectedIndex = 0;
-                else cbSpells.SelectedItem = Ply.CurSpell;
             }
-            
 
+            cbSpells.DisplayMember = "Name";
+            cbSpells.ValueMember = "ID";
+            cbSpells.DataSource = PlySpells;
+            if (Ply.CurSpell == null) cbSpells.SelectedIndex = 0;
+            else cbSpells.SelectedItem = Ply.CurSpell;
+       
         }
 
         private void btnHideInv_Click(object sender, EventArgs e)
@@ -305,49 +283,51 @@ namespace Client
 
         private void btnUseWeapon_Click(object sender, EventArgs e)
         {
-            Ply.PlayerAction(cbWeapons.SelectedItem as Weapon);
+            Controller.DoBattle(cbWeapons.SelectedItem as Weapon,null,null,0);
             UpdatePanel();
         }
 
         private void btnDrink_Click(object sender, EventArgs e)
         {
-            Ply.PlayerAction(cbPotions.SelectedItem as Potion, Engine.Action.drink);
+            Controller.DoBattle(null,cbPotions.SelectedItem as Potion,null, Engine.Action.drink);
             UpdatePanel();
         }
 
         private void btnThrow_Click(object sender, EventArgs e)
         {
-            Ply.PlayerAction(cbPotions.SelectedItem as Potion, Engine.Action.thraw);
+            Controller.DoBattle(null,cbPotions.SelectedItem as Potion,null, Engine.Action.thraw);
             UpdatePanel();
         }
 
         private void btnCastSelf_Click(object sender, EventArgs e)
         {
-            Ply.PlayerAction(cbSpells.SelectedItem as Spell, Engine.Action.onplayer);
+            Controller.DoBattle(null,null,cbSpells.SelectedItem as Spell, Engine.Action.onplayer);
             UpdatePanel();
         }
 
         private void btnCastEnemy_Click(object sender, EventArgs e)
         {
-            Ply.PlayerAction(cbSpells.SelectedItem as Spell, Engine.Action.onenemy);
+
+            Controller.DoBattle(null,null,cbSpells.SelectedItem as Spell, Engine.Action.onenemy);
             UpdatePanel();
         }
 
         private void btnSleep_Click(object sender, EventArgs e)
         {
-            Ply.PlayerAction();
-            UpdatePanel();
-        }
-
-        private void btnNextLocation_Click(object sender, EventArgs e)
-        {
-            Ply.MoveTo(cbNewLoc.SelectedItem as Location);
+            Controller.DoBattle(null,null,null,0);
             UpdatePanel();
         }
 
         private void cbNewLoc_DoubleClick(object sender, EventArgs e)
-        {
-            Ply.MoveTo(cbNewLoc.SelectedItem as Location);
+        {   
+            if(!Ply.InBattle)
+                Ply.MoveTo(cbNewLoc.SelectedItem as Location);
+            UpdatePanel();
+        }
+
+        private void btnAttack_Click(object sender, EventArgs e)
+        {  
+            if (!Ply.InBattle) Controller.StartBattle();
             UpdatePanel();
         }
     }

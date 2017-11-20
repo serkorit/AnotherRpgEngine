@@ -62,7 +62,6 @@
             this.rtLocation = new System.Windows.Forms.RichTextBox();
             this.cbLocations = new System.Windows.Forms.ComboBox();
             this.cbSpells = new System.Windows.Forms.ComboBox();
-            this.btnNextLocation = new System.Windows.Forms.Button();
             this.rtMsg = new System.Windows.Forms.RichTextBox();
             this.dgvQuests = new System.Windows.Forms.DataGridView();
             this.dgvInventory = new System.Windows.Forms.DataGridView();
@@ -99,6 +98,7 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dgvSpells = new System.Windows.Forms.DataGridView();
             this.cbNewLoc = new System.Windows.Forms.ListBox();
+            this.btnAttack = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -359,6 +359,7 @@
             this.panel3.Controls.Add(this.btnCastSelf);
             this.panel3.Controls.Add(this.btnThrow);
             this.panel3.Controls.Add(this.btnDrink);
+            this.panel3.Controls.Add(this.btnAttack);
             this.panel3.Controls.Add(this.btnSleep);
             this.panel3.Controls.Add(this.btnUseWeapon);
             this.panel3.Controls.Add(this.label8);
@@ -426,7 +427,7 @@
             // 
             this.btnSleep.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnSleep.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSleep.Location = new System.Drawing.Point(92, 128);
+            this.btnSleep.Location = new System.Drawing.Point(165, 128);
             this.btnSleep.Name = "btnSleep";
             this.btnSleep.Size = new System.Drawing.Size(136, 23);
             this.btnSleep.TabIndex = 20;
@@ -491,18 +492,6 @@
             this.cbSpells.Name = "cbSpells";
             this.cbSpells.Size = new System.Drawing.Size(153, 21);
             this.cbSpells.TabIndex = 13;
-            // 
-            // btnNextLocation
-            // 
-            this.btnNextLocation.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnNextLocation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNextLocation.Location = new System.Drawing.Point(539, 313);
-            this.btnNextLocation.Name = "btnNextLocation";
-            this.btnNextLocation.Size = new System.Drawing.Size(136, 23);
-            this.btnNextLocation.TabIndex = 20;
-            this.btnNextLocation.Text = "Отправиться";
-            this.btnNextLocation.UseVisualStyleBackColor = false;
-            this.btnNextLocation.Click += new System.EventHandler(this.btnNextLocation_Click);
             // 
             // rtMsg
             // 
@@ -926,6 +915,18 @@
             this.cbNewLoc.TabIndex = 23;
             this.cbNewLoc.DoubleClick += new System.EventHandler(this.cbNewLoc_DoubleClick);
             // 
+            // btnAttack
+            // 
+            this.btnAttack.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnAttack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAttack.Location = new System.Drawing.Point(19, 128);
+            this.btnAttack.Name = "btnAttack";
+            this.btnAttack.Size = new System.Drawing.Size(136, 23);
+            this.btnAttack.TabIndex = 20;
+            this.btnAttack.Text = "Напасть";
+            this.btnAttack.UseVisualStyleBackColor = false;
+            this.btnAttack.Click += new System.EventHandler(this.btnAttack_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -938,7 +939,6 @@
             this.Controls.Add(this.panelMainMap);
             this.Controls.Add(this.btnDisplayMap);
             this.Controls.Add(this.btnHideInv);
-            this.Controls.Add(this.btnNextLocation);
             this.Controls.Add(this.btnReloadMsg);
             this.Controls.Add(this.btnHideQuest);
             this.Controls.Add(this.btnCheatHeal);
@@ -1037,10 +1037,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnSleep;
         private System.Windows.Forms.ComboBox cbLocations;
-        private System.Windows.Forms.Button btnNextLocation;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DataGridView dgvSpells;
         private System.Windows.Forms.ListBox cbNewLoc;
+        private System.Windows.Forms.Button btnAttack;
     }
 }
 

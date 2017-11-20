@@ -10,6 +10,7 @@ namespace Engine
     {
         private static void PopulateEntities()
         {
+            #region Rat
             Enemy enemy = new Enemy("Крыса", "Выглядит голодной.", enemy_rat, 0, 2, 5, 7, 0, 5, 10);
             enemy.LootTable.Add(new LootCollection(ItemParse(weapon_wooden_sword), 35));
             enemy.LootTable.Add(new LootCollection(ItemParse(misc_rat_tail), 100));
@@ -17,7 +18,9 @@ namespace Engine
             enemy.EnemyTurn += () => { enemy.Abilities["default"].Ability.Invoke(); };
 
             Entities.Add(enemy);
+            #endregion
 
+            #region Big snake
             enemy = new Enemy("Большая змея", "Явно нестандартный размер.", enemy_big_snake, 2, 4, 7, 15, 0, 10, 15);
             enemy.LootTable.Add(new LootCollection(ItemParse(weapon_iron_sword), 20));
             enemy.LootTable.Add(new LootCollection(ItemParse(potion_lesser_hp_pot), 40));
@@ -26,7 +29,9 @@ namespace Engine
             enemy.EnemyTurn += () => { enemy.Abilities["default"].Ability.Invoke(); };
 
             Entities.Add(enemy);
+            #endregion
 
+            #region Spider worker
             enemy = new Enemy("Паук-трутень", "Вот бы и нам таких старательных.", enemy_spider_worker, 1, 3, 6, 15, 0, 7, 12);
             enemy.LootTable.Add(new LootCollection(ItemParse(weapon_stell_dagger), 15));
             enemy.LootTable.Add(new LootCollection(ItemParse(potion_fire_pot), 20));
@@ -46,6 +51,7 @@ namespace Engine
                 }, 2,1));
             enemy.EnemyTurn += () =>
             {
+                AbilityCategory category;
                 if(enemy.Abilities["attack1"].ActiveCooldown == 0)
                 {
                     int Weight = RandomNumberGenerator.Generate(0, 1);
@@ -69,6 +75,7 @@ namespace Engine
             };
 
             Entities.Add(enemy);
+            #endregion
         }
 
     }

@@ -16,7 +16,7 @@ namespace Engine
         public static int HP
         {
             get { return Player.HP; }
-            set { if (value > Player.MaxHP) { Player.HP = Player.MaxHP; } else { Player.HP = value; }; }
+            set { if (value > Player.MaxHP) { Player.HP = Player.MaxHP; } else { Player.HP = value; }; if (Player.HP <= 0) { IsDead(); } }
         }
         public static int MaxHP
         {
@@ -56,6 +56,8 @@ namespace Engine
         public static int Level { get { return Player.Level; } }
         public static int NextLevel { get { return Player.NextLevel; } }
 
+        public static bool InBattle { get; set; }
+
         public static List<InventoryCollection> Inventory
         {
             get { return Player.Inventory; }
@@ -66,6 +68,12 @@ namespace Engine
             get { return Player.Quests; }
             set { Player.Quests = value; }
         }
+        public static List<EffectsCollection> Effects
+        {
+            get { return Player.Effects; }
+            set { Player.Effects = value; }
+        }
+
         public static List<Spell> Spells
         {
             get { return Player.Spells; }
@@ -83,17 +91,26 @@ namespace Engine
         {
             get { return Player.CurrentLocation.NearestLocations.ToList(); }
         }
+
         public static Weapon CurWeapon
         {
             get { return Player.CurWeapon; }
             set { Player.CurWeapon = value; }
         }
-        public static Potion CurPotion { get; set; }
-        public static Spell CurSpell { get; set; }
+        public static Potion CurPotion
+        {
+            get { return Player.CurPotion; }
+            set { Player.CurPotion = value; }
+        }
+        public static Spell CurSpell
+        {
+            get { return Player.CurSpell; }
+            set { Player.CurSpell = value; }
+        }
         public static Location CurrentLocation
         {
             get { return Player.CurrentLocation; }
-            set { Player.CurrentLocation = value; }
+            set { Player.CurrentLocation = value; Controller.NotifyNewLocation(); }
         }
         public static Enemy CurEnemy { get; set; }
 
@@ -182,6 +199,19 @@ namespace Engine
 
             return true;
         }
+        public static void MarkQuestAsComplete(Quest quest)
+        {
+            QuestCollection qc = Quests.SingleOrDefault(qcp => qcp.Quest.ID == quest.ID);
+
+            if (qc != null)
+            {
+                Msg("Ты получил " + qc.Quest.RewardExp + " золота и " + qc.Quest.RewardExp + " очков опыта.");
+                Msg("Ты завершил задание: " + qc.Quest.Name, true);
+                Msg("");
+                qc.IsComplete = true;
+            }
+        }
+
         public static void RemoveQuestItem(Quest quest)
         {
             foreach (QuestConditionsCollection qcc in quest.ItemsNeeded)
@@ -210,7 +240,6 @@ namespace Engine
             if (addedItem is Weapon) Inventory.Add(new InventoryCollection(new Weapon(addedItem as Weapon), 1));
             else Inventory.Add(new InventoryCollection(addedItem, 1));
         }
-
         public static void AddReward(Item addedItem, int quanity)
         {
             if (addedItem is Misc || addedItem is Potion)
@@ -229,7 +258,6 @@ namespace Engine
             if (addedItem is Weapon) Inventory.Add(new InventoryCollection(new Weapon(addedItem as Weapon), 1));
             else Inventory.Add(new InventoryCollection(addedItem, quanity));
         }
-
         public static void AddSpell(Spell addedSpell)
         {
             foreach (Spell i in Spells)
@@ -241,18 +269,6 @@ namespace Engine
             }
             Msg("Ты получаешь заклинание: " + addedSpell.Name);
             Spells.Add(addedSpell);
-        }
-        public static void MarkQuestAsComplete(Quest quest)
-        {
-            QuestCollection qc = Quests.SingleOrDefault(qcp => qcp.Quest.ID == quest.ID);
-
-            if(qc != null)
-            {
-                Msg("Ты получил " + qc.Quest.RewardExp +" золота и " + qc.Quest.RewardExp + " очков опыта.");
-                Msg("Ты завершил задание: " + qc.Quest.Name, true);
-                Msg("");
-                qc.IsComplete = true;
-            }
         }
         public static void RemoveItem(Item item)
         {
@@ -300,8 +316,6 @@ namespace Engine
         public static void PlayerAction(Weapon curWep)
         {
             int playerDamage = RandomNumberGenerator.Generate(curWep.MinDamage, curWep.MaxDamage);
-            
-
             if (CurEnemy != null)
             {
                 if(Stamina < curWep.StaminaCost)
@@ -318,15 +332,6 @@ namespace Engine
                 CurEnemy.HP -= playerDamage;
                 Stamina -= curWep.StaminaCost;
                 CurWeapon = curWep;
-                if (CurEnemy.HP <= 0)
-                {
-                    CheckForVictory();
-                }
-                else
-                {
-                    CurEnemy.EnemyTurn();
-                }
-                IsDead();
             }
             
         }
@@ -351,18 +356,6 @@ namespace Engine
                 curPotion.Drink();
             }
             CurPotion = curPotion;
-            if(CurEnemy != null)
-            {
-                if (CurEnemy.HP <= 0)
-                {
-                    CheckForVictory();
-                }
-                else
-                {
-                    CurEnemy.EnemyTurn();
-                }
-            }
-            IsDead(); 
         }
         public static void PlayerAction(Spell curSpell, Action action)
         {
@@ -388,19 +381,6 @@ namespace Engine
             {
                 curSpell.CastOnEnemy();
             }
-
-            if(CurEnemy != null)
-            {
-                if (CurEnemy.HP <= 0)
-                {
-                    CheckForVictory();
-                }
-                else
-                {
-                    CurEnemy.EnemyTurn();
-                }
-            }
-            IsDead();
         }
         public static void PlayerAction()
         {
@@ -415,22 +395,9 @@ namespace Engine
             Msg("Ты восстановил " + st + " очков стамины");
             Msg("Ты восстановил " + mn + " очков маны");
             Msg("");
-
-            if (CurEnemy != null)
-            {
-                if (CurEnemy.HP <= 0)
-                {
-                    CheckForVictory();
-                }
-                else
-                {
-                    CurEnemy.EnemyTurn();
-                }
-            }
-            IsDead();
         }
 
-        private static void CheckForVictory()
+        public  static void CheckForVictory()
         {
             Exp += CurEnemy.Exp;
             Gold += CurEnemy.Gold;
@@ -449,15 +416,16 @@ namespace Engine
                 AddReward(i.Item);
             }
             MoveTo(CurrentLocation);
+            InBattle = false;
         }
         private static void IsDead()
         {
-            if (HP <= 0 && CurEnemy != null)
+            if (CurEnemy != null)
             {
                 Msg(CurEnemy.Name + " убил тебя.");
                 MoveTo(Controller.LocationParse(Controller.location_home));
             }
-            else if (HP <= 0)
+            else
             {
                 Msg("Ты умер.");
                 MoveTo(Controller.LocationParse(Controller.location_home));
