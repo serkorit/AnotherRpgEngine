@@ -423,11 +423,13 @@ namespace Engine
             if (CurEnemy != null)
             {
                 Msg(CurEnemy.Name + " убил тебя.");
+                InBattle = false;
                 MoveTo(Controller.LocationParse(Controller.location_home));
             }
             else
             {
                 Msg("Ты умер.");
+                InBattle = false;
                 MoveTo(Controller.LocationParse(Controller.location_home));
             }
         }

@@ -127,6 +127,8 @@ namespace Engine
             }
             else Ply.PlayerAction();
 
+            
+
             if (CurEnemy != null && Ply.InBattle)
             {
                 if (CurEnemy.HP <= 0)

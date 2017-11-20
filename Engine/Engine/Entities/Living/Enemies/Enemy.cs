@@ -35,8 +35,8 @@ namespace Engine
                 () =>
                 {
                     int enemyDamage = RandomNumberGenerator.Generate(Ply.CurEnemy.MinDamage, Ply.CurEnemy.MaxDamage);
-                    Ply.HP -= enemyDamage;
                     Ply.Msg(Ply.CurEnemy.Name + " наносит тебе " + enemyDamage + " единиц урона.");
+                    Ply.HP -= enemyDamage;
 
                     return;
                 }, 0,0));
@@ -59,6 +59,7 @@ namespace Engine
             Abilities = enemy.Abilities;
             EnemyTurn = enemy.EnemyTurn;
             Effects = enemy.Effects;
+
         }
 
         public EnemyAbility EnemyTurn { get; set; }
