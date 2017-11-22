@@ -19,8 +19,34 @@ namespace Engine
 
     public class Enemy : Entity
     {
+
+        public int BonusDamage { get; set; }
+        public int BonusArmor { get; set; }
+
         public List<LootCollection> LootTable { get; set; }
         public Dictionary<string, EnAbilitiesCollection> Abilities { get; set; }
+        public List<EffectsCollection> Effects { get; set; }
+        public void AddEffect(EffectsCollection effect)
+        {
+            if (Effects.Count == 0)
+            {
+                Effects.Add(effect);
+                return;
+            }
+            foreach (EffectsCollection ef in Effects)
+            {
+                if (ef.Effect.ID == effect.Effect.ID)
+                {
+                    ef.AddStack();
+                    return;
+                }
+            }
+            Effects.Add(effect);
+        }
+        public void RemoveEffect(EffectsCollection effect)
+        {
+            Effects.Remove(effect);
+        }
 
         public Enemy(string name, string desc, int id, int mindmg,
             int maxdmg, int hp, int stamina, int mana, int gold, int exp)

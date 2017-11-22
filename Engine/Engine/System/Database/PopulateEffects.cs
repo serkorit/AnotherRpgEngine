@@ -10,7 +10,8 @@ namespace Engine
     {
         private static void PopulateEffects()
         {
-            Effect effect = new Effect("Обычный яд", "Маленький яд.", effect_poison, EffectType.tick);
+            Effect effect = new Effect("Отравление", "После такого стоит обратиться к врачу.", effect_poison, EffectType.tick);
+            #region Poisoneffecct
             effect.OnPlayer += () =>
                 {
                     int damage = 1;
@@ -21,15 +22,24 @@ namespace Engine
             effect.OnEnemy += () =>
             {
                 int damage = 1;
-                Ply.Msg("Враг получает " + damage + " урона в результате действия яда.");
+                Ply.Msg(Ply.CurEnemy.Name + " получает " + damage + " урона в результате действия яда.");
                 Ply.CurEnemy.HP -= damage;
             };
 
             Effects.Add(effect);
+            #endregion
+            #region StrenghtBuff
+            effect = new Effect("Мощь", "Все еще неспособен свернуть горы", effect_buff_damage, EffectType.buff);
+            effect.OnPlayer += () =>
+            {
 
+            };
+            effect.OnEnemy += () =>
+            {
 
-
-            Effects.Add(new Effect("Мощь", "Все еще неспособен свернуть горы", effect_buff_damage, EffectType.buff));
+            };
+            Effects.Add(effect);
+            #endregion
         }
     }
 }

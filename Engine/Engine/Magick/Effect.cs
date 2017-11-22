@@ -23,6 +23,7 @@ namespace Engine
 
         public EffectTrigger OnPlayer;
         public EffectTrigger OnEnemy;
+        public EffectTrigger RemoveBuffs;
 
         public Effect(string name, string desc, int id, EffectType type)
         {

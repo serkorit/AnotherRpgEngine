@@ -17,7 +17,12 @@ namespace Engine
         public List<QuestCollection> Quests;
         public List<EffectsCollection> Effects;
 
-
+        public int BonusDamageMin { get; set; }
+        public int BonusDamageMax { get; set; }
+        public int BonusArmor { get; set; }
+        public int BonusHP { get; set; }
+        public int BonusMP { get; set; }
+        public int BonusST { get; set; }
 
         public List<Spell> Spells;
 
@@ -29,6 +34,7 @@ namespace Engine
         public int NextLevel { get { return Level * 50; } }
 
 
+
         public Player(int hp, int stamina, int mana, int gold, int exp)
             : base(hp, stamina, mana, gold, exp)
         {
@@ -37,6 +43,12 @@ namespace Engine
             Quests = new List<QuestCollection>();
             Spells = new List<Spell>();
             Effects = new List<EffectsCollection>();
+            BonusDamageMin = 0;
+            BonusDamageMax = 0;
+            BonusArmor = 0;
+            BonusHP = 0;
+            BonusMP = 0;
+            BonusST = 0;
         }
 
         internal void RaiseMessage(string message, bool addExtraNewline = false)

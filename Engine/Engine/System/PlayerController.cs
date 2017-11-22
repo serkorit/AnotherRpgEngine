@@ -13,6 +13,15 @@ namespace Engine
         internal delegate void Print(string message, bool line = false);
         internal static Print Msg = Player.RaiseMessage;
 
+        public static int BonusDamageMin { get { return Player.BonusDamageMin; } set { Player.BonusDamageMin = value; } }
+        public static int BonusDamageMax { get { return Player.BonusDamageMax; } set { Player.BonusDamageMax = value; } }
+        public static int BonusWepMin { get { return CurWeapon.MinDamage + BonusDamageMin; } }
+        public static int BonusWepMax { get { return CurWeapon.MaxDamage + BonusDamageMax; } }
+        public static int BonusArmor { get { return Player.BonusArmor; } set { Player.BonusArmor = value; } }
+        public static int BonusHP { get { return Player.BonusHP; } set { Player.BonusHP = value; } }
+        public static int BonusMP { get { return Player.BonusMP; } set { Player.BonusMP = value; } }
+        public static int BonusST { get { return Player.BonusST; } set { Player.BonusST = value; } }
+
         public static int HP
         {
             get { return Player.HP; }
@@ -21,7 +30,7 @@ namespace Engine
         public static int MaxHP
         {
             get { return Player.MaxHP; }
-            set { Player.MaxHP = value; }
+            set { Player.MaxHP = value + BonusHP; HP = HP; }
         }
         public static int Mana
         {
@@ -31,7 +40,7 @@ namespace Engine
         public static int MaxMana
         {
             get { return Player.MaxMana; }
-            set { Player.MaxMana = value; }
+            set { Player.MaxMana = value + BonusMP; Mana = Mana; }
         }
         public static int Stamina
         {
@@ -41,7 +50,7 @@ namespace Engine
         public static int MaxStamina
         {
             get { return Player.MaxStamina; }
-            set { Player.MaxStamina = value; }
+            set { Player.MaxStamina = value + BonusST; Stamina = Stamina; }
         }
         public static int Gold
         {
