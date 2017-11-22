@@ -9,3 +9,14 @@ C:\Users\user\Source\Repos\AnotherRpgEngine\Engine\Client\obj\Debug\Client.Prope
 C:\Users\user\Source\Repos\AnotherRpgEngine\Engine\Client\obj\Debug\Client.csproj.GenerateResource.Cache
 C:\Users\user\Source\Repos\AnotherRpgEngine\Engine\Client\obj\Debug\Client.exe
 C:\Users\user\Source\Repos\AnotherRpgEngine\Engine\Client\obj\Debug\Client.pdb
+C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Client\bin\Debug\Client.exe.config
+C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Client\obj\Debug\Client.exe
+C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Client\obj\Debug\Client.pdb
+C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Client\bin\Debug\Client.exe
+C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Client\bin\Debug\Client.pdb
+C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Client\bin\Debug\Engine.dll
+C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Client\bin\Debug\Engine.pdb
+C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Client\obj\Debug\Client.MainForm.resources
+C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Client\obj\Debug\Client.Properties.Resources.resources
+C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Client\obj\Debug\Client.csproj.GenerateResource.Cache
