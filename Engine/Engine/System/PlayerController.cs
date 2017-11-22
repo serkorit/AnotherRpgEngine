@@ -312,6 +312,22 @@ namespace Engine
                 }
             }
         }
+        public static void AddEffect(EffectsCollection effect)
+        {
+            foreach(EffectsCollection ef in Effects)
+            {
+                if(ef.Effect.ID == effect.Effect.ID)
+                {
+                    ef.AddStack();
+                    return;
+                }
+            }
+            Effects.Add(effect);
+        }
+        public static void RemoveEffect(EffectsCollection effect)
+        {
+            Effects.Remove(effect);
+        }
 
         public static void PlayerAction(Weapon curWep)
         {

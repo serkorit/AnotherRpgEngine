@@ -88,6 +88,25 @@ namespace Engine
                 }
                 ));
             #endregion
+
+
+            #region TestSpell
+
+            Spells.Add(new Spell(spell_test_spell, "Тестовое заклинание", "ВО ИМЯ ТЕСТОВ", 0, SpellType.other,
+                () =>
+                {
+                    Ply.Msg("Ты наложил на себя яд");
+                    Ply.AddEffect(new EffectsCollection(Controller.EffectParse(effect_poison), 1, 2));
+                },
+                () =>
+                {
+                    if(Ply.CurEnemy != null)
+                    Ply.CurEnemy.AddEffect(new EffectsCollection(Controller.EffectParse(effect_poison), 2, 2));
+                    Ply.Msg("Ты наложил на врага яд");
+                }));
+
+            #endregion
+
         }
     }
 }

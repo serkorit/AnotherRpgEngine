@@ -143,9 +143,33 @@ namespace Engine
         }
         private static void EffectsTick()
         {
+            foreach (EffectsCollection ec in Ply.Effects)
+            {
+                ec.Tick();
+                if (ec.Stacks <= 0)
+                {
+                    ec.MarkForDelete = true;
+                }
+            }
 
+            Ply.Effects = Ply.Effects.Where(x => x.MarkForDelete = false).Select(x => x).ToList();
+
+            if(Ply.CurEnemy != null)
+            {
+                foreach (EffectsCollection ec in Ply.CurEnemy.Effects)
+                {
+                    ec.Tick();
+                    if (ec.Stacks <= 0)
+                    {
+                        ec.MarkForDelete = true;
+                    }
+                }
+
+                Ply.CurEnemy.Effects = Ply.CurEnemy.Effects.Where(x => x.MarkForDelete = false).Select(x => x).ToList();
+            }
+            
         }
-        public static void NotifyNewLocation()
+        internal static void NotifyNewLocation()
         {
             EffectsTick();
         }

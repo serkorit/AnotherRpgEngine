@@ -17,6 +17,8 @@ namespace Engine
         public List<QuestCollection> Quests;
         public List<EffectsCollection> Effects;
 
+
+
         public List<Spell> Spells;
 
         public Weapon CurWeapon;

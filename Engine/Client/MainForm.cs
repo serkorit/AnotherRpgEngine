@@ -57,8 +57,8 @@ namespace Client
             Ply.AddSpell(Controller.SpellParse(Controller.spell_fireball));
             Ply.AddSpell(Controller.SpellParse(Controller.spell_lesser_healing));
             Ply.AddSpell(Controller.SpellParse(Controller.spell_mana_to_stamina));
+            Ply.AddSpell(Controller.SpellParse(Controller.spell_test_spell));
 
-            Ply.MoveTo(Controller.LocationParse(Controller.location_home));
             UpdatePanel();
         }
 

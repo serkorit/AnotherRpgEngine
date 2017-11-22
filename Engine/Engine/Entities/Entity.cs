@@ -23,6 +23,23 @@ namespace Engine
         public int ID { get; protected set; }
         public int UniqueID { get; private set; }
         public EntityType Type { get; private set; }
+        public List<EffectsCollection> Effects {get;set;}
+        public void AddEffect(EffectsCollection effect)
+        {
+            foreach (EffectsCollection ef in Effects)
+            {
+                if (ef.Effect.ID == effect.Effect.ID)
+                {
+                    ef.AddStack();
+                    return;
+                }
+            }
+            Effects.Add(effect);
+        }
+        public void RemoveEffect(EffectsCollection effect)
+        {
+            Effects.Remove(effect);
+        }
 
         public int MinDamage;
         public int MaxDamage;
@@ -51,6 +68,7 @@ namespace Engine
             MaxStamina = stamina; MaxStamina = Stamina;
             Gold = gold;
             Exp = exp;
+            Effects = new List<EffectsCollection>();
         }
 
         //Player Constructor
@@ -61,6 +79,7 @@ namespace Engine
             MaxStamina = stamina; Stamina = MaxStamina;
             Gold = gold;
             Exp = exp;
+            Effects = new List<EffectsCollection>();
         }
 
         //...
@@ -68,7 +87,6 @@ namespace Engine
         {
             UniqueID = IDGenerator.GenerateNewID();
         }
-        
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropetryChanged(string name)

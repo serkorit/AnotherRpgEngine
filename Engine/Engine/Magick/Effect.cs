@@ -10,7 +10,7 @@ namespace Engine
     {
         buff,
         debuff,
-        neutral
+        tick
     }
     public delegate void EffectTrigger();
     public class Effect
@@ -33,5 +33,10 @@ namespace Engine
             Type = type;
         }
 
+        public void Tick()
+        {
+            OnPlayer();
+            if (Ply.CurEnemy != null) OnEnemy();
+        }
     }
 }
