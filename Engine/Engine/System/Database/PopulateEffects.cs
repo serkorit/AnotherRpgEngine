@@ -30,13 +30,27 @@ namespace Engine
             #endregion
             #region StrenghtBuff
             effect = new Effect("Мощь", "Все еще неспособен свернуть горы", effect_buff_damage, EffectType.buff);
-            effect.OnPlayer += () =>
+            effect.ApplyBuffOnPlayer += () =>
             {
-
+                Ply.BonusDamageMin += 1;
+                Ply.BonusDamageMax += 1;
+                Ply.Msg("Ты чувствуешь мощь.");
             };
-            effect.OnEnemy += () =>
+            effect.RemoveBuffOnPlayer += () =>
             {
-
+                Ply.BonusDamageMin -= 1;
+                Ply.BonusDamageMax -= 1;
+                Ply.Msg("Ты чувствуешь слабость...");
+            };
+            effect.ApplyBuffOnEnemy += () =>
+            {
+                Ply.CurEnemy.BonusDamage += 1;
+                Ply.Msg("Мышцы " + Ply.CurEnemy.Name + " начинают пульсировать.");
+            };
+            effect.RemoveBuffOnEnemy += () =>
+            {
+                Ply.CurEnemy.BonusDamage -= 1;
+                Ply.Msg("Мышцы " + Ply.CurEnemy.Name + " уменьшаются.");
             };
             Effects.Add(effect);
             #endregion

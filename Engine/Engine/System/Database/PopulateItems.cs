@@ -18,10 +18,10 @@ namespace Engine
                 1, 3, 15, 1, WeaponType.dagger));
 
             #region Lesser hp pot
-            Items.Add(new Potion(potion_lesser_hp_pot, "Малое зелье исцеления", "Переносной подорожник.",  3,
+            Items.Add(new Potion(potion_lesser_hp_pot, "Малое зелье исцеления", "Переносной подорожник.",  1,
                 () =>
                 {
-                    int Restore = 3;
+                    int Restore = 6;
                     int restored;
                     Ply.Msg("Ты пьешь " + "Малое зелье исцеления" + "...");
                     if (Ply.HP <= Ply.MaxHP - Restore) restored = Restore;
@@ -33,7 +33,7 @@ namespace Engine
                 ,
                 () =>
                 {
-                    int Restore = 3;
+                    int Restore = 6;
                     int restored;
                     Ply.Msg("Ты кидаешь " + "Малое зелье исцеления.");
                     if (Ply.HP <= Ply.MaxHP - Restore) restored = Restore;
@@ -49,7 +49,7 @@ namespace Engine
                 }));
             #endregion
             #region Medium hp pot
-            Items.Add(new Potion(potion_medium_hp_pot, "Среднее зелья исцеления", "Не поможет если вы уже мертвы.", 3,
+            Items.Add(new Potion(potion_medium_hp_pot, "Среднее зелья исцеления", "Не поможет если вы уже мертвы.", 2,
                 () =>
                 {
                     int Restore = 6;
@@ -124,7 +124,7 @@ namespace Engine
                 }));
             #endregion
             #region Fire pot
-            Items.Add(new Potion(potion_fire_pot, "Огненное зелье", "Не для жарки мяса.", 2,
+            Items.Add(new Potion(potion_fire_pot, "Огненное зелье", "Не для жарки мяса.", 1,
                 () =>
                 {
                     int Damage = 6;

@@ -59,7 +59,7 @@ namespace Engine
             Abilities.Add("default", new EnAbilitiesCollection(
                 () =>
                 {
-                    int enemyDamage = RandomNumberGenerator.Generate(Ply.CurEnemy.MinDamage, Ply.CurEnemy.MaxDamage);
+                    int enemyDamage = RandomNumberGenerator.Generate(MinDamage + Ply.CurEnemy.BonusDamage, MaxDamage + Ply.CurEnemy.BonusDamage);
                     Ply.Msg(Ply.CurEnemy.Name + " наносит тебе " + enemyDamage + " единиц урона.");
                     Ply.HP -= enemyDamage;
 

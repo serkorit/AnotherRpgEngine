@@ -55,12 +55,12 @@
             this.btnCastSelf = new System.Windows.Forms.Button();
             this.btnThrow = new System.Windows.Forms.Button();
             this.btnDrink = new System.Windows.Forms.Button();
+            this.btnAttack = new System.Windows.Forms.Button();
             this.btnSleep = new System.Windows.Forms.Button();
             this.btnUseWeapon = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.rtLocation = new System.Windows.Forms.RichTextBox();
-            this.cbLocations = new System.Windows.Forms.ComboBox();
             this.cbSpells = new System.Windows.Forms.ComboBox();
             this.rtMsg = new System.Windows.Forms.RichTextBox();
             this.dgvQuests = new System.Windows.Forms.DataGridView();
@@ -98,7 +98,12 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dgvSpells = new System.Windows.Forms.DataGridView();
             this.cbNewLoc = new System.Windows.Forms.ListBox();
-            this.btnAttack = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.dgvEffects = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -106,6 +111,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).BeginInit();
             this.panelMainMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSpells)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEffects)).BeginInit();
             this.SuspendLayout();
             // 
             // Exit_Button
@@ -366,7 +377,6 @@
             this.panel3.Controls.Add(this.label6);
             this.panel3.Controls.Add(this.label_control);
             this.panel3.Controls.Add(this.rtLocation);
-            this.panel3.Controls.Add(this.cbLocations);
             this.panel3.Controls.Add(this.cbSpells);
             this.panel3.Controls.Add(this.cbPotions);
             this.panel3.Controls.Add(this.cbWeapons);
@@ -423,6 +433,18 @@
             this.btnDrink.UseVisualStyleBackColor = false;
             this.btnDrink.Click += new System.EventHandler(this.btnDrink_Click);
             // 
+            // btnAttack
+            // 
+            this.btnAttack.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnAttack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAttack.Location = new System.Drawing.Point(19, 128);
+            this.btnAttack.Name = "btnAttack";
+            this.btnAttack.Size = new System.Drawing.Size(136, 23);
+            this.btnAttack.TabIndex = 20;
+            this.btnAttack.Text = "Напасть";
+            this.btnAttack.UseVisualStyleBackColor = false;
+            this.btnAttack.Click += new System.EventHandler(this.btnAttack_Click);
+            // 
             // btnSleep
             // 
             this.btnSleep.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -470,19 +492,9 @@
             this.rtLocation.Location = new System.Drawing.Point(0, 157);
             this.rtLocation.Name = "rtLocation";
             this.rtLocation.ReadOnly = true;
-            this.rtLocation.Size = new System.Drawing.Size(309, 82);
+            this.rtLocation.Size = new System.Drawing.Size(309, 109);
             this.rtLocation.TabIndex = 19;
             this.rtLocation.Text = "";
-            // 
-            // cbLocations
-            // 
-            this.cbLocations.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbLocations.FormattingEnabled = true;
-            this.cbLocations.Location = new System.Drawing.Point(3, 245);
-            this.cbLocations.Name = "cbLocations";
-            this.cbLocations.Size = new System.Drawing.Size(153, 21);
-            this.cbLocations.TabIndex = 13;
-            this.cbLocations.Text = "Выберите локацию...";
             // 
             // cbSpells
             // 
@@ -510,12 +522,12 @@
             this.dgvQuests.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvQuests.ColumnHeadersVisible = false;
             this.dgvQuests.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvQuests.Location = new System.Drawing.Point(302, 408);
+            this.dgvQuests.Location = new System.Drawing.Point(0, 0);
             this.dgvQuests.MultiSelect = false;
             this.dgvQuests.Name = "dgvQuests";
             this.dgvQuests.ReadOnly = true;
             this.dgvQuests.RowHeadersVisible = false;
-            this.dgvQuests.Size = new System.Drawing.Size(379, 168);
+            this.dgvQuests.Size = new System.Drawing.Size(593, 221);
             this.dgvQuests.TabIndex = 20;
             // 
             // dgvInventory
@@ -525,12 +537,12 @@
             this.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvInventory.ColumnHeadersVisible = false;
             this.dgvInventory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvInventory.Location = new System.Drawing.Point(687, 408);
+            this.dgvInventory.Location = new System.Drawing.Point(0, 0);
             this.dgvInventory.MultiSelect = false;
             this.dgvInventory.Name = "dgvInventory";
             this.dgvInventory.ReadOnly = true;
             this.dgvInventory.RowHeadersVisible = false;
-            this.dgvInventory.Size = new System.Drawing.Size(309, 168);
+            this.dgvInventory.Size = new System.Drawing.Size(591, 222);
             this.dgvInventory.TabIndex = 21;
             // 
             // btnHideQuest
@@ -573,7 +585,7 @@
             // 
             this.btnDisplayMap.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnDisplayMap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDisplayMap.Location = new System.Drawing.Point(555, 605);
+            this.btnDisplayMap.Location = new System.Drawing.Point(897, 665);
             this.btnDisplayMap.Name = "btnDisplayMap";
             this.btnDisplayMap.Size = new System.Drawing.Size(103, 23);
             this.btnDisplayMap.TabIndex = 19;
@@ -897,35 +909,94 @@
             this.dgvSpells.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSpells.ColumnHeadersVisible = false;
             this.dgvSpells.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvSpells.Location = new System.Drawing.Point(372, 36);
+            this.dgvSpells.Location = new System.Drawing.Point(0, 0);
             this.dgvSpells.MultiSelect = false;
             this.dgvSpells.Name = "dgvSpells";
             this.dgvSpells.ReadOnly = true;
             this.dgvSpells.RowHeadersVisible = false;
-            this.dgvSpells.Size = new System.Drawing.Size(309, 168);
+            this.dgvSpells.Size = new System.Drawing.Size(591, 222);
             this.dgvSpells.TabIndex = 21;
             // 
             // cbNewLoc
             // 
             this.cbNewLoc.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.cbNewLoc.FormattingEnabled = true;
-            this.cbNewLoc.Location = new System.Drawing.Point(555, 216);
+            this.cbNewLoc.Location = new System.Drawing.Point(410, 303);
             this.cbNewLoc.Name = "cbNewLoc";
-            this.cbNewLoc.Size = new System.Drawing.Size(120, 91);
+            this.cbNewLoc.Size = new System.Drawing.Size(162, 91);
             this.cbNewLoc.TabIndex = 23;
             this.cbNewLoc.DoubleClick += new System.EventHandler(this.cbNewLoc_DoubleClick);
             // 
-            // btnAttack
+            // tabControl1
             // 
-            this.btnAttack.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnAttack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAttack.Location = new System.Drawing.Point(19, 128);
-            this.btnAttack.Name = "btnAttack";
-            this.btnAttack.Size = new System.Drawing.Size(136, 23);
-            this.btnAttack.TabIndex = 20;
-            this.btnAttack.Text = "Напасть";
-            this.btnAttack.UseVisualStyleBackColor = false;
-            this.btnAttack.Click += new System.EventHandler(this.btnAttack_Click);
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Location = new System.Drawing.Point(302, 400);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(593, 176);
+            this.tabControl1.TabIndex = 24;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.dgvQuests);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(585, 150);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Задания";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.dgvInventory);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(585, 150);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Инвентарь";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.dgvSpells);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(585, 150);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Список заклинаний";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.dgvEffects);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(585, 150);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Список эффектов";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // dgvEffects
+            // 
+            this.dgvEffects.AllowUserToAddRows = false;
+            this.dgvEffects.AllowUserToDeleteRows = false;
+            this.dgvEffects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEffects.ColumnHeadersVisible = false;
+            this.dgvEffects.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvEffects.Location = new System.Drawing.Point(-1, 1);
+            this.dgvEffects.MultiSelect = false;
+            this.dgvEffects.Name = "dgvEffects";
+            this.dgvEffects.ReadOnly = true;
+            this.dgvEffects.RowHeadersVisible = false;
+            this.dgvEffects.Size = new System.Drawing.Size(593, 221);
+            this.dgvEffects.TabIndex = 21;
             // 
             // MainForm
             // 
@@ -936,15 +1007,13 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1000, 700);
             this.Controls.Add(this.cbNewLoc);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panelMainMap);
             this.Controls.Add(this.btnDisplayMap);
             this.Controls.Add(this.btnHideInv);
             this.Controls.Add(this.btnReloadMsg);
             this.Controls.Add(this.btnHideQuest);
             this.Controls.Add(this.btnCheatHeal);
-            this.Controls.Add(this.dgvSpells);
-            this.Controls.Add(this.dgvInventory);
-            this.Controls.Add(this.dgvQuests);
             this.Controls.Add(this.rtMsg);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -965,6 +1034,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).EndInit();
             this.panelMainMap.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSpells)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEffects)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1036,11 +1111,16 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnSleep;
-        private System.Windows.Forms.ComboBox cbLocations;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DataGridView dgvSpells;
         private System.Windows.Forms.ListBox cbNewLoc;
         private System.Windows.Forms.Button btnAttack;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.DataGridView dgvEffects;
     }
 }
 

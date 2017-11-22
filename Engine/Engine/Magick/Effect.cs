@@ -20,10 +20,14 @@ namespace Engine
         public int ID { get; set; }
         public int UniqieID { get; private set; }
         public EffectType Type { get; set; }
+        public bool IsBuffed { get; set; }
 
         public EffectTrigger OnPlayer;
         public EffectTrigger OnEnemy;
-        public EffectTrigger RemoveBuffs;
+        public EffectTrigger ApplyBuffOnPlayer;
+        public EffectTrigger RemoveBuffOnPlayer;
+        public EffectTrigger ApplyBuffOnEnemy;
+        public EffectTrigger RemoveBuffOnEnemy;
 
         public Effect(string name, string desc, int id, EffectType type)
         {
@@ -32,6 +36,13 @@ namespace Engine
             ID = id;
             UniqieID = IDGenerator.GenerateNewID();
             Type = type;
+            IsBuffed = false;
+            OnPlayer = () => { return; };
+            OnEnemy = () => { return; };
+            ApplyBuffOnEnemy = () => { return; };
+            ApplyBuffOnPlayer = () => { return; };
+            RemoveBuffOnEnemy = () => { return; };
+            RemoveBuffOnPlayer = () => { return; };
         }
     }
 }

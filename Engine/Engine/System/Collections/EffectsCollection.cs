@@ -14,6 +14,8 @@ namespace Engine
         public int Duration { get; set; }
         private int DurationHolder;
         public bool MarkForDelete { get; set; }
+        public bool AppliedOnPlayer { get; set; }
+        public bool AppliedOnEnemy { get; set; }
 
         public EffectsCollection(Effect effect, int maxst, int duration)
         {
@@ -22,10 +24,33 @@ namespace Engine
             Stacks = 1;
             Duration = duration;
             DurationHolder = Duration;
+            MarkForDelete = false;
+            AppliedOnPlayer = false;
+            AppliedOnEnemy = false;
+        }
+
+        public void BuffPlayer()
+        {
+
+            Effect.ApplyBuffOnPlayer();
+            AppliedOnPlayer = true;
+        }
+
+        public void BuffEnemy()
+        {
+            Effect.ApplyBuffOnEnemy();
+            AppliedOnEnemy = true;
+        }
+        
+        private void RemoveBuff()
+        {
+            if (AppliedOnPlayer) Effect.RemoveBuffOnPlayer();
+            if (AppliedOnEnemy) Effect.RemoveBuffOnEnemy();
         }
 
         public void TickPlayer()
         {
+
             for (int i = 1; i <= Stacks; i++)
                 Effect.OnPlayer();
             Duration--;
@@ -50,13 +75,17 @@ namespace Engine
 
         public void AddStack()
         {
-            if(Stacks < MaxStacks)
+            if (Stacks < MaxStacks)
                 Stacks++;
+            else UpdateDuration();
+            if (AppliedOnPlayer) BuffPlayer();
+            if (AppliedOnEnemy) BuffEnemy();
         }
 
         public void RemoveStack()
         {
             Stacks--;
+            if (AppliedOnPlayer || AppliedOnEnemy) RemoveBuff();
         }
 
         public void UpdateDuration()

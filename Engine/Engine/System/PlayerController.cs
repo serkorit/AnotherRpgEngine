@@ -330,6 +330,7 @@ namespace Engine
             }
             foreach (EffectsCollection ef in Effects)
             {
+                if (ef.MaxStacks != effect.MaxStacks) continue;
                 if(ef.Effect.ID == effect.Effect.ID)
                 {
                     ef.AddStack();
@@ -345,7 +346,8 @@ namespace Engine
 
         public static void PlayerAction(Weapon curWep)
         {
-            int playerDamage = RandomNumberGenerator.Generate(curWep.MinDamage, curWep.MaxDamage);
+            CurWeapon = curWep;
+            int playerDamage = RandomNumberGenerator.Generate(BonusWepMin, BonusWepMax);
             if (CurEnemy != null)
             {
                 if(Stamina < curWep.StaminaCost)
@@ -361,7 +363,6 @@ namespace Engine
                 Msg("");
                 CurEnemy.HP -= playerDamage;
                 Stamina -= curWep.StaminaCost;
-                CurWeapon = curWep;
             }
             
         }

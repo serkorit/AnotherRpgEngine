@@ -112,7 +112,6 @@ namespace Engine
         }
         public static void DoBattle(Weapon CurWeapon, Potion CurPotion, Spell CurSpell, Engine.Action action)
         {           
-            Enemy CurEnemy = Ply.CurEnemy;
             if (CurWeapon != null)
             {
                 Ply.PlayerAction(CurWeapon);
@@ -126,25 +125,34 @@ namespace Engine
                 Ply.PlayerAction(CurSpell, action);
             }
             else Ply.PlayerAction();
+            EffectsTickPlayer();
 
-            
-
-            if (CurEnemy != null && Ply.InBattle)
+            if (Ply.CurEnemy != null && Ply.InBattle)
             {
-                if (CurEnemy.HP <= 0)
+                if (Ply.CurEnemy.HP <= 0)
                 {
                     Ply.CheckForVictory();
                 }
-                else CurEnemy.EnemyTurn();
+                else
+                {
+                    EffectsTickEnemy();
+                    Ply.CurEnemy.EnemyTurn();
+                }
             }
-
-            EffectsTick();
-
         }
-        private static void EffectsTick()
+
+        private static void EffectsTickPlayer()
         {
             foreach (EffectsCollection ec in Ply.Effects)
             {
+                if(ec.Effect.Type == EffectType.buff || ec.Effect.Type == EffectType.debuff)
+                {
+                    if (!ec.AppliedOnPlayer)
+                    {
+                        ec.Duration++;
+                        ec.BuffPlayer();
+                    }
+                }
                 ec.TickPlayer();
                 if (ec.Stacks <= 0)
                 {
@@ -153,11 +161,17 @@ namespace Engine
             }
 
             Ply.Effects = Ply.Effects.Where(x => x.MarkForDelete == false).Select(x => x).ToList();
-
-            if(Ply.CurEnemy != null)
+        }
+        private static void EffectsTickEnemy()
+        {
+            if (Ply.CurEnemy != null)
             {
                 foreach (EffectsCollection ec in Ply.CurEnemy.Effects)
                 {
+                    if (ec.Effect.Type == EffectType.buff || ec.Effect.Type == EffectType.debuff)
+                    {
+                        if (!ec.AppliedOnEnemy) ec.BuffEnemy();
+                    }
                     ec.TickEnemy();
                     if (ec.Stacks <= 0)
                     {
@@ -167,11 +181,10 @@ namespace Engine
 
                 Ply.CurEnemy.Effects = Ply.CurEnemy.Effects.Where(x => x.MarkForDelete == false).Select(x => x).ToList();
             }
-            
         }
         internal static void NotifyNewLocation()
         {
-            EffectsTick();
+            EffectsTickPlayer();
         }
 
         

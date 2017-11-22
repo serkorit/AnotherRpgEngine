@@ -57,7 +57,8 @@ namespace Client
             Ply.AddSpell(Controller.SpellParse(Controller.spell_fireball));
             Ply.AddSpell(Controller.SpellParse(Controller.spell_lesser_healing));
             Ply.AddSpell(Controller.SpellParse(Controller.spell_mana_to_stamina));
-            Ply.AddSpell(Controller.SpellParse(Controller.spell_test_spell));
+            Ply.AddSpell(Controller.SpellParse(Controller.spell_poison));
+            Ply.AddSpell(Controller.SpellParse(Controller.spell_strength));
 
             UpdatePanel();
         }
@@ -97,6 +98,7 @@ namespace Client
             UpdateSpellList();
             UpdateSpellListUI();
             UpdateNewLocationsUI();
+            UpdateEffectsList();
 
             if (Ply.InBattle || Ply.CurEnemy == null) btnAttack.Enabled = false;
             else btnAttack.Enabled = true;
@@ -121,28 +123,32 @@ namespace Client
         private void UpdateInventory()
         {
             dgvInventory.RowHeadersVisible = false;
+            dgvInventory.ColumnHeadersVisible = true;
             dgvInventory.ColumnCount = 2;
-            dgvInventory.Columns[0].Name = "Name";
-            dgvInventory.Columns[0].Width = 150;
-            dgvInventory.Columns[1].Name = "Quanity";
+            dgvInventory.Columns[0].Name = "Название";
+            dgvInventory.Columns[0].Width = 350;
+            dgvInventory.Columns[1].Name = "Количество";
             dgvInventory.Rows.Clear();
             foreach(InventoryCollection i in Ply.Inventory)
             {
                 if (i.Quanity > 0)
-                    if(i.Item  is Weapon)
+                    if (i.Item is Weapon)
                         dgvInventory.Rows.Add(new[] { i.Item.Name + "(" + (i.Item as Weapon).MinDamage + " - " + (i.Item as Weapon).MaxDamage + ")", i.Quanity.ToString() });
-                    else dgvInventory.Rows.Add(new[] { i.Item.Name , i.Quanity.ToString() });
+                    else if (i.Item is Potion) dgvInventory.Rows.Add(new[] { i.Item.Name + "(Доступно: " + (i.Item as Potion).AvaibleStacks + ")", i.Quanity.ToString() });
+                    else dgvInventory.Rows.Add(new[] { i.Item.Name, i.Quanity.ToString() });
             }
         }
         private void UpdateQuestList()
         { 
             dgvQuests.RowHeadersVisible = false;
+            dgvQuests.ColumnHeadersVisible = true;
 
             dgvQuests.ColumnCount = 3;
-            dgvQuests.Columns[0].Name = "Name";
+            dgvQuests.Columns[0].Name = "Название";
             dgvQuests.Columns[0].Width = 120;
-            dgvQuests.Columns[1].Name = "Done?";
-            dgvQuests.Columns[2].Name = "Require";
+            dgvQuests.Columns[1].Name = "Завершен?";
+            dgvQuests.Columns[2].Name = "Необходимо";
+            dgvQuests.Columns[2].Width = 300;
 
             dgvQuests.Rows.Clear();
 
@@ -154,19 +160,43 @@ namespace Client
         }
         private void UpdateSpellList()
         {
-            dgvQuests.RowHeadersVisible = false;
+            dgvSpells.RowHeadersVisible = false;
+            dgvSpells.ColumnHeadersVisible = true;
 
             dgvSpells.ColumnCount = 3;
-            dgvSpells.Columns[0].Name = "Name";
-            dgvSpells.Columns[0].Width = 120;
-            dgvSpells.Columns[1].Name = "Done?";
-            dgvSpells.Columns[2].Name = "Require";
+            dgvSpells.Columns[0].Name = "Название";
+            dgvSpells.Columns[0].Width = 140;
+            dgvSpells.Columns[1].Width = 300;
+            dgvSpells.Columns[1].Name = "Описание";
+            dgvSpells.Columns[2].Name = "Манакост";
 
             dgvSpells.Rows.Clear();
 
             foreach (Spell spell in Ply.Spells)
             {
-                dgvSpells.Rows.Add(new[] { spell.Name, spell.Desc, "Manacost: " + spell.Manacost });
+                dgvSpells.Rows.Add(new[] { spell.Name, spell.Desc," " + spell.Manacost });
+            }
+        }
+        private void UpdateEffectsList()
+        {
+            dgvEffects.RowHeadersVisible = false;
+            dgvEffects.ColumnHeadersVisible = true;
+
+            dgvEffects.ColumnCount = 4;
+            dgvEffects.Columns[0].Name = "Название";
+            dgvEffects.Columns[0].Width = 140;
+            dgvEffects.Columns[1].Width = 300;
+            dgvEffects.Columns[1].Name = "Описание";
+            dgvEffects.Columns[2].Name = "Длительность";
+            dgvEffects.Columns[2].Width = 40;
+            dgvEffects.Columns[3].Width = 40;
+            dgvEffects.Columns[3].Name = "Стаков";
+
+            dgvEffects.Rows.Clear();
+
+            foreach (EffectsCollection effect in Ply.Effects)
+            {
+                dgvEffects.Rows.Add(new[] { effect.Effect.Name, effect.Effect.Desc, effect.Duration.ToString(), effect.Stacks.ToString() });
             }
         }
         private void UpdateWeaponListUI()

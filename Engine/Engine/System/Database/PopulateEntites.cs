@@ -15,7 +15,7 @@ namespace Engine
             enemy.LootTable.Add(new LootCollection(ItemParse(weapon_wooden_sword), 35));
             enemy.LootTable.Add(new LootCollection(ItemParse(misc_rat_tail), 100));
             enemy.LootTable.Add(new LootCollection(ItemParse(misc_secret_key), 5));
-            enemy.EnemyTurn += () => { enemy.Abilities["default"].Ability.Invoke(); };
+            enemy.EnemyTurn += () => { Ply.CurEnemy.Abilities["default"].Ability.Invoke(); };
 
             Entities.Add(enemy);
             #endregion
@@ -26,7 +26,7 @@ namespace Engine
             enemy.LootTable.Add(new LootCollection(ItemParse(potion_lesser_hp_pot), 40));
             enemy.LootTable.Add(new LootCollection(ItemParse(potion_lesser_hp_pot), 20));
             enemy.LootTable.Add(new LootCollection(ItemParse(potion_medium_hp_pot), 10));
-            enemy.EnemyTurn += () => { enemy.Abilities["default"].Ability.Invoke(); };
+            enemy.EnemyTurn += () => { Ply.CurEnemy.Abilities["default"].Ability.Invoke(); };
 
             Entities.Add(enemy);
             #endregion
@@ -42,33 +42,31 @@ namespace Engine
             enemy.Abilities.Add("attack1", new EnAbilitiesCollection(
                 () =>
                 {
-                    int damage = 4;
-                    Ply.Msg(enemy.Name + " харкает в тебя.\nТы получаешь " + damage + " единиц урона.");
-                    Ply.HP -= damage;
-                    
+                    Ply.Msg(enemy.Name + " харкает в тебя. Ты отправлен.");
+                    Ply.Effects.Add(new EffectsCollection(EffectParse(effect_poison), 3, 2));
                     
                     return;
                 }, 2,1));
             enemy.EnemyTurn += () =>
             {
                 AbilityCategory category;
-                if(enemy.Abilities["attack1"].ActiveCooldown == 0)
+                if(Ply.CurEnemy.Abilities["attack1"].ActiveCooldown == 0)
                 {
                     int Weight = RandomNumberGenerator.Generate(0, 1);
                     if (Weight == 0)
                     {
-                        enemy.Abilities["default"].Ability.Invoke();
+                        Ply.CurEnemy.Abilities["default"].Ability.Invoke();
                         return;
                     }
                     else
                     {
-                        enemy.Abilities["attack1"].Ability.Invoke();
-                        enemy.Abilities["attack1"].ActiveCooldown += enemy.Abilities["attack1"].Cooldown;
+                        Ply.CurEnemy.Abilities["attack1"].Ability.Invoke();
+                        Ply.CurEnemy.Abilities["attack1"].ActiveCooldown += Ply.CurEnemy.Abilities["attack1"].Cooldown;
                         return;
                     }
                 }
-                enemy.Abilities["default"].Ability.Invoke();
-                foreach(var en in enemy.Abilities)
+                Ply.CurEnemy.Abilities["default"].Ability.Invoke();
+                foreach(var en in Ply.CurEnemy.Abilities)
                 {
                     if (en.Value.ActiveCooldown > 0) en.Value.ActiveCooldown--;
                 }
