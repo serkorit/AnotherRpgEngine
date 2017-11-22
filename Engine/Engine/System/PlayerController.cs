@@ -314,7 +314,12 @@ namespace Engine
         }
         public static void AddEffect(EffectsCollection effect)
         {
-            foreach(EffectsCollection ef in Effects)
+            if (Effects.Count == 0)
+            {
+                Effects.Add(effect);
+                return;
+            }
+            foreach (EffectsCollection ef in Effects)
             {
                 if(ef.Effect.ID == effect.Effect.ID)
                 {

@@ -26,6 +26,11 @@ namespace Engine
         public List<EffectsCollection> Effects {get;set;}
         public void AddEffect(EffectsCollection effect)
         {
+            if(Effects.Count == 0)
+            {
+                Effects.Add(effect);
+                return;
+            }
             foreach (EffectsCollection ef in Effects)
             {
                 if (ef.Effect.ID == effect.Effect.ID)

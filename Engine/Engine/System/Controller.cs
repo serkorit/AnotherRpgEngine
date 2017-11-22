@@ -145,27 +145,27 @@ namespace Engine
         {
             foreach (EffectsCollection ec in Ply.Effects)
             {
-                ec.Tick();
+                ec.TickPlayer();
                 if (ec.Stacks <= 0)
                 {
                     ec.MarkForDelete = true;
                 }
             }
 
-            Ply.Effects = Ply.Effects.Where(x => x.MarkForDelete = false).Select(x => x).ToList();
+            Ply.Effects = Ply.Effects.Where(x => x.MarkForDelete == false).Select(x => x).ToList();
 
             if(Ply.CurEnemy != null)
             {
                 foreach (EffectsCollection ec in Ply.CurEnemy.Effects)
                 {
-                    ec.Tick();
+                    ec.TickEnemy();
                     if (ec.Stacks <= 0)
                     {
                         ec.MarkForDelete = true;
                     }
                 }
 
-                Ply.CurEnemy.Effects = Ply.CurEnemy.Effects.Where(x => x.MarkForDelete = false).Select(x => x).ToList();
+                Ply.CurEnemy.Effects = Ply.CurEnemy.Effects.Where(x => x.MarkForDelete == false).Select(x => x).ToList();
             }
             
         }

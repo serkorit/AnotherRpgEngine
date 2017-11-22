@@ -24,11 +24,24 @@ namespace Engine
             DurationHolder = Duration;
         }
 
-        public void Tick()
+        public void TickPlayer()
         {
-            Effect.Tick();
+            for (int i = 1; i <= Stacks; i++)
+                Effect.OnPlayer();
             Duration--;
             if(Duration <= 0)
+            {
+                RemoveStack();
+                UpdateDuration();
+            }
+        }
+
+        public void TickEnemy()
+        {
+            for(int i = 1; i <= Stacks; i++)
+                Effect.OnEnemy();
+            Duration--;
+            if (Duration <= 0)
             {
                 RemoveStack();
                 UpdateDuration();

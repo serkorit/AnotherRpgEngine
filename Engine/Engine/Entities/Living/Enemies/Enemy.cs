@@ -21,7 +21,6 @@ namespace Engine
     {
         public List<LootCollection> LootTable { get; set; }
         public Dictionary<string, EnAbilitiesCollection> Abilities { get; set; }
-        public List<EffectsCollection> Effects { get; set; }
 
         public Enemy(string name, string desc, int id, int mindmg,
             int maxdmg, int hp, int stamina, int mana, int gold, int exp)

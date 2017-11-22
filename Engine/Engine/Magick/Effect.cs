@@ -32,11 +32,5 @@ namespace Engine
             UniqieID = IDGenerator.GenerateNewID();
             Type = type;
         }
-
-        public void Tick()
-        {
-            OnPlayer();
-            if (Ply.CurEnemy != null) OnEnemy();
-        }
     }
 }
