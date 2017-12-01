@@ -96,13 +96,13 @@ namespace Engine
                 () =>
                 {
                     Ply.Msg("Ты наложил на себя яд");
-                    Ply.AddEffect(new EffectsCollection(Controller.EffectParse(effect_poison), 1, 3));
+                    Ply.AddEffect(new EffectsCollection(Controller.EffectParse(effect_poison), 3));
                 },
                 () =>
                 {
                     if (Ply.CurEnemy != null)
                     {
-                        Ply.CurEnemy.AddEffect(new EffectsCollection(Controller.EffectParse(effect_poison), 2, 2));
+                        Ply.CurEnemy.AddEffect(new EffectsCollection(Controller.EffectParse(effect_poison), 2));
                         Ply.Msg("Ты наложил на врага яд");
                     }
                 }));
@@ -114,13 +114,13 @@ namespace Engine
                 () =>
                 {
                     Ply.Msg("Ты зачаровываешь себя.");
-                    Ply.AddEffect(new EffectsCollection(Controller.EffectParse(effect_buff_damage), 3, 3));
+                    Ply.AddEffect(new EffectsCollection(Controller.EffectParse(effect_buff_damage), 4));
                 },
                 () =>
                 {
                     if (Ply.CurEnemy != null)
                     {
-                        Ply.CurEnemy.AddEffect(new EffectsCollection(Controller.EffectParse(effect_buff_damage), 2, 3));
+                        Ply.CurEnemy.AddEffect(new EffectsCollection(Controller.EffectParse(effect_buff_damage), 3));
                         Ply.Msg("Ты наложил на врага зачарование.");
                     }
                 }));

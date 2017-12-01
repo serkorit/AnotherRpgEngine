@@ -323,20 +323,6 @@ namespace Engine
         }
         public static void AddEffect(EffectsCollection effect)
         {
-            if (Effects.Count == 0)
-            {
-                Effects.Add(effect);
-                return;
-            }
-            foreach (EffectsCollection ef in Effects)
-            {
-                if (ef.MaxStacks != effect.MaxStacks) continue;
-                if(ef.Effect.ID == effect.Effect.ID)
-                {
-                    ef.AddStack();
-                    return;
-                }
-            }
             Effects.Add(effect);
         }
         public static void RemoveEffect(EffectsCollection effect)
@@ -456,12 +442,14 @@ namespace Engine
                 Msg(CurEnemy.Name + " убил тебя.");
                 InBattle = false;
                 MoveTo(Controller.LocationParse(Controller.location_home));
+                RestorePlayer();
             }
             else
             {
                 Msg("Ты умер.");
                 InBattle = false;
                 MoveTo(Controller.LocationParse(Controller.location_home));
+                RestorePlayer();
             }
         }
 
@@ -472,6 +460,7 @@ namespace Engine
             Stamina = MaxStamina;
             Mana = MaxMana;
             Msg("Ты был полностью исцелен.");
+            Effects = new List<EffectsCollection>();
         }
     } 
 }

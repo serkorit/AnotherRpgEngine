@@ -182,21 +182,19 @@ namespace Client
             dgvEffects.RowHeadersVisible = false;
             dgvEffects.ColumnHeadersVisible = true;
 
-            dgvEffects.ColumnCount = 4;
+            dgvEffects.ColumnCount = 3;
             dgvEffects.Columns[0].Name = "Название";
             dgvEffects.Columns[0].Width = 140;
-            dgvEffects.Columns[1].Width = 300;
+            dgvEffects.Columns[1].Width = 250;
             dgvEffects.Columns[1].Name = "Описание";
             dgvEffects.Columns[2].Name = "Длительность";
-            dgvEffects.Columns[2].Width = 40;
-            dgvEffects.Columns[3].Width = 40;
-            dgvEffects.Columns[3].Name = "Стаков";
+            dgvEffects.Columns[2].Width = 90;
 
             dgvEffects.Rows.Clear();
 
             foreach (EffectsCollection effect in Ply.Effects)
             {
-                dgvEffects.Rows.Add(new[] { effect.Effect.Name, effect.Effect.Desc, effect.Duration.ToString(), effect.Stacks.ToString() });
+                dgvEffects.Rows.Add(new[] { effect.Effect.Name, effect.Effect.Desc, effect.Duration.ToString() });
             }
         }
         private void UpdateWeaponListUI()

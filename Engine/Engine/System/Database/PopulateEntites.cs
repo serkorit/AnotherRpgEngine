@@ -43,7 +43,7 @@ namespace Engine
                 () =>
                 {
                     Ply.Msg(enemy.Name + " харкает в тебя. Ты отправлен.");
-                    Ply.Effects.Add(new EffectsCollection(EffectParse(effect_poison), 3, 2));
+                    Ply.Effects.Add(new EffectsCollection(EffectParse(effect_poison), 2));
                     
                     return;
                 }, 2,1));

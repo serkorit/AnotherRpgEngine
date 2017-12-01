@@ -154,10 +154,6 @@ namespace Engine
                     }
                 }
                 ec.TickPlayer();
-                if (ec.Stacks <= 0)
-                {
-                    ec.MarkForDelete = true;
-                }
             }
 
             Ply.Effects = Ply.Effects.Where(x => x.MarkForDelete == false).Select(x => x).ToList();
@@ -173,10 +169,6 @@ namespace Engine
                         if (!ec.AppliedOnEnemy) ec.BuffEnemy();
                     }
                     ec.TickEnemy();
-                    if (ec.Stacks <= 0)
-                    {
-                        ec.MarkForDelete = true;
-                    }
                 }
 
                 Ply.CurEnemy.Effects = Ply.CurEnemy.Effects.Where(x => x.MarkForDelete == false).Select(x => x).ToList();
