@@ -100,6 +100,7 @@ namespace Client
             UpdateSpellListUI();
             UpdateNewLocationsUI();
             UpdateEffectsList();
+            UpdateShopUI();
 
             if (Ply.InBattle || Ply.CurEnemy == null) btnAttack.Enabled = false;
             else btnAttack.Enabled = true;
@@ -108,10 +109,28 @@ namespace Client
             rtLocation.Text += Ply.CurrentLocation.Name;
             rtLocation.Text += Environment.NewLine + Ply.CurrentLocation.Desc + Environment.NewLine;
             rtLocation.Text += "Соседнии локации: ";
-            foreach(Location l in Ply.NearestLocations)
+            foreach (Location l in Ply.NearestLocations)
             {
                 rtLocation.Text += l.Name + " , ";
             }
+
+            
+        }
+        private void UpdateShopUI()
+        {
+            if (!Ply.CurrentLocation.IsShop) { tabControl1.TabPages[4].Enabled = false; }
+            else tabControl1.TabPages[4].Enabled = true;
+
+            listSell.DataSource = Ply.Items;
+            listSell.DisplayMember = "SellText";
+            listSell.ValueMember = "ID";
+
+
+            listBuy.DataSource = Ply.CurrentLocation.ShopList;
+            listBuy.DisplayMember = "BuyText";
+            listBuy.ValueMember = "ID";
+
+                
         }
         private void UpdateNewLocationsUI()
         {
@@ -134,7 +153,7 @@ namespace Client
             {
                 if (i.Quanity > 0)
                     if (i.Item is Weapon)
-                        dgvInventory.Rows.Add(new[] { i.Item.Name + "(" + (i.Item as Weapon).MinDamage + " - " + (i.Item as Weapon).MaxDamage + ")", i.Quanity.ToString() });
+                        dgvInventory.Rows.Add(new[] { i.Item.Name , i.Quanity.ToString() });
                     else if (i.Item is Potion) dgvInventory.Rows.Add(new[] { i.Item.Name + "(Доступно: " + (i.Item as Potion).AvaibleStacks + ")", i.Quanity.ToString() });
                     else dgvInventory.Rows.Add(new[] { i.Item.Name, i.Quanity.ToString() });
             }
@@ -357,6 +376,21 @@ namespace Client
         private void btnAttack_Click(object sender, EventArgs e)
         {  
             if (!Ply.InBattle) Controller.StartBattle();
+            UpdatePanel();
+        }
+
+        private void btnSell_Click(object sender, EventArgs e)
+        {
+            if(listSell.SelectedItem as Item != null)
+            Ply.SellItem(listSell.SelectedItem as Item);
+            UpdatePanel();
+        }
+
+        private void btnBuy_Click(object sender, EventArgs e)
+        {
+
+            if(listBuy.SelectedItem as Item != null)
+            Ply.BuyItem(listBuy.SelectedItem as Item);
             UpdatePanel();
         }
     }

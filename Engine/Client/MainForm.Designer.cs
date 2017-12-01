@@ -104,6 +104,11 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.dgvEffects = new System.Windows.Forms.DataGridView();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btnBuy = new System.Windows.Forms.Button();
+            this.btnSell = new System.Windows.Forms.Button();
+            this.listBuy = new System.Windows.Forms.ListBox();
+            this.listSell = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -117,6 +122,7 @@
             this.tabPage3.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEffects)).BeginInit();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // Exit_Button
@@ -555,6 +561,7 @@
             this.btnHideQuest.TabIndex = 19;
             this.btnHideQuest.Text = "Hide quests";
             this.btnHideQuest.UseVisualStyleBackColor = false;
+            this.btnHideQuest.Visible = false;
             this.btnHideQuest.Click += new System.EventHandler(this.btnHideQuest_Click);
             // 
             // btnHideInv
@@ -567,6 +574,7 @@
             this.btnHideInv.TabIndex = 19;
             this.btnHideInv.Text = "Hide inventory";
             this.btnHideInv.UseVisualStyleBackColor = false;
+            this.btnHideInv.Visible = false;
             this.btnHideInv.Click += new System.EventHandler(this.btnHideInv_Click);
             // 
             // btnReloadMsg
@@ -933,6 +941,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(302, 400);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -998,6 +1007,56 @@
             this.dgvEffects.Size = new System.Drawing.Size(562, 149);
             this.dgvEffects.TabIndex = 21;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.btnBuy);
+            this.tabPage4.Controls.Add(this.btnSell);
+            this.tabPage4.Controls.Add(this.listBuy);
+            this.tabPage4.Controls.Add(this.listSell);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(585, 150);
+            this.tabPage4.TabIndex = 5;
+            this.tabPage4.Text = "Магазин";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // btnBuy
+            // 
+            this.btnBuy.Location = new System.Drawing.Point(424, 7);
+            this.btnBuy.Name = "btnBuy";
+            this.btnBuy.Size = new System.Drawing.Size(75, 23);
+            this.btnBuy.TabIndex = 3;
+            this.btnBuy.Text = "Купить";
+            this.btnBuy.UseVisualStyleBackColor = true;
+            this.btnBuy.Click += new System.EventHandler(this.btnBuy_Click);
+            // 
+            // btnSell
+            // 
+            this.btnSell.Location = new System.Drawing.Point(104, 7);
+            this.btnSell.Name = "btnSell";
+            this.btnSell.Size = new System.Drawing.Size(75, 23);
+            this.btnSell.TabIndex = 2;
+            this.btnSell.Text = "Продать";
+            this.btnSell.UseVisualStyleBackColor = true;
+            this.btnSell.Click += new System.EventHandler(this.btnSell_Click);
+            // 
+            // listBuy
+            // 
+            this.listBuy.FormattingEnabled = true;
+            this.listBuy.Location = new System.Drawing.Point(306, 36);
+            this.listBuy.Name = "listBuy";
+            this.listBuy.Size = new System.Drawing.Size(273, 108);
+            this.listBuy.TabIndex = 1;
+            // 
+            // listSell
+            // 
+            this.listSell.FormattingEnabled = true;
+            this.listSell.Location = new System.Drawing.Point(6, 36);
+            this.listSell.Name = "listSell";
+            this.listSell.Size = new System.Drawing.Size(255, 108);
+            this.listSell.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -1040,6 +1099,7 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEffects)).EndInit();
+            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1121,6 +1181,11 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.DataGridView dgvEffects;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.ListBox listSell;
+        private System.Windows.Forms.Button btnBuy;
+        private System.Windows.Forms.Button btnSell;
+        private System.Windows.Forms.ListBox listBuy;
     }
 }
 

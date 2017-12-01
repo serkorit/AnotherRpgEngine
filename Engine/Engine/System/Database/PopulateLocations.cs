@@ -12,6 +12,7 @@ namespace Engine
         {
             Location home = new Location(location_home, "Дом", "Это твой дом!");
             Location town = new Location(location_town, "Городок", "Такой же как и все остальные.");
+            Location town_shop = new Location(location_town_shop, "Магазин", "Хочешь поторговать?");
             Location fred_house = new Location(location_fred_house, "Дом Фреда", "Ты его не знаешь.");
             Location aban_house = new Location(location_aban_house, "Заброшенный дом", "Удивительно, что он еще стоит.");
             Location forest = new Location(location_forest, "Лес", "Лес со \"Страшными\" существами.");
@@ -25,7 +26,11 @@ namespace Engine
             home.NearestLocations = new List<Location> { town };
             home.IsSafe = true;
 
-            town.NearestLocations = new List<Location> { home, fred_house, forest };
+            town.NearestLocations = new List<Location> { home, fred_house, forest, town_shop };
+
+            town_shop.NearestLocations = new List<Location> { town };
+            town_shop.IsShop = true;
+            town_shop.ShopList = new List<Item> { ItemParse(weapon_wooden_sword), ItemParse(potion_lesser_hp_pot), ItemParse(potion_lesser_mp_pot), ItemParse(potion_lesser_st_pot) };
 
             fred_house.NearestLocations = new List<Location> { town };
             fred_house.JustQuest = QuestParse(quest_bring_rat_tails);
@@ -49,6 +54,7 @@ namespace Engine
             Locations.Add(home);
             Locations.Add(forest);
             Locations.Add(fred_house);
+            Locations.Add(town_shop);
             Locations.Add(aban_house);
             Locations.Add(town);
             Locations.Add(fields);

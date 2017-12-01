@@ -30,8 +30,8 @@ namespace Engine
         public Potion CurPotion;
         public Spell CurSpell;
 
-        public int Level { get { return Exp / 50 + 1; } }
-        public int NextLevel { get { return Level * 50; } }
+        public int Level { get; set; }
+        public int NextLevel { get { return 50; } }
 
 
 
@@ -49,6 +49,7 @@ namespace Engine
             BonusHP = 0;
             BonusMP = 0;
             BonusST = 0;
+            Level = 1;
         }
 
         internal void RaiseMessage(string message, bool addExtraNewline = false)

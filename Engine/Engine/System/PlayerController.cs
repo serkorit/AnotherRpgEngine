@@ -60,9 +60,13 @@ namespace Engine
         public static int Exp
         {
             get { return Player.Exp; }
-            set { Player.Exp = value; }
+            set { Player.Exp = value; if (Exp >= 50) LevelUp(); }
         }
-        public static int Level { get { return Player.Level; } }
+        public static int Level
+        {
+            get { return Player.Level; }
+            set { Player.Level = value; }
+        }
         public static int NextLevel { get { return Player.NextLevel; } }
 
         public static bool InBattle { get; set; }
@@ -83,6 +87,11 @@ namespace Engine
             set { Player.Effects = value; }
         }
 
+
+        public static List<Item> Items
+        {
+            get { return Ply.Inventory.Where(x => x.Item is Item).Select(x => x.Item as Item).ToList(); }
+        }
         public static List<Spell> Spells
         {
             get { return Player.Spells; }
@@ -332,6 +341,28 @@ namespace Engine
 
         public static void PlayerAction(Weapon curWep)
         {
+            if(curWep == null)
+            {
+                int lol = RandomNumberGenerator.Generate(1, 1);
+                if (CurEnemy != null)
+                {
+                    if (Stamina < 1)
+                    {
+                        Msg("Недостаточно стамины.");
+                        return;
+                    }
+                    int mn = RandomNumberGenerator.Generate(1, 4);
+                    Mana += mn;
+                    Msg("Ты восстановил " + mn + " очков маны.");
+
+                    Msg("Ты наносишь " + lol + " единиц урона по " + CurEnemy.Name + " кулаками.");
+                    Msg("");
+                    CurEnemy.HP -= lol;
+                    Stamina -= 1;
+
+                    return;
+                }
+            }
             CurWeapon = curWep;
             int playerDamage = RandomNumberGenerator.Generate(BonusWepMin, BonusWepMax);
             if (CurEnemy != null)
@@ -349,6 +380,7 @@ namespace Engine
                 Msg("");
                 CurEnemy.HP -= playerDamage;
                 Stamina -= curWep.StaminaCost;
+                CurWeapon.Durability = CurWeapon.Durability - 1;
             }
             
         }
@@ -453,6 +485,34 @@ namespace Engine
             }
         }
 
+        public static void SellItem(Item item)
+        {
+            if(CurrentLocation.IsShop && !InBattle)
+            {
+                Ply.RemoveItem(item);
+                Ply.Gold += item.SellPrice;
+                Ply.Msg("Ты продал " + item.Name + " за " + item.SellPrice);
+            } else
+            {
+                Ply.Msg("Ты не в магазине или в бою.");
+            }
+        }
+        public static void BuyItem(Item id)
+        {
+            if (CurrentLocation.IsShop && !InBattle)
+            {
+                if (Ply.Gold >= id.BuyPrice)
+                {
+                    Ply.AddReward(id);
+                    Ply.Msg("Ты теряешь {Gold} золота.");
+                }
+                else Ply.Msg("Нужно больше золота!");
+            }
+            else
+            {
+                Ply.Msg("Ты не в магазине или в бою.");
+            }
+        }
 
         private static void RestorePlayer()
         {
@@ -461,6 +521,15 @@ namespace Engine
             Mana = MaxMana;
             Msg("Ты был полностью исцелен.");
             Effects = new List<EffectsCollection>();
+        }
+
+        private static void LevelUp()
+        {
+            Level++;
+            MaxHP++;
+            MaxMana++;
+            MaxStamina++;
+            Exp = 0;
         }
     } 
 }

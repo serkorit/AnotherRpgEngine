@@ -82,6 +82,7 @@ namespace Engine
         public const int location_caves01_deadend = 9;
         public const int location_caves01_spider_den = 10;
         public const int location_caves01_spider_den_nest = 11;
+        public const int location_town_shop = 12;
 
         // Locations
 
