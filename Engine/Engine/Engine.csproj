@@ -42,12 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="System\Collections\EffectsCollection.cs" />
+    <Compile Include="System\Collections\EnAbilitiesCollection.cs" />
     <Compile Include="Entities\Living\Enemies\Enemy.cs" />
     <Compile Include="Entities\Living\NPC\NPC.cs" />
     <Compile Include="Entities\Living\Player\Player.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\Weapon\Weapon.cs" />
+    <Compile Include="Magick\Effect.cs" />
     <Compile Include="Magick\Spell.cs" />
+    <Compile Include="System\Database\PopulateEffects.cs" />
     <Compile Include="System\Database\PopulateEntites.cs" />
     <Compile Include="System\Database\PopulateItems.cs" />
     <Compile Include="System\Database\PopulateLocations.cs" />

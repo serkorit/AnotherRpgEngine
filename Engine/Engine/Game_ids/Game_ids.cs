@@ -43,6 +43,9 @@ namespace Engine
         public const int spell_lesser_healing = 1;
         public const int spell_fireball = 2;
         public const int spell_mana_to_stamina = 3;
+        public const int spell_poison = 4;
+        public const int spell_strength = 5;
+        public const int spell_test_spell = 999;
 
         // Spells
 
@@ -79,7 +82,17 @@ namespace Engine
         public const int location_caves01_deadend = 9;
         public const int location_caves01_spider_den = 10;
         public const int location_caves01_spider_den_nest = 11;
+        public const int location_town_shop = 12;
 
         // Locations
+
+        // Effects
+
+        public const int effect_poison = 1;
+        public const int effect_buff_damage = 2;
+        public const int effect_reduce_max_mana = 3;
+
+
+        // Effects
     }
 }

@@ -7,3 +7,4 @@ C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Engine\obj\Debug\Engine.d
 C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Engine\obj\Debug\Engine.pdb
 C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Engine\bin\Debug\Engine.dll
 C:\Users\Serkorit\Source\Repos\AnotherRpgEngine\Engine\Engine\bin\Debug\Engine.pdb
+C:\Users\user\Source\Repos\AnotherRpgEngine\Engine\Engine\obj\Debug\Engine.csprojResolveAssemblyReference.cache

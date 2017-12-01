@@ -12,5 +12,10 @@ namespace Engine
         int ID { get; set; }
         string Name { get; set; }
         string Desc { get; set; }
+        int SellPrice { get; set; }
+        int BuyPrice { get; set; }
+        string SellText { get; set; }
+        string BuyText { get; set; }
+
     }
 }

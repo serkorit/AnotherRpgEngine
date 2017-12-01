@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
+    public delegate void EnemyAbility();
+
     public enum EnemyType
     {
         world,
@@ -17,13 +19,39 @@ namespace Engine
 
     public class Enemy : Entity
     {
+
+        public int BonusDamage { get; set; }
+        public int BonusArmor { get; set; }
+
         public List<LootCollection> LootTable { get; set; }
+        public Dictionary<string, EnAbilitiesCollection> Abilities { get; set; }
+        public List<EffectsCollection> Effects { get; set; }
+        public void AddEffect(EffectsCollection effect)
+        {
+            Effects.Add(effect);
+        }
+        public void RemoveEffect(EffectsCollection effect)
+        {
+            Effects.Remove(effect);
+        }
 
         public Enemy(string name, string desc, int id, int mindmg,
             int maxdmg, int hp, int stamina, int mana, int gold, int exp)
             : base(name, desc, id, mindmg, maxdmg, hp, stamina, mana, gold, exp)
         {
             LootTable = new List<LootCollection>();
+            Abilities = new Dictionary<string, EnAbilitiesCollection>();
+            Effects = new List<EffectsCollection>();
+
+            Abilities.Add("default", new EnAbilitiesCollection(
+                () =>
+                {
+                    int enemyDamage = RandomNumberGenerator.Generate(MinDamage + Ply.CurEnemy.BonusDamage, MaxDamage + Ply.CurEnemy.BonusDamage);
+                    Ply.Msg(Ply.CurEnemy.Name + " наносит тебе " + enemyDamage + " единиц урона.");
+                    Ply.HP -= enemyDamage;
+
+                    return;
+                }, 0,0));
         }
 
         public Enemy(Enemy enemy)
@@ -40,7 +68,13 @@ namespace Engine
             Gold = enemy.Gold;
             Exp = enemy.Exp;
             LootTable = enemy.LootTable;
+            Abilities = enemy.Abilities;
+            EnemyTurn = enemy.EnemyTurn;
+            Effects = enemy.Effects;
+
         }
+
+        public EnemyAbility EnemyTurn { get; set; }
     
     }
 }
