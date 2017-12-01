@@ -527,7 +527,7 @@
             this.dgvQuests.Name = "dgvQuests";
             this.dgvQuests.ReadOnly = true;
             this.dgvQuests.RowHeadersVisible = false;
-            this.dgvQuests.Size = new System.Drawing.Size(593, 221);
+            this.dgvQuests.Size = new System.Drawing.Size(561, 150);
             this.dgvQuests.TabIndex = 20;
             // 
             // dgvInventory
@@ -542,7 +542,7 @@
             this.dgvInventory.Name = "dgvInventory";
             this.dgvInventory.ReadOnly = true;
             this.dgvInventory.RowHeadersVisible = false;
-            this.dgvInventory.Size = new System.Drawing.Size(591, 222);
+            this.dgvInventory.Size = new System.Drawing.Size(561, 150);
             this.dgvInventory.TabIndex = 21;
             // 
             // btnHideQuest
@@ -914,7 +914,7 @@
             this.dgvSpells.Name = "dgvSpells";
             this.dgvSpells.ReadOnly = true;
             this.dgvSpells.RowHeadersVisible = false;
-            this.dgvSpells.Size = new System.Drawing.Size(591, 222);
+            this.dgvSpells.Size = new System.Drawing.Size(561, 150);
             this.dgvSpells.TabIndex = 21;
             // 
             // cbNewLoc
@@ -995,7 +995,7 @@
             this.dgvEffects.Name = "dgvEffects";
             this.dgvEffects.ReadOnly = true;
             this.dgvEffects.RowHeadersVisible = false;
-            this.dgvEffects.Size = new System.Drawing.Size(593, 221);
+            this.dgvEffects.Size = new System.Drawing.Size(562, 149);
             this.dgvEffects.TabIndex = 21;
             // 
             // MainForm

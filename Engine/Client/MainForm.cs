@@ -20,6 +20,7 @@ namespace Client
 
             Exit_Button.BackColor = Color.NavajoWhite;
             Minimize_Button.BackColor = Color.NavajoWhite;
+            tabControl1.MouseEnter += (s, e) => tabControl1.Focus();
 
             lbHP.ForeColor = Color.Red;
             lbGold.ForeColor = Color.DarkGoldenrod;
