@@ -20,6 +20,7 @@ namespace Client
 
             Exit_Button.BackColor = Color.NavajoWhite;
             Minimize_Button.BackColor = Color.NavajoWhite;
+            tabControl1.MouseEnter += (s, e) => tabControl1.Focus();
 
             lbHP.ForeColor = Color.Red;
             lbGold.ForeColor = Color.DarkGoldenrod;
@@ -57,8 +58,9 @@ namespace Client
             Ply.AddSpell(Controller.SpellParse(Controller.spell_fireball));
             Ply.AddSpell(Controller.SpellParse(Controller.spell_lesser_healing));
             Ply.AddSpell(Controller.SpellParse(Controller.spell_mana_to_stamina));
+            Ply.AddSpell(Controller.SpellParse(Controller.spell_poison));
+            Ply.AddSpell(Controller.SpellParse(Controller.spell_strength));
 
-            Ply.MoveTo(Controller.LocationParse(Controller.location_home));
             UpdatePanel();
         }
 
@@ -96,73 +98,77 @@ namespace Client
             UpdateQuestList();
             UpdateSpellList();
             UpdateSpellListUI();
-            UpdateLocationListUI();
             UpdateNewLocationsUI();
+            UpdateEffectsList();
+            UpdateShopUI();
+
+            if (Ply.InBattle || Ply.CurEnemy == null) btnAttack.Enabled = false;
+            else btnAttack.Enabled = true;
 
             rtLocation.Clear();
             rtLocation.Text += Ply.CurrentLocation.Name;
             rtLocation.Text += Environment.NewLine + Ply.CurrentLocation.Desc + Environment.NewLine;
             rtLocation.Text += "Соседнии локации: ";
-            foreach(Location l in Ply.NearestLocations)
+            foreach (Location l in Ply.NearestLocations)
             {
                 rtLocation.Text += l.Name + " , ";
             }
+
+            
         }
-        private void UpdateLocationListUI()
+        private void UpdateShopUI()
         {
-            cbLocations.DataSource = Ply.NearestLocations;
-            if (Ply.NearestLocations.Count() == 0)
-            {
-                btnNextLocation.Enabled = false;
-            }
-            else
-            {
-                btnNextLocation.Enabled = true;
-                cbLocations.DisplayMember = "Name";
-                cbLocations.ValueMember = "ID";
-                cbLocations.SelectedItem = Ply.NearestLocations;
-            }
+            if (!Ply.CurrentLocation.IsShop) { tabControl1.TabPages[4].Enabled = false; }
+            else tabControl1.TabPages[4].Enabled = true;
+
+            listSell.DataSource = Ply.Items;
+            listSell.DisplayMember = "SellText";
+            listSell.ValueMember = "ID";
+
+
+            listBuy.DataSource = Ply.CurrentLocation.ShopList;
+            listBuy.DisplayMember = "BuyText";
+            listBuy.ValueMember = "ID";
+
+                
         }
         private void UpdateNewLocationsUI()
         {
             cbNewLoc.DataSource = Ply.NearestLocations;
-            if (Ply.NearestLocations.Count() == 0)
-            {
-                btnNextLocation.Enabled = false;
-            }
-            else
-            {
-                btnNextLocation.Enabled = true;
-                cbNewLoc.DisplayMember = "Name";
-                cbNewLoc.ValueMember = "ID";
-                cbNewLoc.SelectedItem = Ply.NearestLocations;
-            }
+            cbNewLoc.DisplayMember = "Name";
+            cbNewLoc.ValueMember = "ID";
+            cbNewLoc.SelectedItem = Ply.NearestLocations;
+        
         }
         private void UpdateInventory()
         {
             dgvInventory.RowHeadersVisible = false;
+            dgvInventory.ColumnHeadersVisible = true;
             dgvInventory.ColumnCount = 2;
-            dgvInventory.Columns[0].Name = "Name";
-            dgvInventory.Columns[0].Width = 150;
-            dgvInventory.Columns[1].Name = "Quanity";
+            dgvInventory.Columns[0].Name = "Название";
+            dgvInventory.Columns[0].Width = 350;
+            dgvInventory.Columns[1].Name = "Количество";
             dgvInventory.Rows.Clear();
             foreach(InventoryCollection i in Ply.Inventory)
             {
                 if (i.Quanity > 0)
-                    if(i.Item  is Weapon)
-                        dgvInventory.Rows.Add(new[] { i.Item.Name + "(" + (i.Item as Weapon).MinDamage + " - " + (i.Item as Weapon).MaxDamage + ")", i.Quanity.ToString() });
-                    else dgvInventory.Rows.Add(new[] { i.Item.Name , i.Quanity.ToString() });
+                    if (i.Item is Weapon)
+                        dgvInventory.Rows.Add(new[] { i.Item.Name , i.Quanity.ToString() });
+                    else if (i.Item is Potion) dgvInventory.Rows.Add(new[] { i.Item.Name + "(Доступно: " + (i.Item as Potion).AvaibleStacks + ")", i.Quanity.ToString() });
+                    else dgvInventory.Rows.Add(new[] { i.Item.Name, i.Quanity.ToString() });
             }
         }
         private void UpdateQuestList()
         { 
             dgvQuests.RowHeadersVisible = false;
+            dgvQuests.ColumnHeadersVisible = true;
 
             dgvQuests.ColumnCount = 3;
-            dgvQuests.Columns[0].Name = "Name";
+            dgvQuests.Columns[0].Name = "Название";
             dgvQuests.Columns[0].Width = 120;
-            dgvQuests.Columns[1].Name = "Done?";
-            dgvQuests.Columns[2].Name = "Require";
+            dgvQuests.Columns[1].Name = "Завершен?";
+            dgvQuests.Columns[2].Name = "Необходимо";
+            dgvQuests.Columns[2].Width = 300;
 
             dgvQuests.Rows.Clear();
 
@@ -174,23 +180,47 @@ namespace Client
         }
         private void UpdateSpellList()
         {
-            dgvQuests.RowHeadersVisible = false;
+            dgvSpells.RowHeadersVisible = false;
+            dgvSpells.ColumnHeadersVisible = true;
 
             dgvSpells.ColumnCount = 3;
-            dgvSpells.Columns[0].Name = "Name";
-            dgvSpells.Columns[0].Width = 120;
-            dgvSpells.Columns[1].Name = "Done?";
-            dgvSpells.Columns[2].Name = "Require";
+            dgvSpells.Columns[0].Name = "Название";
+            dgvSpells.Columns[0].Width = 140;
+            dgvSpells.Columns[1].Width = 300;
+            dgvSpells.Columns[1].Name = "Описание";
+            dgvSpells.Columns[2].Name = "Манакост";
 
             dgvSpells.Rows.Clear();
 
             foreach (Spell spell in Ply.Spells)
             {
-                dgvSpells.Rows.Add(new[] { spell.Name, spell.Desc, "Manacost: " + spell.Manacost });
+                dgvSpells.Rows.Add(new[] { spell.Name, spell.Desc," " + spell.Manacost });
+            }
+        }
+        private void UpdateEffectsList()
+        {
+            dgvEffects.RowHeadersVisible = false;
+            dgvEffects.ColumnHeadersVisible = true;
+
+            dgvEffects.ColumnCount = 3;
+            dgvEffects.Columns[0].Name = "Название";
+            dgvEffects.Columns[0].Width = 140;
+            dgvEffects.Columns[1].Width = 250;
+            dgvEffects.Columns[1].Name = "Описание";
+            dgvEffects.Columns[2].Name = "Длительность";
+            dgvEffects.Columns[2].Width = 90;
+
+            dgvEffects.Rows.Clear();
+
+            foreach (EffectsCollection effect in Ply.Effects)
+            {
+                dgvEffects.Rows.Add(new[] { effect.Effect.Name, effect.Effect.Desc, effect.Duration.ToString() });
             }
         }
         private void UpdateWeaponListUI()
         {
+            if (!Ply.InBattle) btnUseWeapon.Enabled = false;
+            else btnUseWeapon.Enabled = true;
             cbWeapons.DataSource = Ply.Weapons;
             cbWeapons.DisplayMember = "Name";
             cbWeapons.ValueMember = "ID";
@@ -221,25 +251,21 @@ namespace Client
         private void UpdateSpellListUI()
         {
             List<Spell> PlySpells = Ply.Spells;
-            if (Ply.Spells.Count() == 0)
+            if (!Ply.InBattle)
             {
-                btnCastSelf.Enabled = false;
                 btnCastEnemy.Enabled = false;
-                cbSpells.Enabled = false;
             }
             else
             {
-                btnCastSelf.Enabled = true;
                 btnCastEnemy.Enabled = true;
-                cbSpells.Enabled = true;
-                cbSpells.DisplayMember = "Name";
-                cbSpells.ValueMember = "ID";
-                cbSpells.DataSource = PlySpells;
-                if (Ply.CurSpell == null) cbSpells.SelectedIndex = 0;
-                else cbSpells.SelectedItem = Ply.CurSpell;
             }
-            
 
+            cbSpells.DisplayMember = "Name";
+            cbSpells.ValueMember = "ID";
+            cbSpells.DataSource = PlySpells;
+            if (Ply.CurSpell == null) cbSpells.SelectedIndex = 0;
+            else cbSpells.SelectedItem = Ply.CurSpell;
+       
         }
 
         private void btnHideInv_Click(object sender, EventArgs e)
@@ -305,49 +331,66 @@ namespace Client
 
         private void btnUseWeapon_Click(object sender, EventArgs e)
         {
-            Ply.PlayerAction(cbWeapons.SelectedItem as Weapon);
+            Controller.DoBattle(cbWeapons.SelectedItem as Weapon,null,null,0);
             UpdatePanel();
         }
 
         private void btnDrink_Click(object sender, EventArgs e)
         {
-            Ply.PlayerAction(cbPotions.SelectedItem as Potion, Engine.Action.drink);
+            Controller.DoBattle(null,cbPotions.SelectedItem as Potion,null, Engine.Action.drink);
             UpdatePanel();
         }
 
         private void btnThrow_Click(object sender, EventArgs e)
         {
-            Ply.PlayerAction(cbPotions.SelectedItem as Potion, Engine.Action.thraw);
+            Controller.DoBattle(null,cbPotions.SelectedItem as Potion,null, Engine.Action.thraw);
             UpdatePanel();
         }
 
         private void btnCastSelf_Click(object sender, EventArgs e)
         {
-            Ply.PlayerAction(cbSpells.SelectedItem as Spell, Engine.Action.onplayer);
+            Controller.DoBattle(null,null,cbSpells.SelectedItem as Spell, Engine.Action.onplayer);
             UpdatePanel();
         }
 
         private void btnCastEnemy_Click(object sender, EventArgs e)
         {
-            Ply.PlayerAction(cbSpells.SelectedItem as Spell, Engine.Action.onenemy);
+
+            Controller.DoBattle(null,null,cbSpells.SelectedItem as Spell, Engine.Action.onenemy);
             UpdatePanel();
         }
 
         private void btnSleep_Click(object sender, EventArgs e)
         {
-            Ply.PlayerAction();
-            UpdatePanel();
-        }
-
-        private void btnNextLocation_Click(object sender, EventArgs e)
-        {
-            Ply.MoveTo(cbNewLoc.SelectedItem as Location);
+            Controller.DoBattle(null,null,null,0);
             UpdatePanel();
         }
 
         private void cbNewLoc_DoubleClick(object sender, EventArgs e)
+        {   
+            if(!Ply.InBattle)
+                Ply.MoveTo(cbNewLoc.SelectedItem as Location);
+            UpdatePanel();
+        }
+
+        private void btnAttack_Click(object sender, EventArgs e)
+        {  
+            if (!Ply.InBattle) Controller.StartBattle();
+            UpdatePanel();
+        }
+
+        private void btnSell_Click(object sender, EventArgs e)
         {
-            Ply.MoveTo(cbNewLoc.SelectedItem as Location);
+            if(listSell.SelectedItem as Item != null)
+            Ply.SellItem(listSell.SelectedItem as Item);
+            UpdatePanel();
+        }
+
+        private void btnBuy_Click(object sender, EventArgs e)
+        {
+
+            if(listBuy.SelectedItem as Item != null)
+            Ply.BuyItem(listBuy.SelectedItem as Item);
             UpdatePanel();
         }
     }

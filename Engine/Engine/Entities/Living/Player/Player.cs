@@ -15,11 +15,24 @@ namespace Engine
 
         public List<InventoryCollection> Inventory;
         public List<QuestCollection> Quests;
-        public List<Spell> Spells;
-        public Weapon CurWeapon;
+        public List<EffectsCollection> Effects;
 
-        public int Level { get { return Exp / 50 + 1; } }
-        public int NextLevel { get { return Level * 50; } }
+        public int BonusDamageMin { get; set; }
+        public int BonusDamageMax { get; set; }
+        public int BonusArmor { get; set; }
+        public int BonusHP { get; set; }
+        public int BonusMP { get; set; }
+        public int BonusST { get; set; }
+
+        public List<Spell> Spells;
+
+        public Weapon CurWeapon;
+        public Potion CurPotion;
+        public Spell CurSpell;
+
+        public int Level { get; set; }
+        public int NextLevel { get { return 50; } }
+
 
 
         public Player(int hp, int stamina, int mana, int gold, int exp)
@@ -29,6 +42,14 @@ namespace Engine
             Inventory = new List<InventoryCollection>();
             Quests = new List<QuestCollection>();
             Spells = new List<Spell>();
+            Effects = new List<EffectsCollection>();
+            BonusDamageMin = 0;
+            BonusDamageMax = 0;
+            BonusArmor = 0;
+            BonusHP = 0;
+            BonusMP = 0;
+            BonusST = 0;
+            Level = 1;
         }
 
         internal void RaiseMessage(string message, bool addExtraNewline = false)

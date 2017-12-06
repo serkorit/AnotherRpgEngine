@@ -15,10 +15,12 @@ namespace Engine
         public string Desc { get; set; }
 
         public bool IsSafe { get; set; }
+        public bool IsShop { get; set; }
 
         public Item Key { get; set; }
 
         public List<Location> NearestLocations { get; set; }
+        public List<Item> ShopList { get; set; }
         public List<Quest> QuestsHere { get; set; }
         public List<Enemy> EnemiesHere { get; set; }
         public Quest JustQuest { get; set; }
@@ -33,6 +35,9 @@ namespace Engine
             NearestLocations = new List<Location>();
             QuestsHere = new List<Quest>();
             EnemiesHere = new List<Enemy>();
+            IsShop = false;
+            IsSafe = false;
+            ShopList = new List<Item>();
         }
 
     }

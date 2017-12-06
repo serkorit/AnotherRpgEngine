@@ -13,6 +13,18 @@ namespace Engine
         public string Name { get; set; }
         public string Desc { get; set; }
         public List<Spell> Spells { get; set; }
+        public int SellPrice { get; set; }
+        public int BuyPrice { get; set; }
+        public string SellText
+        {
+            get { return Name + " цена: " + SellPrice; }
+            set { }
+        }
+        public string BuyText
+        {
+            get { return Name + " цена: " + BuyPrice; }
+            set { }
+        }
         public Spellbook(int id, string name, string desc)
         {
             Name = name;

@@ -24,6 +24,7 @@ namespace Engine
         public int UniqueID { get; private set; }
         public EntityType Type { get; private set; }
 
+
         public int MinDamage;
         public int MaxDamage;
         public int HP;
@@ -68,7 +69,6 @@ namespace Engine
         {
             UniqueID = IDGenerator.GenerateNewID();
         }
-        
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropetryChanged(string name)
